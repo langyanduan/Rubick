@@ -1,6 +1,6 @@
 //
 //  UIColor+Extension.swift
-//  Wings
+//  Rubick
 //
 //  Created by wufan on 16/8/18.
 //
@@ -30,5 +30,9 @@ extension UIColor {
         get {
             return 0
         }
+    }
+    
+    public static func rbk_random() -> UIColor {
+        return UIColorFromRGB(arc4random_uniform(0xffffff))
     }
 }

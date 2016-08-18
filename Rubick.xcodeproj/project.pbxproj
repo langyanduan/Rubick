@@ -53,7 +53,7 @@
 				50E92FEE1D6586E1005A1048 /* Sources */,
 			);
 			name = Rubick;
-			path = Wings;
+			path = Rubick;
 			sourceTree = "<group>";
 		};
 		50E92FEE1D6586E1005A1048 /* Sources */ = {
@@ -100,7 +100,7 @@
 			dependencies = (
 			);
 			name = Rubick;
-			productName = Wings;
+			productName = Rubick;
 			productReference = 50E92FE51D658690005A1048 /* Rubick.framework */;
 			productType = "com.apple.product-type.framework";
 		};
