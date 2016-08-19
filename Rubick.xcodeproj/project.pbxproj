@@ -10,6 +10,9 @@
 		50B6BB0E1D658B8600256B2F /* Rubick.h in Headers */ = {isa = PBXBuildFile; fileRef = 50B6BB0D1D658B8600256B2F /* Rubick.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB261D669DBA00256B2F /* ImageLabel.swift */; };
 		50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB2A1D66ADB600256B2F /* Array+Extension.swift */; };
+		50B6BB431D66F49700256B2F /* Constaints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB421D66F49700256B2F /* Constaints.swift */; };
+		50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB441D66F62700256B2F /* KeyboardManager.swift */; };
+		50B6BB471D66F68700256B2F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB461D66F68700256B2F /* Toast.swift */; };
 		50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92FF21D658700005A1048 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
@@ -17,6 +20,9 @@
 		50B6BB0D1D658B8600256B2F /* Rubick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rubick.h; sourceTree = SOURCE_ROOT; };
 		50B6BB261D669DBA00256B2F /* ImageLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLabel.swift; sourceTree = "<group>"; };
 		50B6BB2A1D66ADB600256B2F /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
+		50B6BB421D66F49700256B2F /* Constaints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constaints.swift; sourceTree = "<group>"; };
+		50B6BB441D66F62700256B2F /* KeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
+		50B6BB461D66F68700256B2F /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		50E92FE51D658690005A1048 /* Rubick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rubick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E92FF21D658700005A1048 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		50E92FF81D65880E005A1048 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -37,6 +43,8 @@
 			isa = PBXGroup;
 			children = (
 				50B6BB261D669DBA00256B2F /* ImageLabel.swift */,
+				50B6BB441D66F62700256B2F /* KeyboardManager.swift */,
+				50B6BB461D66F68700256B2F /* Toast.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -70,6 +78,7 @@
 		50E92FEE1D6586E1005A1048 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				50B6BB421D66F49700256B2F /* Constaints.swift */,
 				50B6BB251D669DAB00256B2F /* Components */,
 				50E92FEF1D6586E1005A1048 /* Extension */,
 			);
@@ -163,6 +172,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */,
+				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
+				50B6BB431D66F49700256B2F /* Constaints.swift in Sources */,
+				50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */,
 				50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 			);
