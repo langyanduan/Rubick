@@ -7,22 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50B6BB0E1D658B8600256B2F /* Rubick.h in Headers */ = {isa = PBXBuildFile; fileRef = 50B6BB0D1D658B8600256B2F /* Rubick.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB261D669DBA00256B2F /* ImageLabel.swift */; };
 		50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB2A1D66ADB600256B2F /* Array+Extension.swift */; };
 		50B6BB431D66F49700256B2F /* Constaints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB421D66F49700256B2F /* Constaints.swift */; };
 		50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB441D66F62700256B2F /* KeyboardManager.swift */; };
 		50B6BB471D66F68700256B2F /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B6BB461D66F68700256B2F /* Toast.swift */; };
+		50B7B9001D6E846400D6F84B /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B8FF1D6E846400D6F84B /* Information.swift */; };
+		50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B9071D6E94F200D6F84B /* UIView+Extension.swift */; };
+		50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B9091D6E9AC200D6F84B /* UIImage+Extension.swift */; };
+		50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B90B1D6E9D1400D6F84B /* TabBar.swift */; };
 		50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92FF21D658700005A1048 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50B6BB0D1D658B8600256B2F /* Rubick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rubick.h; sourceTree = SOURCE_ROOT; };
 		50B6BB261D669DBA00256B2F /* ImageLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLabel.swift; sourceTree = "<group>"; };
 		50B6BB2A1D66ADB600256B2F /* Array+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extension.swift"; sourceTree = "<group>"; };
 		50B6BB421D66F49700256B2F /* Constaints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constaints.swift; sourceTree = "<group>"; };
 		50B6BB441D66F62700256B2F /* KeyboardManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		50B6BB461D66F68700256B2F /* Toast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		50B7B8FF1D6E846400D6F84B /* Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
+		50B7B9071D6E94F200D6F84B /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		50B7B9091D6E9AC200D6F84B /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		50B7B90B1D6E9D1400D6F84B /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		50E92FE51D658690005A1048 /* Rubick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rubick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E92FF21D658700005A1048 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		50E92FF81D65880E005A1048 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -45,6 +55,8 @@
 				50B6BB261D669DBA00256B2F /* ImageLabel.swift */,
 				50B6BB441D66F62700256B2F /* KeyboardManager.swift */,
 				50B6BB461D66F68700256B2F /* Toast.swift */,
+				50B7B8FF1D6E846400D6F84B /* Information.swift */,
+				50B7B90B1D6E9D1400D6F84B /* TabBar.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -88,8 +100,11 @@
 		50E92FEF1D6586E1005A1048 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				50E92FF21D658700005A1048 /* UIColor+Extension.swift */,
+				50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */,
 				50B6BB2A1D66ADB600256B2F /* Array+Extension.swift */,
+				50E92FF21D658700005A1048 /* UIColor+Extension.swift */,
+				50B7B9071D6E94F200D6F84B /* UIView+Extension.swift */,
+				50B7B9091D6E9AC200D6F84B /* UIImage+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -172,11 +187,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */,
+				50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */,
+				50B7B9001D6E846400D6F84B /* Information.swift in Sources */,
+				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
+				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
 				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
 				50B6BB431D66F49700256B2F /* Constaints.swift in Sources */,
 				50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */,
 				50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
+				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
