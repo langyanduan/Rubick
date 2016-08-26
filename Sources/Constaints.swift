@@ -8,11 +8,16 @@
 
 import Foundation
 
+private struct Static {
+    static let unit: CGFloat = 1 / UIScreen.mainScreen().scale
+}
+
 public func CGFloatFromPixel(pixel: Int) -> CGFloat {
-    struct Static {
-        static let unit: CGFloat = 1 / UIScreen.mainScreen().scale
-    }
     return Static.unit * CGFloat(pixel)
+}
+
+public func CGFloatFromScalePixel(pixel: CGFloat) -> CGFloat {
+    return Static.unit * floor(pixel * UIScreen.mainScreen().scale)
 }
 
 public let ScreenWidth = UIScreen.mainScreen().bounds.width

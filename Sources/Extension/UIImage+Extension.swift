@@ -19,4 +19,12 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    public func rbk_stretchableImage() -> UIImage {
+        let width = self.size.width
+        let height = self.size.height
+        let vInset = floor(height / 2)
+        let hInset = floor(width / 2)
+        return self.resizableImageWithCapInsets(UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .Tile)
+    }
 }
