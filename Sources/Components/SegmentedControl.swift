@@ -25,6 +25,8 @@ public class SegmentedControl: UIControl {
     var contentLayer: CALayer!
     var borderLayer: CAShapeLayer!
     
+    private var backgroundColor_: UIColor? = UIColor.whiteColor()
+    
     func reloadStyle() {
         guard let labels = self.labels else {
             return
@@ -32,11 +34,11 @@ public class SegmentedControl: UIControl {
         
         labels.enumerate().forEach { (index: Int, label: UILabel) in
             if index == selectedIndex {
-                label.textColor = UIColor.whiteColor()
+                label.textColor = backgroundColor_
                 label.backgroundColor = tintColor
             } else {
                 label.textColor = tintColor
-                label.backgroundColor = UIColor.whiteColor()
+                label.backgroundColor = backgroundColor_
             }
         }
     }
@@ -63,14 +65,16 @@ public class SegmentedControl: UIControl {
     }
     
     public override var backgroundColor: UIColor? {
-        set { }
+        set {
+            backgroundColor_ = newValue
+        }
         get {
-            return nil
+            return backgroundColor_
         }
     }
     
     func setup() {
-        super.backgroundColor = UIColor.whiteColor()
+        super.backgroundColor = backgroundColor_
         super.tintColor = UIColor.blackColor()
         layer.cornerRadius = 5
         layer.borderWidth = 1
@@ -84,9 +88,9 @@ public class SegmentedControl: UIControl {
         labels = titles.map { text -> UILabel in
             let label = UILabel()
             label.text = text
-            label.font = UIFont.boldSystemFontOfSize(16)
+            label.font = UIFont.boldSystemFontOfSize(14)
             label.textColor = UIColor.blackColor()
-            label.backgroundColor = UIColor.whiteColor()
+            label.backgroundColor = backgroundColor_
             label.textAlignment = .Center
             addSubview(label)
             
