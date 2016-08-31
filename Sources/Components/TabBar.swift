@@ -41,11 +41,13 @@ public class TabBar: UIView {
             itemViews?.enumerate().forEach { (index, view) in
                 view.highlighted = index == selectedIndex
             }
-        
+            
             setNeedsLayout()
-            UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { 
-                self.layoutIfNeeded()
-            }, completion: nil)
+            if oldValue != nil {
+                UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
+                    self.layoutIfNeeded()
+                }, completion: nil)
+            }
         }
     }
     
