@@ -89,6 +89,7 @@ public class TabBar: UIView {
                 view.textColor = textColor
                 view.highlightedTextColor = selectedTextColor
                 view.textAlignment = .Center
+                view.font = UIFont.systemFontOfSize(16)
                 addSubview(view)
                 return view
             }
