@@ -12,4 +12,6 @@ public enum Error: ErrorType {
     case URL
     case Encoding
     case Parser
+    
+    case Custom(String)
 }

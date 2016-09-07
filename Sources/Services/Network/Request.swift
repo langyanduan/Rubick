@@ -41,12 +41,9 @@ class TaskHandler {
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+        self.error = error
         queue.suspended = false
         Network.postNotificationName(.DidComplete, object: task)
-    }
-    
-    deinit {
-        print("deinit")
     }
 }
 
