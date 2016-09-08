@@ -8,19 +8,20 @@
 
 import Foundation
 
-class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate {
+class SessionDelegate: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate, URLSessionDownloadDelegate {
     class HandlerCollection {
         var collection: [Int: TaskHandler] = [:]
-        let queue = dispatch_queue_create(nil, DISPATCH_QUEUE_CONCURRENT)
+        let q = DispatchQueue(__label: nil, attr: nil)
+        let queue = DispatchQueue(label: "HandlerAccessor", attributes: DispatchQueue.Attributes.concurrent)
         
-        subscript(task: NSURLSessionTask) -> TaskHandler? {
+        subscript(task: URLSessionTask) -> TaskHandler? {
             get {
                 var delegate: TaskHandler?
-                dispatch_sync(queue) { delegate = self.collection[task.taskIdentifier] }
+                queue.sync { delegate = self.collection[task.taskIdentifier] }
                 return delegate
             }
             set {
-                dispatch_barrier_async(queue) { self.collection[task.taskIdentifier] = newValue }
+                queue.async(flags: .barrier, execute: { self.collection[task.taskIdentifier] = newValue }) 
             }
         }
     }
@@ -29,54 +30,54 @@ class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate,
     
     // MARK:- NSURLSessionDelegate
     
-    func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
+    func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
     }
     
-    func URLSession(
-        session: NSURLSession,
-        didReceiveChallenge challenge: NSURLAuthenticationChallenge,
-        completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
+    func urlSession(
+        _ session: URLSession,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
     {
         // TODO: SSL
     }
     
-    func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
+    func urlSessionDidFinishEvents(forBackgroundURLSession session: URLSession) {
     }
     
     // MARK:- NSURLSessionTaskDelegate
-    func URLSession(
-        session: NSURLSession,
-        task: NSURLSessionTask,
-        willPerformHTTPRedirection response: NSHTTPURLResponse,
-        newRequest request: NSURLRequest,
-        completionHandler: (NSURLRequest?) -> Void)
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping (URLRequest?) -> Void)
     {
         completionHandler(request)
     }
     
-    func URLSession(
-        session: NSURLSession,
-        task: NSURLSessionTask,
-        didReceiveChallenge challenge: NSURLAuthenticationChallenge,
-        completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        didReceive challenge: URLAuthenticationChallenge,
+        completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void)
     {
         // TODO: SSL
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: @escaping (InputStream?) -> Void) {
         if let handler = taskHandlers[task] {
-            handler.URLSession(session, task: task, needNewBodyStream: completionHandler)
+            handler.urlSession(session, task: task, needNewBodyStream: completionHandler)
         }
     }
     
-    func URLSession(
-        session: NSURLSession,
-        task: NSURLSessionTask,
+    func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
         didSendBodyData bytesSent: Int64,
         totalBytesSent: Int64, totalBytesExpectedToSend: Int64)
     {
         if let hander = taskHandlers[task] {
-            hander.URLSession(
+            hander.urlSession(
                 session,
                 task: task,
                 didSendBodyData: bytesSent,
@@ -86,62 +87,62 @@ class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate,
         }
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let handler = taskHandlers[task] {
-            handler.URLSession(session, task: task, didCompleteWithError: error)
+            handler.urlSession(session, task: task, didCompleteWithError: error)
         }
         
-        Request.postNotification(.DidComplete, object: task)
+        Request.post(notification: .DidComplete, object: task)
         
         taskHandlers[task] = nil
     }
     
     // MARK:- NSURLSessionDataDelegate
-    func URLSession(
-        session: NSURLSession,
-        dataTask: NSURLSessionDataTask,
-        didReceiveResponse response: NSURLResponse,
-        completionHandler: (NSURLSessionResponseDisposition) -> Void)
+    func urlSession(
+        _ session: URLSession,
+        dataTask: URLSessionDataTask,
+        didReceive response: URLResponse,
+        completionHandler: @escaping (URLSession.ResponseDisposition) -> Void)
     {
-        completionHandler(.Allow)
+        completionHandler(.allow)
     }
     
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didBecomeDownloadTask downloadTask: NSURLSessionDownloadTask) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didBecome downloadTask: URLSessionDownloadTask) {
         // FIXME: never called
         taskHandlers[downloadTask] = DownloadTaskHandler(task: downloadTask)
     }
     
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
         if let handler = taskHandlers[dataTask] as? DataTaskHandler {
-            handler.URLSession(session, dataTask: dataTask, didReceiveData: data)
+            handler.urlSession(session, dataTask: dataTask, didReceiveData: data)
         }
     }
     
-    func URLSession(
-        session: NSURLSession,
-        dataTask: NSURLSessionDataTask,
-        willCacheResponse proposedResponse: NSCachedURLResponse,
-        completionHandler: (NSCachedURLResponse?) -> Void)
+    func urlSession(
+        _ session: URLSession,
+        dataTask: URLSessionDataTask,
+        willCacheResponse proposedResponse: CachedURLResponse,
+        completionHandler: @escaping (CachedURLResponse?) -> Void)
     {
         completionHandler(proposedResponse)
     }
     
     // MARK:- NSURLSessionDownloadDelegate
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
         if let handler = taskHandlers[downloadTask] as? DownloadTaskHandler {
-            handler.URLSession(session, downloadTask: downloadTask, didFinishDownloadingToURL: location)
+            handler.urlSession(session, downloadTask: downloadTask, didFinishDownloadingToURL: location)
         }
     }
     
-    func URLSession(
-        session: NSURLSession,
-        downloadTask: NSURLSessionDownloadTask,
+    func urlSession(
+        _ session: URLSession,
+        downloadTask: URLSessionDownloadTask,
         didWriteData bytesWritten: Int64,
         totalBytesWritten: Int64,
         totalBytesExpectedToWrite: Int64)
     {
         if let handler = taskHandlers[downloadTask] as? DownloadTaskHandler {
-            handler.URLSession(
+            handler.urlSession(
                 session,
                 downloadTask: downloadTask,
                 didWriteData: bytesWritten,
@@ -151,38 +152,38 @@ class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate,
         }
     }
     
-    func URLSession(
-        session: NSURLSession,
-        downloadTask: NSURLSessionDownloadTask,
+    func urlSession(
+        _ session: URLSession,
+        downloadTask: URLSessionDownloadTask,
         didResumeAtOffset fileOffset: Int64,
         expectedTotalBytes: Int64)
     {
         if let handler = taskHandlers[downloadTask] as? DownloadTaskHandler {
-            handler.URLSession(session, downloadTask: downloadTask, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
+            handler.urlSession(session, downloadTask: downloadTask, didResumeAtOffset: fileOffset, expectedTotalBytes: expectedTotalBytes)
         }
     }
 }
 
-public class Manager {
+open class Manager {
     let sessionDelegate: SessionDelegate
-    let session: NSURLSession
-    let createQueue = dispatch_queue_create(nil, DISPATCH_QUEUE_SERIAL)
+    let session: URLSession
+    let createQueue = DispatchQueue(label: "CreateTask", attributes: [])
     
     var startRequestsImmediately: Bool = true
     
-    public init(configuration: NSURLSessionConfiguration = .defaultSessionConfiguration()) {
+    public init(configuration: URLSessionConfiguration = .default) {
         sessionDelegate = SessionDelegate()
-        session = NSURLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
+        session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
     }
     
     deinit {
         session.invalidateAndCancel()
     }
     
-    public func sendRequest(URLRequest: NSURLRequest) -> Request {
-        var dataTask: NSURLSessionDataTask!
-        dispatch_sync(createQueue) {
-            dataTask = self.session.dataTaskWithRequest(URLRequest)
+    open func sendRequest(_ URLRequest: Foundation.URLRequest) -> Request {
+        var dataTask: URLSessionDataTask!
+        createQueue.sync {
+            dataTask = self.session.dataTask(with: URLRequest)
         }
         let request = Request(task: dataTask)
         sessionDelegate.taskHandlers[dataTask] = request.handler

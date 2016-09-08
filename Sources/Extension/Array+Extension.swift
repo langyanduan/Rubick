@@ -9,7 +9,7 @@
 import Foundation
 
 extension Array {
-    public func rbk_forEachPair(@noescape clousre: (Element, Element) -> Void) {
+    public func rbk_forEachPair(_ clousre: (Element, Element) -> Void) {
         guard count > 1 else {
             return
         }

@@ -13,11 +13,11 @@ extension UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let ctx = UIGraphicsGetCurrentContext()
-        CGContextSetFillColorWithColor(ctx, color.CGColor)
-        CGContextFillRect(ctx, rect)
+        ctx?.setFillColor(color.cgColor)
+        ctx?.fill(rect)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
     
     public func rbk_stretchableImage() -> UIImage {
@@ -25,6 +25,6 @@ extension UIImage {
         let height = self.size.height
         let vInset = floor(height / 2)
         let hInset = floor(width / 2)
-        return self.resizableImageWithCapInsets(UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .Tile)
+        return self.resizableImage(withCapInsets: UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .tile)
     }
 }

@@ -30,7 +30,7 @@ public enum Method: String {
 }
 
 public protocol URLRequestConvertible {
-    func asURLRequest() throws -> NSMutableURLRequest
+    func asURLRequest() throws -> URLRequest
 }
 
 public protocol RequestType: URLRequestConvertible {
@@ -43,12 +43,12 @@ public protocol RequestType: URLRequestConvertible {
 }
 
 public extension RequestType {
-    func asURLRequest() throws -> NSMutableURLRequest {
-        guard let baseURL = NSURL(string: self.baseURL) else {
-            throw Error.URL
+    func asURLRequest() throws -> URLRequest {
+        guard let baseURL = URL(string: self.baseURL) else {
+            throw HTTPError.url
         }
-        let URL = baseURL.URLByAppendingPathComponent(path)
-        let URLRequest = NSMutableURLRequest()
+        let url = baseURL.appendingPathComponent(path)
+        var request = URLRequest(url: url)
         
         var headerFields = self.headerFields ?? [:]
         if let bodyParameters = bodyParameters {
@@ -57,28 +57,28 @@ public extension RequestType {
             do {
                 let body = try bodyParameters.build()
                 switch body {
-                case .Data(let data):
-                    URLRequest.HTTPBody = data
-                case .InputStream(let stream):
-                    URLRequest.HTTPBodyStream = stream
+                case .data(let data):
+                    request.httpBody = data
+                case .inputStream(let stream):
+                    request.httpBodyStream = stream
                 }
             }
         }
         
         if let queryParameters = queryParameters {
-            guard let URLComponents = NSURLComponents(URL: URL, resolvingAgainstBaseURL: false) else {
-                throw Error.URL
+            guard let URLComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+                throw HTTPError.url
             }
             
-            URLRequest.URL = URLComponents.URL
+            request.url = URLComponents.url
         } else {
-            URLRequest.URL = URL
+            request.url = url
         }
         
         
-        URLRequest.allHTTPHeaderFields = headerFields
-        URLRequest.HTTPMethod = method.rawValue
+        request.allHTTPHeaderFields = headerFields
+        request.httpMethod = method.rawValue
         
-        return URLRequest
+        return request
     }
 }

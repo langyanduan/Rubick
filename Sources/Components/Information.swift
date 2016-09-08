@@ -8,18 +8,18 @@
 
 import Foundation
 
-public class Information {
-    private init() { }
+open class Information {
+    fileprivate init() { }
     
     public struct application {
-        private init() {}
+        fileprivate init() {}
         
         public static var version: String {
-            return NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+            return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         }
         
         public static var buildNumber: String {
-            return NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
+            return Bundle.main.infoDictionary!["CFBundleVersion"] as! String
         }
         
         /// 首次安装或者升级版本后首次启动
@@ -29,14 +29,14 @@ public class Information {
     }
     
     struct device {
-        private init() {}
+        fileprivate init() {}
         
         public static var systemVersion: String {
-            return UIDevice.currentDevice().systemVersion
+            return UIDevice.current.systemVersion
         }
         
         public static var systemName: String {
-            return UIDevice.currentDevice().systemName
+            return UIDevice.current.systemName
         }
     }
 }

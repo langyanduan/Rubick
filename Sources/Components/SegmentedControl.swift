@@ -8,12 +8,12 @@
 
 import UIKit
 
-public class SegmentedControl: UIControl {
+open class SegmentedControl: UIControl {
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    public var selectedIndex: Int = 0 {
+    open var selectedIndex: Int = 0 {
         didSet {
             reloadStyle()
         }
@@ -25,14 +25,14 @@ public class SegmentedControl: UIControl {
     var contentLayer: CALayer!
     var borderLayer: CAShapeLayer!
     
-    private var backgroundColor_: UIColor? = UIColor.whiteColor()
+    fileprivate var backgroundColor_: UIColor? = UIColor.white
     
     func reloadStyle() {
         guard let labels = self.labels else {
             return
         }
         
-        labels.enumerate().forEach { (index: Int, label: UILabel) in
+        labels.enumerated().forEach { (index: Int, label: UILabel) in
             if index == selectedIndex {
                 label.textColor = backgroundColor_
                 label.backgroundColor = tintColor
@@ -43,12 +43,12 @@ public class SegmentedControl: UIControl {
         }
     }
     
-    public override var tintColor: UIColor! {
+    open override var tintColor: UIColor! {
         set {
             super.tintColor = newValue
             
             dividers.forEach { $0.backgroundColor = newValue }
-            layer.borderColor = newValue.CGColor
+            layer.borderColor = newValue.cgColor
             
             reloadStyle()
         }
@@ -60,11 +60,11 @@ public class SegmentedControl: UIControl {
     public init(titles: [String]) {
         assert(titles.count > 0)
         self.titles = titles
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         setup()
     }
     
-    public override var backgroundColor: UIColor? {
+    open override var backgroundColor: UIColor? {
         set {
             backgroundColor_ = newValue
         }
@@ -75,10 +75,10 @@ public class SegmentedControl: UIControl {
     
     func setup() {
         super.backgroundColor = backgroundColor_
-        super.tintColor = UIColor.blackColor()
+        super.tintColor = UIColor.black
         layer.cornerRadius = 5
         layer.borderWidth = 1
-        layer.borderColor = UIColor.blackColor().CGColor
+        layer.borderColor = UIColor.black.cgColor
         layer.masksToBounds = true
         
         guard titles.count > 0 else {
@@ -88,10 +88,10 @@ public class SegmentedControl: UIControl {
         labels = titles.map { text -> UILabel in
             let label = UILabel()
             label.text = text
-            label.font = UIFont.boldSystemFontOfSize(14)
-            label.textColor = UIColor.blackColor()
+            label.font = UIFont.boldSystemFont(ofSize: 14)
+            label.textColor = UIColor.black
             label.backgroundColor = backgroundColor_
-            label.textAlignment = .Center
+            label.textAlignment = .center
             addSubview(label)
             
             return label
@@ -99,7 +99,7 @@ public class SegmentedControl: UIControl {
         
         for _ in 0 ..< titles.count - 1 {
             let view = UIView()
-            view.backgroundColor = UIColor.blackColor()
+            view.backgroundColor = UIColor.black
             self.addSubview(view)
             dividers.append(view)
         }
@@ -109,27 +109,27 @@ public class SegmentedControl: UIControl {
     }
     
     @objc
-    func onTapView(tapGesture: UITapGestureRecognizer) {
+    func onTapView(_ tapGesture: UITapGestureRecognizer) {
         guard let labels = self.labels else {
             return
         }
-        let location = tapGesture.locationInView(self)
-        for (index, label) in labels.enumerate() {
+        let location = tapGesture.location(in: self)
+        for (index, label) in labels.enumerated() {
             if label.frame.contains(location) {
                 if selectedIndex == index {
                     return
                 }
                 selectedIndex = index
-                sendActionsForControlEvents(.ValueChanged)
+                sendActions(for: .valueChanged)
                 return
             }
         }
     }
     
-    public override func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         
-        guard let labels = self.labels where labels.count > 0 else {
+        guard let labels = self.labels , labels.count > 0 else {
             return
         }
         
@@ -137,7 +137,7 @@ public class SegmentedControl: UIControl {
         let height = bounds.height
         let count = Int((bounds.width - width * labels.count.CGFloat) / CGFloatFromPixel(1))
         
-        for (index, label) in labels.enumerate() {
+        for (index, label) in labels.enumerated() {
             if index < count {
                 label.frame = CGRect(x: index.CGFloat * (width + CGFloatFromPixel(1)), y: 0, width: width + CGFloatFromPixel(1), height: height)
             } else {

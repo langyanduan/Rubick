@@ -22,10 +22,10 @@ public class NetworkActivityIndicatorManager {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    public static let sharedManager = NetworkActivityIndicatorManager()
+    public static let shared = NetworkActivityIndicatorManager()
     public var isEnable: Bool {
         get {
             lock.lock(); defer { lock.unlock() }
@@ -43,12 +43,12 @@ public class NetworkActivityIndicatorManager {
     
     
     @objc
-    private func requestDidStart() {
+    fileprivate func requestDidStart() {
         incrementActivityCount()
     }
     
     @objc
-    private func requestDidStop() {
+    fileprivate func requestDidStop() {
         decrementActivityCount()
     }
     
@@ -74,7 +74,6 @@ public class NetworkActivityIndicatorManager {
         guard enable else {
             return
         }
-        
         
     }
 }

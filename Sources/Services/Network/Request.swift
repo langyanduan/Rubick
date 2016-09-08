@@ -9,72 +9,72 @@
 import Foundation
 
 class TaskHandler {
-    let task: NSURLSessionTask
-    let queue: NSOperationQueue = {
-        let queue = NSOperationQueue()
+    let task: URLSessionTask
+    let queue: OperationQueue = {
+        let queue = OperationQueue()
         queue.maxConcurrentOperationCount = 1
-        queue.suspended = true
-        queue.qualityOfService = .Utility
+        queue.isSuspended = true
+        queue.qualityOfService = .utility
         return queue
     }()
-    var data: NSData? { return nil }
-    var error: NSError?
+    var data: Data? { return nil }
+    var error: Error?
     
-    init(task: NSURLSessionTask) {
+    init(task: URLSessionTask) {
         self.task = task
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {
+    func urlSession(_ session: Foundation.URLSession, task: URLSessionTask, needNewBodyStream completionHandler: (InputStream?) -> Void) {
         
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+    func urlSession(_ session: Foundation.URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    func urlSession(_ session: Foundation.URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         self.error = error
-        queue.suspended = false
+        queue.isSuspended = false
     }
 }
 
 class DataTaskHandler: TaskHandler {
-    override var data: NSData? { return mutableData }
-    var dataTask: NSURLSessionDataTask? { return task as? NSURLSessionDataTask }
-    let mutableData: NSMutableData = NSMutableData()
+    override var data: Data? { return mutableData as Data }
+    var dataTask: URLSessionDataTask? { return task as? URLSessionDataTask }
+    var mutableData: Data = Data()
     
     // NSURLSessionDataDelegate
-    func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
-        mutableData.appendData(data)
+    func urlSession(_ session: Foundation.URLSession, dataTask: URLSessionDataTask, didReceiveData data: Data) {
+        mutableData.append(data)
     }
 }
 
 class DownloadTaskHandler: TaskHandler {
-    var downloadTask: NSURLSessionDownloadTask? { return task as? NSURLSessionDownloadTask }
+    var downloadTask: URLSessionDownloadTask? { return task as? URLSessionDownloadTask }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) { }
+    func urlSession(_ session: Foundation.URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingToURL location: URL) { }
     
-    func URLSession(
-        session: NSURLSession,
-        downloadTask: NSURLSessionDownloadTask,
+    func urlSession(
+        _ session: Foundation.URLSession,
+        downloadTask: URLSessionDownloadTask,
         didWriteData bytesWritten: Int64,
         totalBytesWritten: Int64,
         totalBytesExpectedToWrite: Int64) { }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) { }
+    func urlSession(_ session: Foundation.URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) { }
 }
 
-public class Request {
+open class Request {
     let handler: TaskHandler
     
-    var task: NSURLSessionTask { return handler.task }
-    var request: NSURLRequest? { return task.originalRequest }
-    var response: NSHTTPURLResponse? { return task.response as? NSHTTPURLResponse }
+    var task: URLSessionTask { return handler.task }
+    var request: URLRequest? { return task.originalRequest }
+    var response: HTTPURLResponse? { return task.response as? HTTPURLResponse }
     
-    init(task: NSURLSessionTask) {
+    init(task: URLSessionTask) {
         switch task {
 //        case is NSURLSessionUploadTask: fallthrough
-        case is NSURLSessionDataTask:
+        case is URLSessionDataTask:
             handler = DataTaskHandler(task: task)
 //        case is NSURLSessionDownloadTask:
 //            handler = DownloadTaskHandler(task: task)
@@ -85,17 +85,17 @@ public class Request {
         }
     }
     
-    public func resume() {
+    open func resume() {
         task.resume()
-        Request.postNotification(.DidResume, object: task)
+        Request.post(notification: .DidResume, object: task)
     }
-    public func suspend() {
+    open func suspend() {
         task.suspend()
-        Request.postNotification(.DidSuspend, object: task)
+        Request.post(notification: .DidSuspend, object: task)
     }
-    public func cancel() {
+    open func cancel() {
         task.cancel()
-        Request.postNotification(.DidCancel, object: task)
+        Request.post(notification: .DidCancel, object: task)
     }
 }
 
@@ -109,9 +109,9 @@ extension Request: Notifier {
 }
 
 extension Request {
-    public func response(queue: dispatch_queue_t? = nil, completionHandler: (NSData?, NSHTTPURLResponse?, NSError?) -> Void) {
-        handler.queue.addOperationWithBlock {
-            dispatch_async(queue ?? dispatch_get_main_queue()) {
+    public func response(_ queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) {
+        handler.queue.addOperation {
+            queue.async {
                 completionHandler(self.handler.data, self.response, self.handler.error)
             }
         }

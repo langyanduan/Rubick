@@ -8,28 +8,28 @@
 
 import UIKit
 
-public func UIColorFromRGB(rgbHex: UInt32) -> UIColor {
+public func UIColorFromRGB(_ rgbHex: UInt32) -> UIColor {
     let r = CGFloat((rgbHex & 0x00ff0000) >> 16)
     let g = CGFloat((rgbHex & 0x0000ff00) >> 8)
     let b = CGFloat((rgbHex & 0x000000ff) >> 0)
     return UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: 1)
 }
 
-public func ColorGetComponents(color: UIColor) -> [CGFloat] {
-    if color == UIColor.blackColor() {
+public func ColorGetComponents(_ color: UIColor) -> [CGFloat] {
+    if color == UIColor.black {
         return [ 0, 0, 0, 1 ]
-    } else if color == UIColor.darkGrayColor() {
+    } else if color == UIColor.darkGray {
         return [ 0.333, 0.333, 0.333, 1 ]
-    } else if color == UIColor.lightGrayColor() {
+    } else if color == UIColor.lightGray {
         return [ 0.667, 0.667, 0.667, 1 ]
-    } else if color == UIColor.whiteColor() {
+    } else if color == UIColor.white {
         return [ 1, 1, 1, 1 ]
-    } else if color == UIColor.grayColor() {
+    } else if color == UIColor.gray {
         return [ 0.5, 0.5, 0.5, 1 ]
     }
     
-    let components = CGColorGetComponents(color.CGColor)
-    return [ components[0], components[1], components[2], components[3] ]
+    let components = color.cgColor.components
+    return [ components![0], components![1], components![2], components![3] ]
 }
 
 extension UIColor {

@@ -8,16 +8,16 @@
 
 import UIKit
 
-public class ImageLabel: UIView {
+open class ImageLabel: UIView {
     public enum ImagePosition {
-        case Top
-        case Left
-        case Bottom
-        case Right
-        case Background
+        case top
+        case left
+        case bottom
+        case right
+        case background
     }
     
-    public var font: UIFont? {
+    open var font: UIFont? {
         get {
             return textLabel.font
         }
@@ -26,7 +26,7 @@ public class ImageLabel: UIView {
             reloadLayout()
         }
     }
-    public var text: String? {
+    open var text: String? {
         get {
             return textLabel.text
         }
@@ -36,7 +36,7 @@ public class ImageLabel: UIView {
         }
     }
     
-    public var textColor: UIColor! {
+    open var textColor: UIColor! {
         get {
             return textLabel.textColor
         }
@@ -44,7 +44,7 @@ public class ImageLabel: UIView {
             textLabel.textColor = newValue
         }
     }
-    public var highlightedTextColor: UIColor? {
+    open var highlightedTextColor: UIColor? {
         get {
             return textLabel.highlightedTextColor
         }
@@ -52,7 +52,7 @@ public class ImageLabel: UIView {
             textLabel.highlightedTextColor = newValue
         }
     }
-    public var image: UIImage? {
+    open var image: UIImage? {
         get {
             return imageView.image
         }
@@ -62,7 +62,7 @@ public class ImageLabel: UIView {
             reloadLayout()
         }
     }
-    public var highlightedImage: UIImage? {
+    open var highlightedImage: UIImage? {
         get {
             return imageView.highlightedImage
         }
@@ -73,7 +73,7 @@ public class ImageLabel: UIView {
         }
     }
     
-    public var attributedText: NSAttributedString? {
+    open var attributedText: NSAttributedString? {
         get {
             return textLabel.attributedText
         }
@@ -83,24 +83,24 @@ public class ImageLabel: UIView {
         }
     }
     
-    public var highlighted: Bool = false {
+    open var highlighted: Bool = false {
         didSet {
-            textLabel.highlighted = highlighted
-            imageView.highlighted = highlighted
+            textLabel.isHighlighted = highlighted
+            imageView.isHighlighted = highlighted
             reloadLayout()
         }
     }
-    public var imagePosition: ImagePosition = .Top
-    public var spaceing: CGFloat = 0
-    public var offset: CGFloat = 0
+    open var imagePosition: ImagePosition = .top
+    open var spaceing: CGFloat = 0
+    open var offset: CGFloat = 0
     
     
-    private lazy var textLabel: UILabel = {
+    fileprivate lazy var textLabel: UILabel = {
         let label = UILabel()
         return label
     }()
     
-    private lazy var imageView: UIImageView = {
+    fileprivate lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
@@ -120,15 +120,15 @@ public class ImageLabel: UIView {
         self.addSubview(textLabel)
     }
     
-    override public func layoutSubviews() {
+    override open func layoutSubviews() {
         super.layoutSubviews()
         
-        let imageSize = imageView.intrinsicContentSize()
-        let labelSize = textLabel.intrinsicContentSize()
+        let imageSize = imageView.intrinsicContentSize
+        let labelSize = textLabel.intrinsicContentSize
         let size = bounds.size
         
         switch imagePosition {
-        case .Top:
+        case .top:
             imageView.frame = CGRect(x: (size.width - imageSize.width) / 2,
                                      y: (size.height - labelSize.height - imageSize.height - spaceing) / 2 + offset,
                                      width: imageSize.width,
@@ -137,7 +137,7 @@ public class ImageLabel: UIView {
                                      y: imageView.frame.maxY + spaceing + offset,
                                      width: labelSize.width,
                                      height: labelSize.height)
-        case .Bottom:
+        case .bottom:
             textLabel.frame = CGRect(x: (size.width - labelSize.width) / 2,
                                      y: (size.height - labelSize.height - imageSize.height - spaceing) / 2 + offset,
                                      width: labelSize.width,
@@ -146,7 +146,7 @@ public class ImageLabel: UIView {
                                      y: textLabel.frame.maxY + spaceing + offset,
                                      width: imageSize.width,
                                      height: imageSize.height)
-        case .Left:
+        case .left:
             imageView.frame = CGRect(x: (size.width - labelSize.width - imageSize.width - spaceing) / 2 + offset,
                                      y: (size.height - imageSize.height) / 2,
                                      width: imageSize.width,
@@ -155,7 +155,7 @@ public class ImageLabel: UIView {
                                      y: (size.height - labelSize.height) / 2,
                                      width: labelSize.width,
                                      height: labelSize.height)
-        case .Right:
+        case .right:
             textLabel.frame = CGRect(x: (size.width - labelSize.width - imageSize.width - spaceing) / 2 + offset,
                                      y: (size.height - labelSize.height) / 2,
                                      width: labelSize.width,
@@ -164,7 +164,7 @@ public class ImageLabel: UIView {
                                      y: (size.height - imageSize.height) / 2,
                                      width: imageSize.width,
                                      height: imageSize.height)
-        case .Background:
+        case .background:
             textLabel.frame = CGRect(x: (size.width - labelSize.width) / 2,
                                      y: (size.height - labelSize.height) / 2,
                                      width: labelSize.width,
@@ -176,27 +176,27 @@ public class ImageLabel: UIView {
         }
     }
     
-    override public func intrinsicContentSize() -> CGSize {
-        let imageSize = imageView.intrinsicContentSize()
-        let labelSize = textLabel.intrinsicContentSize()
+    override open var intrinsicContentSize : CGSize {
+        let imageSize = imageView.intrinsicContentSize
+        let labelSize = textLabel.intrinsicContentSize
         switch imagePosition {
-        case .Top, .Bottom:
+        case .top, .bottom:
             return CGSize(width: max(imageSize.width, labelSize.width),
                           height: imageSize.height + labelSize.height + spaceing)
-        case .Left, .Right:
+        case .left, .right:
             return CGSize(width: imageSize.width + labelSize.width + spaceing,
                           height: max(imageSize.height, labelSize.height))
-        case .Background:
+        case .background:
             return CGSize(width: max(imageSize.width, labelSize.width),
                           height: max(imageSize.height, labelSize.height))
         }
     }
     
-    override public func sizeToFit() {
-        bounds = CGRect(origin: CGPointZero, size: intrinsicContentSize())
+    override open func sizeToFit() {
+        bounds = CGRect(origin: CGPoint.zero, size: intrinsicContentSize)
     }
     
-    private func reloadLayout() {
+    fileprivate func reloadLayout() {
         imageView.setNeedsDisplay()
         invalidateIntrinsicContentSize()
         setNeedsLayout()

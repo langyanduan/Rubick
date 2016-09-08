@@ -9,24 +9,20 @@
 import Foundation
 
 
-public enum Error: ErrorType {
-    case URL
-    case Encoding
-    case Response
-    case Parser
+public enum HTTPError: Error {
+    case url
+    case encoding
+    case response
+    case parser
     
-    case NSError(Foundation.NSError)
+    case custom(Any)
     
-    case Custom(String)
-    
-    public init(_ error: ErrorType) {
+    public init(_ error: Error) {
         switch error {
-        case let error as Error:
+        case let error as HTTPError:
             self = error
-        case let error as Foundation.NSError:
-            self = .NSError(error)
         default:
-            self = .Custom("Unknown")
+            self = .custom(error)
         }
     }
 }

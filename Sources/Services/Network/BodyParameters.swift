@@ -9,8 +9,8 @@
 import Foundation
 
 public enum RequestBody {
-    case Data(NSData)
-    case InputStream(NSInputStream)
+    case data(Foundation.Data)
+    case inputStream(Foundation.InputStream)
 }
 
 public protocol BodyParametersType {
@@ -31,9 +31,9 @@ public struct JSONParameters: BodyParametersType {
     
     public func build() throws -> RequestBody {
         do {
-            return .Data(try NSJSONSerialization.dataWithJSONObject(parameters, options: []))
+            return .data(try JSONSerialization.data(withJSONObject: parameters, options: []))
         } catch {
-            throw Error.Encoding
+            throw HTTPError.encoding
         }
     }
 }
@@ -50,6 +50,6 @@ public struct FormURLParameters: BodyParametersType {
     }
     
     public func build() throws -> RequestBody {
-        throw Error.Encoding
+        throw HTTPError.encoding
     }
 }

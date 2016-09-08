@@ -17,25 +17,23 @@ public extension Notifier where Notification.RawValue == String {
         return "\(self).\(notification.rawValue)"
     }
     
-    public static func addObserver(observer: AnyObject, selector aSelector: Selector, notification aNotification: Notification, object anObject: AnyObject?) {
+    public static func addObserver(_ observer: AnyObject, selector aSelector: Selector, notification aNotification: Notification, object anObject: AnyObject?) {
         let name = notificationName(for: aNotification)
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(observer, selector: aSelector, name: name, object: anObject)
+        NotificationCenter.default.addObserver(observer, selector: aSelector, name: Foundation.Notification.Name(rawValue: name), object: anObject)
     }
     
-    public static func postNotification(aNotification: Notification, object anObject: AnyObject?) {
-        postNotification(aNotification, object: anObject, userInfo: nil)
+    public static func post(notification aNotification: Notification, object anObject: AnyObject?) {
+        post(notification: aNotification, object: anObject, userInfo: nil)
     }
     
-    public static func postNotification(aNotification: Notification, object anObject: AnyObject?, userInfo aUserInfo: [NSObject : AnyObject]?) {
+    public static func post(notification aNotification: Notification, object anObject: AnyObject?, userInfo aUserInfo: [AnyHashable: Any]?) {
         let name = notificationName(for: aNotification)
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(name, object: anObject, userInfo: aUserInfo)
+        // NotificationCenter.default.post(name: Foundation.Notification.Name.UIKeyboardDidHide, object: nil)
+        NotificationCenter.default.post(name: Foundation.Notification.Name(rawValue: name), object: anObject, userInfo: aUserInfo)
     }
     
-    public static func removeObserver(observer: AnyObject, notification aNotification: Notification, object anObject: AnyObject?) {
+    public static func removeObserver(_ observer: AnyObject, notification aNotification: Notification, object anObject: AnyObject?) {
         let name = notificationName(for: aNotification)
-        let center = NSNotificationCenter.defaultCenter()
-        center.removeObserver(observer, name: name, object: anObject)
+        NotificationCenter.default.removeObserver(observer, name: Foundation.Notification.Name(rawValue: name), object: anObject)
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 func == (left: KeyboardTransition?, right: KeyboardTransition?) -> Bool {
-    guard let left = left, right = right else {
+    guard let left = left, let right = right else {
         return false
     }
     return left.keyboardVisible == right.keyboardVisible &&
@@ -24,32 +24,32 @@ public struct KeyboardTransition {
     let keyboardVisible: Bool
     let frameBegin: CGRect
     let frameEnd: CGRect
-    let animationDuration: NSTimeInterval
+    let animationDuration: TimeInterval
     let animationCurve: UIViewAnimationCurve
     let animationOptions: UIViewAnimationOptions
 }
 
 public protocol KeyboardManagerObserver: class {
-    func keyboardFrameChanged(transition: KeyboardTransition) -> Void
+    func keyboardFrameChanged(_ transition: KeyboardTransition) -> Void
 }
 
-public class KeyboardManager {
+open class KeyboardManager {
     var observerContainter: NSMutableSet = NSMutableSet()
     
-    private init() {
-        NSNotificationCenter.defaultCenter().addObserver(self,
-                                                         selector: #selector(keyboardFrameWillChanged(_:)),
-                                                         name: UIKeyboardWillChangeFrameNotification,
-                                                         object: nil)
+    fileprivate init() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardFrameWillChanged(_:)),
+                                               name: Notification.Name.UIKeyboardWillChangeFrame,
+                                               object: nil)
     }
     
-    private var transition: KeyboardTransition?
+    fileprivate var transition: KeyboardTransition?
     
-    @objc private func keyboardFrameWillChanged(notification: NSNotification) -> Void {
+    @objc fileprivate func keyboardFrameWillChanged(_ notification: Notification) -> Void {
         guard let userInfo = notification.userInfo else {
             return
         }
-        let transition: KeyboardTransition = transitionFrom(userInfo)
+        let transition: KeyboardTransition = transitionFrom(userInfo as NSDictionary)
         if self.transition == transition {
             return
         }
@@ -61,13 +61,13 @@ public class KeyboardManager {
         }
     }
     
-    private func transitionFrom(userInfo: NSDictionary) -> KeyboardTransition {
-        let frameBegin = userInfo[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue()
-        let frameEnd = userInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
-        let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue
-        let animationCurve = UIViewAnimationCurve(rawValue: (userInfo[UIKeyboardAnimationCurveUserInfoKey]?.integerValue)!)
+    fileprivate func transitionFrom(_ userInfo: NSDictionary) -> KeyboardTransition {
+        let frameBegin = (userInfo[UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue
+        let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        let animationCurve = UIViewAnimationCurve(rawValue: ((userInfo[UIKeyboardAnimationCurveUserInfoKey] as AnyObject).intValue)!)
         let animationOptions = UIViewAnimationOptions(rawValue: UInt(animationCurve!.rawValue) << 16)
-        let keyboardVisible = CGRectIntersectsRect(frameEnd!, UIScreen.mainScreen().bounds);
+        let keyboardVisible = frameEnd!.intersects(UIScreen.main.bounds);
         return KeyboardTransition(keyboardVisible: keyboardVisible,
                                   frameBegin: frameBegin!,
                                   frameEnd: frameEnd!,
@@ -76,7 +76,7 @@ public class KeyboardManager {
                                   animationOptions: animationOptions)
     }
     
-    private func searchKeyboardViewIn(window: UIWindow?) -> UIView? {
+    fileprivate func searchKeyboardViewIn(_ window: UIWindow?) -> UIView? {
         /*
          iOS 6/7:
          UITextEffectsWindow
@@ -98,28 +98,30 @@ public class KeyboardManager {
         }
         if #available(iOS 8, *) {
             for containerView in window.subviews {
-                if NSStringFromClass(containerView.dynamicType) != "UIInputSetContainerView" {
+                if NSStringFromClass(type(of: containerView)) != "UIInputSetContainerView" {
                     continue
                 }
                 for keyboardView in containerView.subviews {
-                    if NSStringFromClass(keyboardView.dynamicType) == "UIInputSetHostView" {
+                    if NSStringFromClass(type(of: keyboardView)) == "UIInputSetHostView" {
                         return keyboardView
                     }
                 }
                 break
             }
-        } else if #available(iOS 7, *) {
+        }
+        /*
+         else if #available(iOS 7, *) {
             for keyboardView in window.subviews {
-                if NSStringFromClass(keyboardView.dynamicType) == "UIPeripheralHostView" {
+                if NSStringFromClass(type(of: keyboardView)) == "UIPeripheralHostView" {
                     return keyboardView
                 }
                 break
             }
-        }
+        } */
         return nil
     }
     
-    private func isKeyboardWindow(window: UIWindow?) -> Bool {
+    fileprivate func isKeyboardWindow(_ window: UIWindow?) -> Bool {
         /*
          iOS 6/7:
          UITextEffectsWindow
@@ -143,11 +145,11 @@ public class KeyboardManager {
         
         // 判断是否是键盘
         if #available(iOS 9, *) {
-            if NSStringFromClass(window.dynamicType) == "UIRemoteKeyboardWindow" {
+            if NSStringFromClass(type(of: window)) == "UIRemoteKeyboardWindow" {
                 return true
             }
         } else if #available(iOS 7, *) {
-            if NSStringFromClass(window.dynamicType) == "UITextEffectsWindow" {
+            if NSStringFromClass(type(of: window)) == "UITextEffectsWindow" {
                 return true
             }
         }
@@ -155,24 +157,15 @@ public class KeyboardManager {
         return false
     }
     
-    static public func defaultManager() -> KeyboardManager {
-        struct Static {
-            static var onceToken: dispatch_once_t = 0
-            static var instance: KeyboardManager!
-        }
-        dispatch_once(&Static.onceToken) {
-            Static.instance = KeyboardManager()
-        }
-        return Static.instance
-    }
+    static public let `default` = KeyboardManager()
     
-    private struct KeyboardViewStatic {
+    fileprivate struct KeyboardViewStatic {
         static var isKeyboardVisible: Bool!
         static var keyboardFrame: CGRect?
         
         static func load() {
-            if let keyboardViewFrame = KeyboardManager.defaultManager().keyboardView?.frame {
-                KeyboardViewStatic.isKeyboardVisible = CGRectIntersectsRect(UIScreen.mainScreen().bounds, keyboardViewFrame)
+            if let keyboardViewFrame = KeyboardManager.default.keyboardView?.frame {
+                KeyboardViewStatic.isKeyboardVisible = UIScreen.main.bounds.intersects(keyboardViewFrame)
                 KeyboardViewStatic.keyboardFrame = keyboardViewFrame
             } else {
                 KeyboardViewStatic.isKeyboardVisible = false
@@ -182,7 +175,7 @@ public class KeyboardManager {
             return isKeyboardVisible != nil
         }
     }
-    public var isKeyboardVisible: Bool {
+    open var isKeyboardVisible: Bool {
         if let transition = self.transition {
             return transition.keyboardVisible
         } else {
@@ -192,7 +185,7 @@ public class KeyboardManager {
             return KeyboardViewStatic.isKeyboardVisible
         }
     }
-    public var keyboardFrame: CGRect? {
+    open var keyboardFrame: CGRect? {
         if let transition = self.transition {
             return transition.frameEnd
         } else {
@@ -203,12 +196,12 @@ public class KeyboardManager {
         }
     }
     
-    public var keyboardView: UIView? {
+    open var keyboardView: UIView? {
         return searchKeyboardViewIn(keyboardWindow)
     }
     
-    public var keyboardWindow: UIWindow? {
-        for window in UIApplication.sharedApplication().windows {
+    open var keyboardWindow: UIWindow? {
+        for window in UIApplication.shared.windows {
             if isKeyboardWindow(window) {
                 return window
             }
@@ -216,21 +209,21 @@ public class KeyboardManager {
         return nil
     }
     
-    public func addObserver(observer: KeyboardManagerObserver) {
-        assert(NSThread.isMainThread())
-        self.observerContainter.addObject(observer)
+    open func addObserver(_ observer: KeyboardManagerObserver) {
+        assert(Thread.isMainThread)
+        self.observerContainter.add(observer)
     }
     
-    public func removeObserver(observer: AnyObject) {
-        assert(NSThread.isMainThread())
-        self.observerContainter.removeObject(observer)
+    open func removeObserver(_ observer: AnyObject) {
+        assert(Thread.isMainThread)
+        self.observerContainter.remove(observer)
     }
     
-    public func convertRect(rect: CGRect, toView view: UIView?) -> CGRect {
-        if CGRectIsNull(rect) {
+    open func convertRect(_ rect: CGRect, toView view: UIView?) -> CGRect {
+        if rect.isNull {
             return rect;
         }
-        if CGRectIsInfinite(rect) {
+        if rect.isInfinite {
             return rect
         }
         if view is UIWindow {
@@ -240,6 +233,6 @@ public class KeyboardManager {
             return rect
         }
         // Windows 的 frame 基本都是屏幕的 bounds, 除非特意设置了其他值, 这种情况不考虑
-        return window.convertRect(rect, toView: view)
+        return window.convert(rect, to: view)
     }
 }
