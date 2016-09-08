@@ -1,9 +1,9 @@
 //
 //  BodyParameters.swift
-//  Connect
+//  Rubick
 //
-//  Created by WuFan on 16/9/6.
-//  Copyright © 2016年 dacai. All rights reserved.
+//  Created by WuFan on 16/9/8.
+//
 //
 
 import Foundation

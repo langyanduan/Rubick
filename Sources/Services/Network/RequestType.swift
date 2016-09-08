@@ -1,9 +1,9 @@
 //
 //  RequestType.swift
-//  Connect
+//  Rubick
 //
-//  Created by WuFan on 16/9/6.
-//  Copyright © 2016年 dacai. All rights reserved.
+//  Created by WuFan on 16/9/8.
+//
 //
 
 import Foundation
@@ -28,7 +28,6 @@ public enum Method: String {
         }
     }
 }
-
 
 public protocol URLRequestConvertible {
     func asURLRequest() throws -> NSMutableURLRequest
@@ -83,14 +82,3 @@ public extension RequestType {
         return URLRequest
     }
 }
-
-public enum Result<Value> {
-    case Success(Value)
-    case Failure(ErrorType)
-}
-
-
-
-
-
-

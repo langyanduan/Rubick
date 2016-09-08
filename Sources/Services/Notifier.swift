@@ -1,5 +1,5 @@
 //
-//  Notification.swift
+//  Notifier.swift
 //  Rubick
 //
 //  Created by WuFan on 16/9/7.
@@ -23,11 +23,11 @@ public extension Notifier where Notification.RawValue == String {
         center.addObserver(observer, selector: aSelector, name: name, object: anObject)
     }
     
-    public static func postNotificationName(aNotification: Notification, object anObject: AnyObject?) {
-        postNotificationName(aNotification, object: anObject, userInfo: nil)
+    public static func postNotification(aNotification: Notification, object anObject: AnyObject?) {
+        postNotification(aNotification, object: anObject, userInfo: nil)
     }
     
-    public static func postNotificationName(aNotification: Notification, object anObject: AnyObject?, userInfo aUserInfo: [NSObject : AnyObject]?) {
+    public static func postNotification(aNotification: Notification, object anObject: AnyObject?, userInfo aUserInfo: [NSObject : AnyObject]?) {
         let name = notificationName(for: aNotification)
         let center = NSNotificationCenter.defaultCenter()
         center.postNotificationName(name, object: anObject, userInfo: aUserInfo)

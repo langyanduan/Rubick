@@ -1,35 +1,27 @@
 //
 //  Request.swift
-//  Connect
+//  Rubick
 //
-//  Created by WuFan on 16/9/7.
-//  Copyright © 2016年 dacai. All rights reserved.
+//  Created by WuFan on 16/9/8.
+//
 //
 
 import Foundation
 
-class Network: Notifier {
-    enum Notification: String {
-        case DidResume
-        case DidSuspend
-        case DidCancel
-        case DidComplete
-    }
-}
-
 class TaskHandler {
     let task: NSURLSessionTask
-    let queue: NSOperationQueue
+    let queue: NSOperationQueue = {
+        let queue = NSOperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        queue.suspended = true
+        queue.qualityOfService = .Utility
+        return queue
+    }()
     var data: NSData? { return nil }
     var error: NSError?
     
     init(task: NSURLSessionTask) {
         self.task = task
-        
-        queue = NSOperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        queue.suspended = true
-        queue.qualityOfService = .Utility
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {
@@ -43,44 +35,34 @@ class TaskHandler {
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         self.error = error
         queue.suspended = false
-        Network.postNotificationName(.DidComplete, object: task)
     }
 }
 
 class DataTaskHandler: TaskHandler {
+    override var data: NSData? { return mutableData }
     var dataTask: NSURLSessionDataTask? { return task as? NSURLSessionDataTask }
-    override var data: NSData? {
-        return mutableData
-    }
     let mutableData: NSMutableData = NSMutableData()
-    // NSURLSessionDataDelegate
     
+    // NSURLSessionDataDelegate
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveData data: NSData) {
         mutableData.appendData(data)
-        
-        LogD()
     }
 }
 
 class DownloadTaskHandler: TaskHandler {
     var downloadTask: NSURLSessionDownloadTask? { return task as? NSURLSessionDownloadTask }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) {
-        
-    }
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL) { }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
-        
-    }
+    func URLSession(
+        session: NSURLSession,
+        downloadTask: NSURLSessionDownloadTask,
+        didWriteData bytesWritten: Int64,
+        totalBytesWritten: Int64,
+        totalBytesExpectedToWrite: Int64) { }
     
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) {
-        
-    }
+    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) { }
 }
-
-
-
-
 
 public class Request {
     let handler: TaskHandler
@@ -91,33 +73,40 @@ public class Request {
     
     init(task: NSURLSessionTask) {
         switch task {
+//        case is NSURLSessionUploadTask: fallthrough
         case is NSURLSessionDataTask:
             handler = DataTaskHandler(task: task)
-        case is NSURLSessionDownloadTask:
-            handler = DownloadTaskHandler(task: task)
-//        case is NSURLSessionUploadTask: fallthrough
+//        case is NSURLSessionDownloadTask:
+//            handler = DownloadTaskHandler(task: task)
 //        case is NSURLSessionStreamTask: fallthrough
         default:
+            assertionFailure()
             handler = TaskHandler(task: task)
         }
-        
     }
-    
     
     public func resume() {
         task.resume()
-        Network.postNotificationName(.DidResume, object: task)
+        Request.postNotification(.DidResume, object: task)
     }
     public func suspend() {
         task.suspend()
-        Network.postNotificationName(.DidSuspend, object: task)
+        Request.postNotification(.DidSuspend, object: task)
     }
     public func cancel() {
         task.cancel()
-        Network.postNotificationName(.DidCancel, object: task)
+        Request.postNotification(.DidCancel, object: task)
     }
 }
 
+extension Request: Notifier {
+    public enum Notification: String {
+        case DidResume
+        case DidSuspend
+        case DidCancel
+        case DidComplete
+    }
+}
 
 extension Request {
     public func response(queue: dispatch_queue_t? = nil, completionHandler: (NSData?, NSHTTPURLResponse?, NSError?) -> Void) {
