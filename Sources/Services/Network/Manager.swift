@@ -8,11 +8,6 @@
 
 import Foundation
 
-func LogD(function: String = #function, _ file: String = #file, _ line: Int = #line) {
-    print("\(file), \(function), \(line)")
-}
-
-
 class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate {
     class HandlerCollection {
         var collection: [Int: TaskHandler] = [:]
@@ -35,7 +30,6 @@ class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate,
     // MARK:- NSURLSessionDelegate
     
     func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?) {
-        LogD()
     }
     
     func URLSession(
@@ -44,11 +38,9 @@ class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate,
         completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
     {
         // TODO: SSL
-        LogD()
     }
     
     func URLSessionDidFinishEventsForBackgroundURLSession(session: NSURLSession) {
-        LogD()
     }
     
     // MARK:- NSURLSessionTaskDelegate
@@ -69,7 +61,6 @@ class SessionDelegate: NSObject, NSURLSessionDelegate, NSURLSessionTaskDelegate,
         completionHandler: (NSURLSessionAuthChallengeDisposition, NSURLCredential?) -> Void)
     {
         // TODO: SSL
-        LogD()
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, needNewBodyStream completionHandler: (NSInputStream?) -> Void) {

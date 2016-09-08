@@ -8,50 +8,60 @@
 
 import Foundation
 
+public class Logger {
+    enum Level {
+        case Verbose
+        case Info
+        case Debug
+        case Warning
+        case Error
+    }
+    public init() {}
+    
+    public func verbose(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logMessage(.Verbose, message: message, file: file, function: function, line: line)
+    }
+    public func info(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logMessage(.Info, message: message, file: file, function: function, line: line)
+    }
+    public func debug(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logMessage(.Debug, message: message, file: file, function: function, line: line)
+    }
+    public func warning(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logMessage(.Warning, message: message, file: file, function: function, line: line)
+    }
+    public func error(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logMessage(.Error, message: message, file: file, function: function, line: line)
+    }
+    
+    func logMessage(level: Level, message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        
+    }
+}
+
+
 #if DEBUG
-
-    public func LogV(message: String, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger(message, level: .Verbose, file: file, function: function, line: line)
-    }
-
-    public func LogI(message: String, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger(message, level: .Information, file: file, function: function, line: line)
-    }
-
-    public func LogD(message: String, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger(message, level: .Debug, file: file, function: function, line: line)
-    }
-
-    public func LogW(message: String, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger(message, level: .Warning, file: file, function: function, line: line)
-    }
-
-    public func LogE(message: String, file: String = #file, function: String = #function, line: Int = #line) {
-        Logger(message, level: .Error, file: file, function: function, line: line)
-    }
+    private let logger = Logger()
     
+    public func LogV(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logger.verbose(message, file: file, function: function, line: line)
+    }
+    public func LogI(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logger.info(message, file: file, function: function, line: line)
+    }
+    public func LogD(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logger.debug(message, file: file, function: function, line: line)
+    }
+    public func LogW(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logger.warning(message, file: file, function: function, line: line)
+    }
+    public func LogE(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+        logger.error(message, file: file, function: function, line: line)
+    }
 #else
-    
-    public func LogV(@autoclosure message: () -> String) { }
-
-    public func LogI(@autoclosure message: () -> String) { }
-
-    public func LogD(@autoclosure message: () -> String) { }
-
-    public func LogW(@autoclosure message: () -> String) { }
-
-    public func LogE(@autoclosure message: () -> String) { }
-    
+    public func LogV(@autoclosure message: () -> Any) { }
+    public func LogI(@autoclosure message: () -> Any) { }
+    public func LogD(@autoclosure message: () -> Any) { }
+    public func LogW(@autoclosure message: () -> Any) { }
+    public func LogE(@autoclosure message: () -> Any) { }
 #endif
-
-private enum LoggerLevel {
-    case Verbose
-    case Information
-    case Debug
-    case Warning
-    case Error
-}
-
-private func Logger(message: String, level: LoggerLevel, file: String, function: String, line: Int) {
-    print(message)
-}
