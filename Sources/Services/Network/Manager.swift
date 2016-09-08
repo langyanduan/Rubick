@@ -11,7 +11,6 @@ import Foundation
 class SessionDelegate: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URLSessionDataDelegate, URLSessionDownloadDelegate {
     class HandlerCollection {
         var collection: [Int: TaskHandler] = [:]
-        let q = DispatchQueue(__label: nil, attr: nil)
         let queue = DispatchQueue(label: "HandlerAccessor", attributes: DispatchQueue.Attributes.concurrent)
         
         subscript(task: URLSessionTask) -> TaskHandler? {
@@ -21,7 +20,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URL
                 return delegate
             }
             set {
-                queue.async(flags: .barrier, execute: { self.collection[task.taskIdentifier] = newValue }) 
+                queue.async(flags: .barrier) { self.collection[task.taskIdentifier] = newValue }
             }
         }
     }
@@ -92,7 +91,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URL
             handler.urlSession(session, task: task, didCompleteWithError: error)
         }
         
-        Request.post(notification: .DidComplete, object: task)
+        Request.post(notification: .didComplete, object: task)
         
         taskHandlers[task] = nil
     }
@@ -164,7 +163,7 @@ class SessionDelegate: NSObject, URLSessionDelegate, URLSessionTaskDelegate, URL
     }
 }
 
-open class Manager {
+public final class Manager {
     let sessionDelegate: SessionDelegate
     let session: URLSession
     let createQueue = DispatchQueue(label: "CreateTask", attributes: [])
@@ -180,7 +179,7 @@ open class Manager {
         session.invalidateAndCancel()
     }
     
-    open func sendRequest(_ URLRequest: Foundation.URLRequest) -> Request {
+    public func sendRequest(_ URLRequest: Foundation.URLRequest) -> Request {
         var dataTask: URLSessionDataTask!
         createQueue.sync {
             dataTask = self.session.dataTask(with: URLRequest)

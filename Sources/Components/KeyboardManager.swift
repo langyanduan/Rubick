@@ -33,19 +33,20 @@ public protocol KeyboardManagerObserver: class {
     func keyboardFrameChanged(_ transition: KeyboardTransition) -> Void
 }
 
-open class KeyboardManager {
+public class KeyboardManager {
     var observerContainter: NSMutableSet = NSMutableSet()
     
-    fileprivate init() {
+    private init() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(keyboardFrameWillChanged(_:)),
                                                name: Notification.Name.UIKeyboardWillChangeFrame,
                                                object: nil)
     }
     
-    fileprivate var transition: KeyboardTransition?
+    private var transition: KeyboardTransition?
     
-    @objc fileprivate func keyboardFrameWillChanged(_ notification: Notification) -> Void {
+    @objc
+    private func keyboardFrameWillChanged(_ notification: Notification) -> Void {
         guard let userInfo = notification.userInfo else {
             return
         }
@@ -61,7 +62,7 @@ open class KeyboardManager {
         }
     }
     
-    fileprivate func transitionFrom(_ userInfo: NSDictionary) -> KeyboardTransition {
+    private func transitionFrom(_ userInfo: NSDictionary) -> KeyboardTransition {
         let frameBegin = (userInfo[UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue
         let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
         let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
@@ -76,7 +77,7 @@ open class KeyboardManager {
                                   animationOptions: animationOptions)
     }
     
-    fileprivate func searchKeyboardViewIn(_ window: UIWindow?) -> UIView? {
+    private func searchKeyboardViewIn(_ window: UIWindow?) -> UIView? {
         /*
          iOS 6/7:
          UITextEffectsWindow
@@ -121,7 +122,7 @@ open class KeyboardManager {
         return nil
     }
     
-    fileprivate func isKeyboardWindow(_ window: UIWindow?) -> Bool {
+    private func isKeyboardWindow(_ window: UIWindow?) -> Bool {
         /*
          iOS 6/7:
          UITextEffectsWindow
@@ -159,7 +160,7 @@ open class KeyboardManager {
     
     static public let `default` = KeyboardManager()
     
-    fileprivate struct KeyboardViewStatic {
+    private struct KeyboardViewStatic {
         static var isKeyboardVisible: Bool!
         static var keyboardFrame: CGRect?
         
@@ -175,7 +176,7 @@ open class KeyboardManager {
             return isKeyboardVisible != nil
         }
     }
-    open var isKeyboardVisible: Bool {
+    public var isKeyboardVisible: Bool {
         if let transition = self.transition {
             return transition.keyboardVisible
         } else {
@@ -185,7 +186,7 @@ open class KeyboardManager {
             return KeyboardViewStatic.isKeyboardVisible
         }
     }
-    open var keyboardFrame: CGRect? {
+    public var keyboardFrame: CGRect? {
         if let transition = self.transition {
             return transition.frameEnd
         } else {
@@ -196,11 +197,11 @@ open class KeyboardManager {
         }
     }
     
-    open var keyboardView: UIView? {
+    public var keyboardView: UIView? {
         return searchKeyboardViewIn(keyboardWindow)
     }
     
-    open var keyboardWindow: UIWindow? {
+    public var keyboardWindow: UIWindow? {
         for window in UIApplication.shared.windows {
             if isKeyboardWindow(window) {
                 return window
@@ -209,17 +210,17 @@ open class KeyboardManager {
         return nil
     }
     
-    open func addObserver(_ observer: KeyboardManagerObserver) {
+    public func addObserver(_ observer: KeyboardManagerObserver) {
         assert(Thread.isMainThread)
         self.observerContainter.add(observer)
     }
     
-    open func removeObserver(_ observer: AnyObject) {
+    public func removeObserver(_ observer: AnyObject) {
         assert(Thread.isMainThread)
         self.observerContainter.remove(observer)
     }
     
-    open func convertRect(_ rect: CGRect, toView view: UIView?) -> CGRect {
+    public func convert(_ rect: CGRect, to view: UIView?) -> CGRect {
         if rect.isNull {
             return rect;
         }

@@ -7,26 +7,6 @@
 //
 
 import UIKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 open class BarItem: NSObject {
     open var title: String?
@@ -45,11 +25,11 @@ open class TabBarItem: BarItem {
 }
 
 open class TabBar: UIView {
-    fileprivate class ItemView: UILabel {
+    private class ItemView: UILabel {
         
     }
-    fileprivate var itemViews: [ItemView]?
-    fileprivate lazy var indicator: UIView = { [unowned self] in
+    private var itemViews: [ItemView]?
+    private lazy var indicator: UIView = { [unowned self] in
         let view = UIView()
         self.addSubview(view)
         return view
@@ -114,7 +94,12 @@ open class TabBar: UIView {
                 return view
             }
             
-            selectedIndex = items?.count > 0 ? 0 : nil
+            if let items = items {
+                selectedIndex = items.count > 0 ? 0 : nil
+            } else {
+                selectedIndex = nil
+            }
+            
             setNeedsLayout()
         }
     }

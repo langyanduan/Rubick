@@ -25,7 +25,7 @@ open class SegmentedControl: UIControl {
     var contentLayer: CALayer!
     var borderLayer: CAShapeLayer!
     
-    fileprivate var backgroundColor_: UIColor? = UIColor.white
+    private var backgroundColor_: UIColor? = UIColor.white
     
     func reloadStyle() {
         guard let labels = self.labels else {

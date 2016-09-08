@@ -8,11 +8,11 @@
 
 import Foundation
 
-open class Information {
-    fileprivate init() { }
+public class Information {
+    private init() { }
     
     public struct application {
-        fileprivate init() {}
+        private init() {}
         
         public static var version: String {
             return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
@@ -29,7 +29,7 @@ open class Information {
     }
     
     struct device {
-        fileprivate init() {}
+        private init() {}
         
         public static var systemVersion: String {
             return UIDevice.current.systemVersion

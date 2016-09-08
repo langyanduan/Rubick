@@ -15,10 +15,10 @@ private extension Selector {
 
 public class NetworkActivityIndicatorManager {
     private init() {
-        Request.addObserver(self, selector: .RequestDidStart, notification: .DidResume, object: nil)
-        Request.addObserver(self, selector: .RequestDidStop, notification: .DidCancel, object: nil)
-        Request.addObserver(self, selector: .RequestDidStop, notification: .DidSuspend, object: nil)
-        Request.addObserver(self, selector: .RequestDidStop, notification: .DidComplete, object: nil)
+        Request.addObserver(self, selector: .RequestDidStart, notification: .didResume, object: nil)
+        Request.addObserver(self, selector: .RequestDidStop, notification: .didCancel, object: nil)
+        Request.addObserver(self, selector: .RequestDidStop, notification: .didSuspend, object: nil)
+        Request.addObserver(self, selector: .RequestDidStop, notification: .didComplete, object: nil)
     }
     
     deinit {

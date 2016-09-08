@@ -64,7 +64,7 @@ class DownloadTaskHandler: TaskHandler {
     func urlSession(_ session: Foundation.URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) { }
 }
 
-open class Request {
+public final class Request {
     let handler: TaskHandler
     
     var task: URLSessionTask { return handler.task }
@@ -85,27 +85,34 @@ open class Request {
         }
     }
     
-    open func resume() {
+    public func resume() {
         task.resume()
-        Request.post(notification: .DidResume, object: task)
+        Request.post(notification: .didResume, object: task)
     }
-    open func suspend() {
+    public func suspend() {
         task.suspend()
-        Request.post(notification: .DidSuspend, object: task)
+        Request.post(notification: .didSuspend, object: task)
     }
-    open func cancel() {
+    public func cancel() {
         task.cancel()
-        Request.post(notification: .DidCancel, object: task)
+        Request.post(notification: .didCancel, object: task)
     }
 }
 
 extension Request: Notifier {
     public enum Notification: String {
-        case DidResume
-        case DidSuspend
-        case DidCancel
-        case DidComplete
+        case didResume
+        case didSuspend
+        case didCancel
+        case didComplete
     }
+}
+
+extension Notification.Name {
+    static let RequestDidResume = Notification.Name("Rubick.RequestDidResume")
+    static let RequestDidSuspend = Notification.Name("Rubick.RequestDidSuspend")
+    static let RequestDidCancel = Notification.Name("Rubick.RequestDidCancel")
+    static let RequestDidComplete = Notification.Name("Rubick.RequestDidComplete")
 }
 
 extension Request {

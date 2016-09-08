@@ -9,15 +9,16 @@
 import UIKit
 
 final public class Toast: UIView, KeyboardManagerObserver {
-    static fileprivate let labelMargin = UIEdgeInsetsMake(5, 8, 5, 8)
-    static fileprivate let toastMargin = UIEdgeInsetsMake(0, 25, 60, 25)
-    static fileprivate let backgroundMargin = UIEdgeInsetsMake(1.5, 1.5, 1.5, 1.5)
-    static fileprivate let toastDuration: TimeInterval = 3
+    static private let labelMargin = UIEdgeInsetsMake(5, 8, 5, 8)
+    static private let toastMargin = UIEdgeInsetsMake(0, 25, 60, 25)
+    static private let backgroundMargin = UIEdgeInsetsMake(1.5, 1.5, 1.5, 1.5)
+    static private let toastDuration: TimeInterval = 3
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    fileprivate init() {
+    
+    private init() {
         fatalError("init() has not been implemented")
     }
     
@@ -37,7 +38,7 @@ final public class Toast: UIView, KeyboardManagerObserver {
         return view
     }()
     
-    override fileprivate init(frame: CGRect) {
+    override private init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = UIColor(white: 0, alpha: 0.4)

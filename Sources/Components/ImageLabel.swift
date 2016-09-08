@@ -95,12 +95,12 @@ open class ImageLabel: UIView {
     open var offset: CGFloat = 0
     
     
-    fileprivate lazy var textLabel: UILabel = {
+    private lazy var textLabel: UILabel = {
         let label = UILabel()
         return label
     }()
     
-    fileprivate lazy var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         return imageView
     }()
@@ -196,7 +196,7 @@ open class ImageLabel: UIView {
         bounds = CGRect(origin: CGPoint.zero, size: intrinsicContentSize)
     }
     
-    fileprivate func reloadLayout() {
+    private func reloadLayout() {
         imageView.setNeedsDisplay()
         invalidateIntrinsicContentSize()
         setNeedsLayout()

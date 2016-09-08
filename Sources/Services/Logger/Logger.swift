@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Logger {
+public final class Logger {
     enum Level {
         case verbose
         case info
@@ -18,19 +18,19 @@ open class Logger {
     }
     public init() {}
     
-    open func verbose(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    public func verbose(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logMessage(.verbose, message: message, file: file, function: function, line: line)
     }
-    open func info(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    public func info(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logMessage(.info, message: message, file: file, function: function, line: line)
     }
-    open func debug(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    public func debug(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logMessage(.debug, message: message, file: file, function: function, line: line)
     }
-    open func warning(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    public func warning(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logMessage(.warning, message: message, file: file, function: function, line: line)
     }
-    open func error(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    public func error(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logMessage(.error, message: message, file: file, function: function, line: line)
     }
     
