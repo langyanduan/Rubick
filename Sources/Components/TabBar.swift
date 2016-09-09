@@ -56,7 +56,7 @@ open class TabBar: UIView {
             super.tintColor = newValue
             
             let selectedTextColor = self.tintColor ?? UIColor.black
-            let textColor = selectedTextColor.rbk_colorWithAlpah(0.8)
+            let textColor = selectedTextColor.ext.alphaColor(with: 0.8)
             indicator.backgroundColor = newValue
             itemViews?.forEach {
                 $0.textColor = textColor
@@ -77,7 +77,7 @@ open class TabBar: UIView {
     open var items: [TabBarItem]? {
         didSet {
             let selectedTextColor = self.tintColor ?? UIColor.black
-            let textColor = selectedTextColor.rbk_colorWithAlpah(0.6)
+            let textColor = selectedTextColor.ext.alphaColor(with: 0.6)
             
             itemViews?.forEach {
                 $0.removeFromSuperview()

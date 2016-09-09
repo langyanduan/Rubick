@@ -8,8 +8,8 @@
 
 import UIKit
 
-extension UIView {
-    public var rbk_viewController: UIViewController? {
+extension InstanceExtension where Base: UIView {
+    public var viewController: UIViewController? {
         return nil
     }
 }

@@ -15,7 +15,7 @@ public func UIColorFromRGB(_ rgbHex: UInt32) -> UIColor {
     return UIColor(red: r / 255, green: g / 255, blue: b / 255, alpha: 1)
 }
 
-public func ColorGetComponents(_ color: UIColor) -> [CGFloat] {
+public func UIColorGetComponents(_ color: UIColor) -> [CGFloat] {
     if color == UIColor.black {
         return [ 0, 0, 0, 1 ]
     } else if color == UIColor.darkGray {
@@ -32,34 +32,26 @@ public func ColorGetComponents(_ color: UIColor) -> [CGFloat] {
     return [ components![0], components![1], components![2], components![3] ]
 }
 
-extension UIColor {
-    public var rbk_red: CGFloat {
-        get {
-            return ColorGetComponents(self)[0]
-        }
+extension InstanceExtension where Base: UIColor {
+    
+    public var redComponent: CGFloat {
+        return UIColorGetComponents(base)[0]
+        
     }
-    public var rbk_green: CGFloat {
-        get {
-            return ColorGetComponents(self)[1]
-        }
+    public var greenComponent: CGFloat {
+        return UIColorGetComponents(base)[1]
+        
     }
-    public var rbk_blue: CGFloat {
-        get {
-            return ColorGetComponents(self)[2]
-        }
+    public var blueComponent: CGFloat {
+        return UIColorGetComponents(base)[2]
+        
     }
-    public var rbk_alpha: CGFloat {
-        get {
-            return ColorGetComponents(self)[3]
-        }
+    public var alphaComponent: CGFloat {
+        return UIColorGetComponents(base)[3]
     }
     
-    public static func rbk_random() -> UIColor {
-        return UIColorFromRGB(arc4random_uniform(0xffffff))
-    }
-    
-    public func rbk_colorWithAlpah(_ alpha: CGFloat) -> UIColor {
-        let components = ColorGetComponents(self)
+    public func alphaColor(with alpha: CGFloat) -> UIColor {
+        let components = UIColorGetComponents(base)
         let r = components[0]
         let g = components[1]
         let b = components[2]
@@ -67,3 +59,10 @@ extension UIColor {
         return UIColor(red: r, green: g, blue: b, alpha: alpha)
     }
 }
+
+extension TypeExtension where Base: UIColor {
+    public var randomColor: UIColor {
+        return UIColorFromRGB(arc4random_uniform(0xffffff))
+    }
+}
+
