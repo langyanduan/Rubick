@@ -35,7 +35,7 @@ public final class Logger {
     }
     
     func logMessage(_ level: Level, message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
-        
+        print(message)
     }
 }
 
@@ -43,25 +43,25 @@ public final class Logger {
 #if DEBUG
     private let logger = Logger()
     
-    public func LogV(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    func LogV(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logger.verbose(message, file: file, function: function, line: line)
     }
-    public func LogI(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    func LogI(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logger.info(message, file: file, function: function, line: line)
     }
-    public func LogD(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    func LogD(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logger.debug(message, file: file, function: function, line: line)
     }
-    public func LogW(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    func LogW(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logger.warning(message, file: file, function: function, line: line)
     }
-    public func LogE(message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
+    func LogE(_ message: Any, file: StaticString = #file, function: StaticString = #function, line: Int = #line) {
         logger.error(message, file: file, function: function, line: line)
     }
 #else
-    public func LogV(_ message: @autoclosure () -> Any) { }
-    public func LogI(_ message: @autoclosure () -> Any) { }
-    public func LogD(_ message: @autoclosure () -> Any) { }
-    public func LogW(_ message: @autoclosure () -> Any) { }
-    public func LogE(_ message: @autoclosure () -> Any) { }
+    func LogV(_ message: @autoclosure () -> Any) { }
+    func LogI(_ message: @autoclosure () -> Any) { }
+    func LogD(_ message: @autoclosure () -> Any) { }
+    func LogW(_ message: @autoclosure () -> Any) { }
+    func LogE(_ message: @autoclosure () -> Any) { }
 #endif

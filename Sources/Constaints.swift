@@ -22,3 +22,8 @@ public func CGFloatFromScalePixel(_ pixel: CGFloat) -> CGFloat {
 
 public let ScreenWidth = UIScreen.main.bounds.width
 public let ScreenHeight = UIScreen.main.bounds.height
+
+
+public func assertMainThread() {
+    assert(Thread.isMainThread)
+}
