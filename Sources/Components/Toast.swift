@@ -22,21 +22,17 @@ final public class Toast: UIView, KeyboardManagerObserver {
         fatalError("init() has not been implemented")
     }
     
-    let textLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textColor = UIColor.white
-        label.backgroundColor = UIColor.clear
-        label.font = UIFont.systemFont(ofSize: 14)
-        label.preferredMaxLayoutWidth = ScreenWidth - Toast.toastMargin.left - Toast.toastMargin.right
-        return label
-    }()
-    let backgroundView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.7)
-        view.layer.cornerRadius = 3
-        return view
-    }()
+    let textLabel: UILabel = UILabel().then {
+        $0.numberOfLines = 0
+        $0.textColor = UIColor.white
+        $0.backgroundColor = UIColor.clear
+        $0.font = UIFont.systemFont(ofSize: 14)
+        $0.preferredMaxLayoutWidth = ScreenWidth - Toast.toastMargin.left - Toast.toastMargin.right
+    }
+    let backgroundView: UIView = UIView().then {
+        $0.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        $0.layer.cornerRadius = 3
+    }
     
     override private init(frame: CGRect) {
         super.init(frame: frame)

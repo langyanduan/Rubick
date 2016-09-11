@@ -29,11 +29,9 @@ open class TabBar: UIView {
         
     }
     private var itemViews: [ItemView]?
-    private lazy var indicator: UIView = { [unowned self] in
-        let view = UIView()
-        self.addSubview(view)
-        return view
-    }()
+    private lazy var indicator: UIView = UIView().then { [unowned self] in
+        self.addSubview($0)
+    }
     
     open var selectedIndex: Int? {
         didSet {

@@ -10,13 +10,11 @@ import Foundation
 
 class TaskHandler {
     let task: URLSessionTask
-    let queue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 1
-        queue.isSuspended = true
-        queue.qualityOfService = .utility
-        return queue
-    }()
+    let queue: OperationQueue = OperationQueue().then {
+        $0.maxConcurrentOperationCount = 1
+        $0.isSuspended = true
+        $0.qualityOfService = .utility
+    }
     var data: Data? { return nil }
     var error: Error?
     

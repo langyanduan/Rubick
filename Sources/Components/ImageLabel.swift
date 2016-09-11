@@ -95,15 +95,8 @@ open class ImageLabel: UIView {
     open var offset: CGFloat = 0
     
     
-    private lazy var textLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    private lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        return imageView
-    }()
+    private lazy var textLabel: UILabel = UILabel()
+    private lazy var imageView: UIImageView = UIImageView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
