@@ -43,35 +43,30 @@ private class TableView: UITableView {
             return
         }
         
-        configuration.hasViewsInView = true
+        configuration.hasViewsInView = false
         let numberOfSections = dataSource.numberOfSections?(in: self) ?? 1
         for section in 0 ..< numberOfSections {
             let numberOfRowsInSection = dataSource.tableView(self, numberOfRowsInSection: section)
             
             if numberOfRowsInSection > 0 {
-                configuration.hasViewsInView = false
+                configuration.hasViewsInView = true
                 break
             }
             
-            let headerHeight = delegate.tableView?(self, heightForHeaderInSection: section) ?? self.sectionHeaderHeight
-            let footerHeight = delegate.tableView?(self, heightForFooterInSection: section) ?? self.sectionFooterHeight
-            
-            if self.style == .grouped && (headerHeight < 0 || footerHeight < 0) {
-                configuration.hasViewsInView = false
-                break
-            }
-            
-            if headerHeight > 1 || footerHeight > 1 {
-                configuration.hasViewsInView = false
+            let viewForHeaderInSection = delegate.tableView?(self, viewForHeaderInSection: section)
+            let titleForHeaderInSection = dataSource.tableView?(self, titleForHeaderInSection: section)
+            let viewForFooterInSection = delegate.tableView?(self, viewForFooterInSection: section)
+            let titleForFooterInSection = dataSource.tableView?(self, titleForFooterInSection: section)
+            if viewForHeaderInSection != nil || titleForHeaderInSection != nil || viewForFooterInSection != nil || titleForFooterInSection != nil {
+                configuration.hasViewsInView = true
                 break
             }
         }
-        
         reloadPlaceholder(force: true)
     }
     
     func reloadPlaceholder(force force: Bool = false) {
-        if !configuration.visible || !configuration.hasViewsInView || frame.size == .zero {
+        if !configuration.visible || configuration.hasViewsInView || frame.size == .zero {
             configuration.contentView.removeFromSuperview()
             return
         }
@@ -92,7 +87,7 @@ private class TableView: UITableView {
         contentView.removeConstraints(contentView.constraints)
         
         let layoutDescriptions: [(NSLayoutAttribute, NSLayoutRelation)] = [
-            (.width, .lessThanOrEqual),
+            (.width, .equal),
             (.centerX, .equal),
             (.centerY, .equal),
         ]
@@ -145,11 +140,11 @@ private class PlaceholderView: UIView {
             "descriptionLabel": descriptionLabel,
             "superView": self
         ]
-        
+        NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|[imageView][titleLabel][descriptionLabel]|", options: [.alignAllCenterX], metrics: nil, views: views))
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[imageView]-(>=0)-|", options: [], metrics: nil, views: views))
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[titleLabel]-(>=0)-|", options: [], metrics: nil, views: views))
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[descriptionLabel]-(>=0)-|", options: [], metrics: nil, views: views))
+//        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[imageView]-(>=0)-|", options: [], metrics: nil, views: views))
+//        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[titleLabel]-(>=0)-|", options: [], metrics: nil, views: views))
+//        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[descriptionLabel]-(>=0)-|", options: [], metrics: nil, views: views))
     }
 }
 
