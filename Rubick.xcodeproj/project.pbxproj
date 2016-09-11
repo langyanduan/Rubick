@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5022940B1D8530E90032CE2F /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940A1D8530E90032CE2F /* Then.swift */; };
+		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
 		50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */; };
-		50A8490E1D7E977C00A99CAE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A8490D1D7E977C00A99CAE /* Logger.swift */; };
 		50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849571D800BC500A99CAE /* BodyParameters.swift */; };
 		50A8495D1D800BC500A99CAE /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849581D800BC500A99CAE /* Error.swift */; };
 		50A8495E1D800BC500A99CAE /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849591D800BC500A99CAE /* Manager.swift */; };
@@ -36,11 +37,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5022940A1D8530E90032CE2F /* Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
+		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
-		50A8490D1D7E977C00A99CAE /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		50A849571D800BC500A99CAE /* BodyParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyParameters.swift; sourceTree = "<group>"; };
 		50A849581D800BC500A99CAE /* Error.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		50A849591D800BC500A99CAE /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
@@ -80,11 +82,12 @@
 		50A849021D7E5F4100A99CAE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				5022940C1D8530FE0032CE2F /* Logger.swift */,
+				5022940A1D8530E90032CE2F /* Then.swift */,
 				50C901521D84282F000079AA /* Information.swift */,
 				50C901561D843335000079AA /* Device.swift */,
 				50A849671D80F73800A99CAE /* Result.swift */,
 				50A849651D8016AC00A99CAE /* Notifier.swift */,
-				50A8490C1D7E977600A99CAE /* Logger */,
 				50A849031D7E5F4100A99CAE /* Network */,
 			);
 			path = Services;
@@ -101,14 +104,6 @@
 				50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		50A8490C1D7E977600A99CAE /* Logger */ = {
-			isa = PBXGroup;
-			children = (
-				50A8490D1D7E977C00A99CAE /* Logger.swift */,
-			);
-			path = Logger;
 			sourceTree = "<group>";
 		};
 		50B6BB251D669DAB00256B2F /* Components */ = {
@@ -263,6 +258,7 @@
 				50A8495F1D800BC500A99CAE /* Request.swift in Sources */,
 				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
 				50B6BB431D66F49700256B2F /* Constaints.swift in Sources */,
+				5022940D1D8530FE0032CE2F /* Logger.swift in Sources */,
 				50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */,
 				50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */,
 				50C901531D84282F000079AA /* Information.swift in Sources */,
@@ -272,8 +268,8 @@
 				50A8496C1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */,
 				50A849661D8016AC00A99CAE /* Notifier.swift in Sources */,
-				50A8490E1D7E977C00A99CAE /* Logger.swift in Sources */,
 				50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */,
+				5022940B1D8530E90032CE2F /* Then.swift in Sources */,
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
