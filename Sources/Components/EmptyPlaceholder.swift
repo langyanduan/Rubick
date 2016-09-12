@@ -8,63 +8,33 @@
 
 import Foundation
 
+// Protocol
 private var ConfigurationKey: Void = ()
 
-private class TableView: UITableView {
-    var configuration: PlaceholderConfiguration<UITableView> {
-        if let value = objc_getAssociatedObject(self, &ConfigurationKey) as? PlaceholderConfiguration<UITableView> {
+private protocol EmptyPlaceholderConfigurable {
+    associatedtype HostView: UIView
+    var configuration: PlaceholderConfiguration<HostView> { get }
+}
+
+private protocol EmptyPlaceholderContainer {
+    func reloadPlaceholder(force force: Bool)
+}
+
+private typealias EmptyPlaceholderView = EmptyPlaceholderContainer & EmptyPlaceholderConfigurable
+
+
+extension EmptyPlaceholderConfigurable where Self: NSObjectProtocol {
+    var configuration: PlaceholderConfiguration<HostView> {
+        if let value = objc_getAssociatedObject(self, &ConfigurationKey) as? PlaceholderConfiguration<HostView> {
             return value
         }
-        let value = PlaceholderConfiguration<UITableView>(self)
+        let value = PlaceholderConfiguration<HostView>(self as! HostView)
         objc_setAssociatedObject(self, &ConfigurationKey, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return value
     }
-    
-    override var frame: CGRect {
-        get { return super.frame }
-        set {
-            super.frame = newValue
-            reloadPlaceholder()
-        }
-    }
-    
-    override var bounds: CGRect {
-        get { return super.bounds }
-        set {
-            super.bounds = newValue
-            reloadPlaceholder()
-        }
-    }
-    
-    override func reloadData() {
-        super.reloadData()
-        
-        guard let dataSource = self.dataSource, let delegate = self.delegate else {
-            return
-        }
-        
-        configuration.hasViewsInView = false
-        let numberOfSections = dataSource.numberOfSections?(in: self) ?? 1
-        for section in 0 ..< numberOfSections {
-            let numberOfRowsInSection = dataSource.tableView(self, numberOfRowsInSection: section)
-            
-            if numberOfRowsInSection > 0 {
-                configuration.hasViewsInView = true
-                break
-            }
-            
-            let viewForHeaderInSection = delegate.tableView?(self, viewForHeaderInSection: section)
-            let titleForHeaderInSection = dataSource.tableView?(self, titleForHeaderInSection: section)
-            let viewForFooterInSection = delegate.tableView?(self, viewForFooterInSection: section)
-            let titleForFooterInSection = dataSource.tableView?(self, titleForFooterInSection: section)
-            if viewForHeaderInSection != nil || titleForHeaderInSection != nil || viewForFooterInSection != nil || titleForFooterInSection != nil {
-                configuration.hasViewsInView = true
-                break
-            }
-        }
-        reloadPlaceholder(force: true)
-    }
-    
+}
+
+extension EmptyPlaceholderContainer where Self: UIView, Self: EmptyPlaceholderConfigurable {
     func reloadPlaceholder(force force: Bool = false) {
         if !configuration.visible || configuration.hasViewsInView || frame.size == .zero {
             configuration.contentView.removeFromSuperview()
@@ -102,12 +72,12 @@ private class TableView: UITableView {
                 multiplier: 1,
                 constant: 0)
             
-//            constraint.isActive = true
             contentView.addConstraint(constraint)
         }
     }
 }
 
+//
 private class PlaceholderView: UIView {
     let titleLabel = UILabel().then { label in
         label.textColor = .red
@@ -133,22 +103,25 @@ private class PlaceholderView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        let views: [String: AnyObject] = [
-            "imageView": imageView,
-            "titleLabel": titleLabel,
-            "descriptionLabel": descriptionLabel,
-            "superView": self
-        ]
+
         NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|[imageView][titleLabel][descriptionLabel]|", options: [.alignAllCenterX], metrics: nil, views: views))
-//        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[imageView]-(>=0)-|", options: [], metrics: nil, views: views))
-//        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[titleLabel]-(>=0)-|", options: [], metrics: nil, views: views))
-//        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=0)-[descriptionLabel]-(>=0)-|", options: [], metrics: nil, views: views))
+        NSLayoutConstraint.activate(
+            NSLayoutConstraint.constraints(
+                withVisualFormat: "V:|[imageView][titleLabel][descriptionLabel]|",
+                options: [.alignAllCenterX],
+                metrics: nil,
+                views: [
+                    "imageView": imageView,
+                    "titleLabel": titleLabel,
+                    "descriptionLabel": descriptionLabel,
+                    "superView": self
+                ]
+            )
+        )
     }
 }
 
-public class PlaceholderConfiguration<HostView: NSObject> {
+public class PlaceholderConfiguration<HostView: UIView> {
     fileprivate var lastSize: CGSize?
     fileprivate var hasViewsInView: Bool = false
     fileprivate lazy var contentView: UIView = UIView()
@@ -158,7 +131,18 @@ public class PlaceholderConfiguration<HostView: NSObject> {
     var makeImageClosure: ((HostView) -> UIImage?)?
     weak var hostView: HostView!
     
-    public var visible: Bool = false
+    public var visible: Bool = false {
+        didSet {
+            guard oldValue != visible else {
+                return
+            }
+            
+            if let view = hostView as? EmptyPlaceholderContainer {
+                view.reloadPlaceholder(force: false)
+                LogD("visible")
+            }
+        }
+    }
     
     init(_ hostView: HostView) {
         self.hostView = hostView
@@ -170,6 +154,7 @@ public class PlaceholderConfiguration<HostView: NSObject> {
         return self
     }
     
+    @discardableResult
     public func makeTitle(_ closure: @escaping () -> String?) -> Self {
         makeTitleClosure = { _ in closure() }
         return self
@@ -204,8 +189,85 @@ public class PlaceholderConfiguration<HostView: NSObject> {
     
 }
 
-extension InstanceExtension where Base: UITableView {
+
+// Override UITableView and UICollectionView
+private class TableView: UITableView, EmptyPlaceholderView {
+    typealias HostView = UITableView
     
+    override var frame: CGRect {
+        get { return super.frame }
+        set { super.frame = newValue
+            reloadPlaceholder()
+        }
+    }
+    
+    override var bounds: CGRect {
+        get { return super.bounds }
+        set { super.bounds = newValue
+            reloadPlaceholder()
+        }
+    }
+    
+    override func reloadData() {
+        super.reloadData()
+        
+        guard let dataSource = self.dataSource, let delegate = self.delegate else {
+            return
+        }
+        
+        configuration.hasViewsInView = false
+        let numberOfSections = dataSource.numberOfSections?(in: self) ?? 1
+        for section in 0 ..< numberOfSections {
+            let numberOfRowsInSection = dataSource.tableView(self, numberOfRowsInSection: section)
+            
+            if numberOfRowsInSection > 0 {
+                configuration.hasViewsInView = true
+                break
+            }
+            
+            let viewForHeaderInSection = delegate.tableView?(self, viewForHeaderInSection: section)
+            let titleForHeaderInSection = dataSource.tableView?(self, titleForHeaderInSection: section)
+            let viewForFooterInSection = delegate.tableView?(self, viewForFooterInSection: section)
+            let titleForFooterInSection = dataSource.tableView?(self, titleForFooterInSection: section)
+            if viewForHeaderInSection != nil || titleForHeaderInSection != nil || viewForFooterInSection != nil || titleForFooterInSection != nil {
+                configuration.hasViewsInView = true
+                break
+            }
+        }
+        reloadPlaceholder(force: true)
+    }
+}
+
+private class CollectionView: UICollectionView, EmptyPlaceholderView {
+    typealias HostView = UICollectionView
+    
+    override var frame: CGRect {
+        get { return super.frame }
+        set { super.frame = newValue
+            reloadPlaceholder()
+        }
+    }
+    override var bounds: CGRect {
+        get { return super.bounds }
+        set { super.bounds = newValue
+            reloadPlaceholder()
+        }
+    }
+    override func reloadData() {
+        super.reloadData()
+        
+        guard let dataSource = self.dataSource, let delegate = self.delegate else {
+            return
+        }
+        
+        configuration.hasViewsInView = collectionViewLayout.layoutAttributesForElements(in: frame)?.count ?? 0 > 0
+        
+        reloadPlaceholder(force: true)
+    }
+}
+
+// Extension UITableView and UICollection
+extension InstanceExtension where Base: UITableView {
     public var placeholder: PlaceholderConfiguration<UITableView> {
         assertMainThread()
         
@@ -219,3 +281,16 @@ extension InstanceExtension where Base: UITableView {
     }
 }
 
+extension InstanceExtension where Base: UICollectionView {
+    public var placeholder: PlaceholderConfiguration<UICollectionView> {
+        assertMainThread()
+        
+        if let view = base as? CollectionView {
+            return view.configuration
+        }
+        assert(object_getClass(base) == UICollectionView.self)
+        object_setClass(base, CollectionView.self)
+        
+        return (base as! CollectionView).configuration
+    }
+}
