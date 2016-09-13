@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5022940B1D8530E90032CE2F /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940A1D8530E90032CE2F /* Then.swift */; };
 		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
+		502DC4B21D87E47500DF9580 /* RefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502DC4B11D87E47500DF9580 /* RefreshView.swift */; };
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
@@ -39,6 +40,7 @@
 /* Begin PBXFileReference section */
 		5022940A1D8530E90032CE2F /* Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		502DC4B11D87E47500DF9580 /* RefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshView.swift; sourceTree = "<group>"; };
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				50B7B90B1D6E9D1400D6F84B /* TabBar.swift */,
 				50766F461D6EF31A000DFA1A /* SegmentedControl.swift */,
 				50C901541D842A30000079AA /* EmptyPlaceholder.swift */,
+				502DC4B11D87E47500DF9580 /* RefreshView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -273,6 +276,7 @@
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
+				502DC4B21D87E47500DF9580 /* RefreshView.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				50C901571D843335000079AA /* Device.swift in Sources */,
 			);
