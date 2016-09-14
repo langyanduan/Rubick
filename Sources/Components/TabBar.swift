@@ -33,6 +33,8 @@ open class TabBar: UIView {
         self.addSubview($0)
     }
     
+    var selectedHandler: ((Int) -> Void)?
+    
     open var selectedIndex: Int? {
         didSet {
             indicator.isHidden = selectedIndex == nil ? true : false
@@ -45,7 +47,9 @@ open class TabBar: UIView {
                 UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: {
                     self.layoutIfNeeded()
                 }, completion: nil)
+                
             }
+
         }
     }
     
@@ -128,6 +132,7 @@ open class TabBar: UIView {
         for (index, view) in itemViews.enumerated() {
             if view.frame.contains(location) {
                 selectedIndex = index
+                selectedHandler?(index)
                 break
             }
         }
