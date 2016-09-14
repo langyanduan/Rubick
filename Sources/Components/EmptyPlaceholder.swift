@@ -274,6 +274,7 @@ extension InstanceExtension where Base: UITableView {
         if let tv = base as? TableView {
             return tv.configuration
         }
+        
         assert(object_getClass(base) == UITableView.self)
         object_setClass(base, TableView.self)
         

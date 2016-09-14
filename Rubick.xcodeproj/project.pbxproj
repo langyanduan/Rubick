@@ -31,6 +31,8 @@
 		50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B9071D6E94F200D6F84B /* UIView+Extension.swift */; };
 		50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B9091D6E9AC200D6F84B /* UIImage+Extension.swift */; };
 		50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B90B1D6E9D1400D6F84B /* TabBar.swift */; };
+		50C3E7861D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */; };
+		50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */; };
 		50C901531D84282F000079AA /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901521D84282F000079AA /* Information.swift */; };
 		50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901541D842A30000079AA /* EmptyPlaceholder.swift */; };
 		50C901571D843335000079AA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901561D843335000079AA /* Device.swift */; };
@@ -62,6 +64,8 @@
 		50B7B9071D6E94F200D6F84B /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		50B7B9091D6E9AC200D6F84B /* UIImage+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		50B7B90B1D6E9D1400D6F84B /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
+		50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyPlaceholderSwizzle.h; sourceTree = "<group>"; };
+		50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyPlaceholderSwizzle.m; sourceTree = "<group>"; };
 		50C901521D84282F000079AA /* Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		50C901541D842A30000079AA /* EmptyPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyPlaceholder.swift; sourceTree = "<group>"; };
 		50C901561D843335000079AA /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -116,8 +120,10 @@
 				50B6BB461D66F68700256B2F /* Toast.swift */,
 				50B7B90B1D6E9D1400D6F84B /* TabBar.swift */,
 				50766F461D6EF31A000DFA1A /* SegmentedControl.swift */,
-				50C901541D842A30000079AA /* EmptyPlaceholder.swift */,
 				502DC4B11D87E47500DF9580 /* RefreshView.swift */,
+				50C901541D842A30000079AA /* EmptyPlaceholder.swift */,
+				50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */,
+				50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -181,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B6BB0E1D658B8600256B2F /* Rubick.h in Headers */,
+				50C3E7861D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +273,7 @@
 				50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */,
 				50C901531D84282F000079AA /* Information.swift in Sources */,
 				50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */,
+				50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 				50A849601D800BC500A99CAE /* RequestType.swift in Sources */,
 				50A8496C1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift in Sources */,

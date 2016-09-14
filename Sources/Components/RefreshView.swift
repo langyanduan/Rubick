@@ -42,6 +42,13 @@ class LoadingView: UIView, RefreshView {
 //        }
     }
     
+    private struct StateText {
+        static let loading = "正在刷新"
+        static let normal = "下拉刷新"
+        static let triggering = "释放刷新"
+        static let finished = "完成刷新"
+    }
+    
     unowned var scrollView: UIScrollView
     var originInsets: UIEdgeInsets = .zero
     var state: RefreshState = .normal
@@ -49,7 +56,6 @@ class LoadingView: UIView, RefreshView {
     
     
     var textLabel: UILabel!
-    var lastWidth: CGFloat = 0
     
     init(_ scrollView: UIScrollView) {
         self.scrollView = scrollView
@@ -59,7 +65,9 @@ class LoadingView: UIView, RefreshView {
     }
     
     override func willMove(toSuperview newSuperview: UIView?) {
-        superview?.removeObserver(self, forKeyPath: Observer.contentOffset.keyPath)
+        if let scrollView = superview as? UIScrollView {
+            scrollView.removeObserver(self, forKeyPath: Observer.contentOffset.keyPath)
+        }
         
         if let scrollView = newSuperview as? UIScrollView {
             scrollView.addObserver(self, forKeyPath: Observer.contentOffset.keyPath, options: [.new], context: &Observer.contentOffset.context)
@@ -91,14 +99,11 @@ class LoadingView: UIView, RefreshView {
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         LogD(keyPath)
-        
         guard let context = context else {
             return super.observeValue(forKeyPath: keyPath, of: object, change: change, context: nil)
         }
         
         switch context {
-//        case &Observer.frame.context:
-//            frameChanged()
         case &Observer.contentOffset.context:
             offsetChanged()
         default:
@@ -106,31 +111,75 @@ class LoadingView: UIView, RefreshView {
         }
     }
     
-    func frameChanged() {
-        if scrollView.frame.width == lastWidth {
-            return
-        }
-        
-        lastWidth = scrollView.frame.width
-        
-        frame = CGRect(x: 0, y: 0, width: lastWidth, height: LoadingHeight)
-        setNeedsLayout()
-    }
-    
     func offsetChanged() {
+        let offset = scrollView.contentOffset.y
+        
+        if offset <= -LoadingHeight {
+            switch state {
+            case .normal:
+                setState(.triggering, animated: true)
+            case .triggering:
+                if !scrollView.isTracking && !scrollView.isDragging {
+                    setState(.loading, animated: true)
+                    
+                    UIView.animate(withDuration: 0.25) {
+                        self.scrollView.contentInset = UIEdgeInsets(top: LoadingHeight, left: 0, bottom: 0, right: 0)
+                    }
+                }
+            case .finished:
+                break
+            case .loading:
+                break
+            }
+        } else {
+            switch state {
+            case .triggering:
+                setState(.normal, animated: true)
+            case .loading:
+                break
+            case .finished:
+                break
+            case .normal:
+                break
+            }
+        }
     }
     
+    func setState(_ state: RefreshState, animated: Bool = false) {
+        switch state {
+        case .normal:
+            textLabel.text = StateText.normal
+        case .loading:
+            textLabel.text = StateText.loading
+        case .finished:
+            textLabel.text = StateText.finished
+        case .triggering:
+            textLabel.text = StateText.triggering
+        }
+        self.state = state
+    }
     
     var animated: Bool {
         return state == .loading
     }
-    func trigger() { }
-    func stop() { }
+    func trigger() {
+        setState(.loading)
+        UIView.animate(withDuration: 0.25) {
+            self.scrollView.contentInset = UIEdgeInsets(top: LoadingHeight, left: 0, bottom: 0, right: 0)
+            self.scrollView.contentOffset = CGPoint(x: 0, y: -LoadingHeight)
+        }
+    }
+    func stop() {
+        setState(.normal)
+        UIView.animate(withDuration: 0.25) {
+            self.scrollView.contentInset = self.originInsets
+        }
+    }
 }
 
 extension InstanceExtension where Base: UIScrollView {
     private var loadingView: LoadingView? {
-        return objc_getAssociatedObject(self, &AssociatedKey.LoadingView) as? LoadingView 
+        return objc_getAssociatedObject(base, &AssociatedKey.LoadingView) as? LoadingView
     }
     
     public var originInsets: UIEdgeInsets {
@@ -148,8 +197,15 @@ extension InstanceExtension where Base: UIScrollView {
         } else {
             let view = LoadingView(base)
             view.handler = closure
-            objc_setAssociatedObject(self, &AssociatedKey.LoadingView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(base, &AssociatedKey.LoadingView, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
+    }
+    
+    public func triggerLoading() {
+        loadingView?.trigger()
+    }
+    public func stopLoading() {
+        loadingView?.stop()
     }
 }
 
