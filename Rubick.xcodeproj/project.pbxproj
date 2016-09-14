@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5022940B1D8530E90032CE2F /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940A1D8530E90032CE2F /* Then.swift */; };
 		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
-		502DC4B21D87E47500DF9580 /* RefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 502DC4B11D87E47500DF9580 /* RefreshView.swift */; };
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
@@ -33,6 +32,7 @@
 		50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B7B90B1D6E9D1400D6F84B /* TabBar.swift */; };
 		50C3E7861D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */; };
 		50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */; };
+		50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */; };
 		50C901531D84282F000079AA /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901521D84282F000079AA /* Information.swift */; };
 		50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901541D842A30000079AA /* EmptyPlaceholder.swift */; };
 		50C901571D843335000079AA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901561D843335000079AA /* Device.swift */; };
@@ -42,7 +42,6 @@
 /* Begin PBXFileReference section */
 		5022940A1D8530E90032CE2F /* Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		502DC4B11D87E47500DF9580 /* RefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RefreshView.swift; sourceTree = "<group>"; };
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -66,6 +65,7 @@
 		50B7B90B1D6E9D1400D6F84B /* TabBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBar.swift; sourceTree = "<group>"; };
 		50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyPlaceholderSwizzle.h; sourceTree = "<group>"; };
 		50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyPlaceholderSwizzle.m; sourceTree = "<group>"; };
+		50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewLoading.swift; sourceTree = "<group>"; };
 		50C901521D84282F000079AA /* Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		50C901541D842A30000079AA /* EmptyPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyPlaceholder.swift; sourceTree = "<group>"; };
 		50C901561D843335000079AA /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				50B6BB461D66F68700256B2F /* Toast.swift */,
 				50B7B90B1D6E9D1400D6F84B /* TabBar.swift */,
 				50766F461D6EF31A000DFA1A /* SegmentedControl.swift */,
-				502DC4B11D87E47500DF9580 /* RefreshView.swift */,
+				50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */,
 				50C901541D842A30000079AA /* EmptyPlaceholder.swift */,
 				50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */,
 				50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */,
@@ -265,6 +265,7 @@
 				50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */,
 				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
+				50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */,
 				50A8495F1D800BC500A99CAE /* Request.swift in Sources */,
 				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
 				50B6BB431D66F49700256B2F /* Constaints.swift in Sources */,
@@ -284,7 +285,6 @@
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
-				502DC4B21D87E47500DF9580 /* RefreshView.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				50C901571D843335000079AA /* Device.swift in Sources */,
 			);
