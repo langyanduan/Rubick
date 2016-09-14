@@ -13,29 +13,39 @@ private var ConfigurationKey: Void = ()
 
 private protocol EmptyPlaceholderConfigurable {
     associatedtype HostView: UIView
-    var configuration: PlaceholderConfiguration<HostView> { get }
+    var configuration: PlaceholderConfiguration<HostView>? { set get }
 }
 
 private protocol EmptyPlaceholderContainer {
-    func reloadPlaceholder(force force: Bool)
+    func reloadPlaceholder(force: Bool)
 }
 
 private typealias EmptyPlaceholderView = EmptyPlaceholderContainer & EmptyPlaceholderConfigurable
 
 
 extension EmptyPlaceholderConfigurable where Self: NSObjectProtocol {
-    var configuration: PlaceholderConfiguration<HostView> {
-        if let value = objc_getAssociatedObject(self, &ConfigurationKey) as? PlaceholderConfiguration<HostView> {
-            return value
-        }
-        let value = PlaceholderConfiguration<HostView>(self as! HostView)
-        objc_setAssociatedObject(self, &ConfigurationKey, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        return value
+    var configuration: PlaceholderConfiguration<HostView>? {
+        get { return objc_getAssociatedObject(self, &ConfigurationKey) as? PlaceholderConfiguration<HostView> }
+        set { objc_setAssociatedObject(self, &ConfigurationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
+    
+    func configurationIfNeeded() -> PlaceholderConfiguration<HostView> {
+        if let configuration = self.configuration {
+            return configuration
+        }
+        
+        let configuration = PlaceholderConfiguration<HostView>(self as! HostView)
+        objc_setAssociatedObject(self, &ConfigurationKey, configuration, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        return configuration
+    }
+    
 }
 
 extension EmptyPlaceholderContainer where Self: UIView, Self: EmptyPlaceholderConfigurable {
-    func reloadPlaceholder(force force: Bool = false) {
+    func reloadPlaceholder(force: Bool = false) {
+        guard let configuration = self.configuration else {
+            return
+        }
         if !configuration.visible || configuration.hasViewsInView || frame.size == .zero {
             configuration.contentView.removeFromSuperview()
             return
@@ -76,6 +86,11 @@ extension EmptyPlaceholderContainer where Self: UIView, Self: EmptyPlaceholderCo
         }
     }
 }
+
+
+
+
+
 
 //
 private class PlaceholderView: UIView {
@@ -191,25 +206,16 @@ public class PlaceholderConfiguration<HostView: UIView> {
 
 
 // Override UITableView and UICollectionView
-private class TableView: UITableView, EmptyPlaceholderView {
+extension UITableView: EmptyPlaceholderView {
     typealias HostView = UITableView
     
-    override var frame: CGRect {
-        get { return super.frame }
-        set { super.frame = newValue
-            reloadPlaceholder()
+    @objc
+    func swz_reloadData() {
+        self.swz_reloadData()
+        
+        guard let configuration = self.configuration else {
+            return
         }
-    }
-    
-    override var bounds: CGRect {
-        get { return super.bounds }
-        set { super.bounds = newValue
-            reloadPlaceholder()
-        }
-    }
-    
-    override func reloadData() {
-        super.reloadData()
         
         guard let dataSource = self.dataSource, let delegate = self.delegate else {
             return
@@ -236,27 +242,28 @@ private class TableView: UITableView, EmptyPlaceholderView {
         }
         reloadPlaceholder(force: true)
     }
+    
+    private static func didSwizzle() -> Int {
+        func exchangeSelector(_ selector1: Selector, _ selector2: Selector) {
+            let m1 = class_getInstanceMethod(UITableView.self, selector1)
+            let m2 = class_getInstanceMethod(UITableView.self, selector2)
+            method_exchangeImplementations(m1, m2)
+        }
+        exchangeSelector(#selector(reloadData), #selector(swz_reloadData))
+        return 0
+    }
+    
+    fileprivate static let didSwizzleOnce = didSwizzle()
 }
 
-private class CollectionView: UICollectionView, EmptyPlaceholderView {
+extension UICollectionView: EmptyPlaceholderView {
     typealias HostView = UICollectionView
     
-    override var frame: CGRect {
-        get { return super.frame }
-        set { super.frame = newValue
-            reloadPlaceholder()
-        }
-    }
-    override var bounds: CGRect {
-        get { return super.bounds }
-        set { super.bounds = newValue
-            reloadPlaceholder()
-        }
-    }
-    override func reloadData() {
-        super.reloadData()
+    @objc
+    func swz_reloadData() {
+        self.swz_reloadData()
         
-        guard let dataSource = self.dataSource, let delegate = self.delegate else {
+        guard let configuration = self.configuration else {
             return
         }
         
@@ -264,34 +271,35 @@ private class CollectionView: UICollectionView, EmptyPlaceholderView {
         
         reloadPlaceholder(force: true)
     }
+    
+    
+    private static func didSwizzle() -> Int {
+        func exchangeSelector(_ selector1: Selector, _ selector2: Selector) {
+            let m1 = class_getInstanceMethod(UICollectionView.self, selector1)
+            let m2 = class_getInstanceMethod(UICollectionView.self, selector2)
+            method_exchangeImplementations(m1, m2)
+        }
+        exchangeSelector(#selector(reloadData), #selector(swz_reloadData))
+        return 0
+    }
+    
+    fileprivate static let didSwizzleOnce = didSwizzle()
+    
 }
 
 // Extension UITableView and UICollection
 extension InstanceExtension where Base: UITableView {
     public var placeholder: PlaceholderConfiguration<UITableView> {
         assertMainThread()
-        
-        if let tv = base as? TableView {
-            return tv.configuration
-        }
-        
-        assert(object_getClass(base) == UITableView.self)
-        object_setClass(base, TableView.self)
-        
-        return (base as! TableView).configuration
+        _ = UITableView.didSwizzleOnce
+        return (base as UITableView).configurationIfNeeded()
     }
 }
 
 extension InstanceExtension where Base: UICollectionView {
     public var placeholder: PlaceholderConfiguration<UICollectionView> {
         assertMainThread()
-        
-        if let view = base as? CollectionView {
-            return view.configuration
-        }
-        assert(object_getClass(base) == UICollectionView.self)
-        object_setClass(base, CollectionView.self)
-        
-        return (base as! CollectionView).configuration
+        _ = UICollectionView.didSwizzleOnce
+        return (base as UICollectionView).configurationIfNeeded()
     }
 }

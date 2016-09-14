@@ -6,13 +6,4 @@
 //
 //
 
-#import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
-#import <objc/runtime.h>
-#import <objc/message.h>
-
-@interface EmptyPlaceholderSwizzle : NSObject
-
-@end
-
 
