@@ -18,20 +18,9 @@ extension Then where Self: AnyObject {
     ///       $0.textColor = UIColor.blackColor()
     ///       $0.text = "Hello, World!"
     ///     }
-    public func then(closure: @noescape (Self) -> Void) -> Self {
+    public func then(_ closure: (Self) -> Void) -> Self {
         closure(self)
         return self
-    }
-    
-    /// Makes it available to execute something with closures.
-    ///
-    ///     UserDefaults.standard.do {
-    ///       $0.set("devxoul", forKey: "username")
-    ///       $0.set("devxoul@gmail.com", forKey: "email")
-    ///       $0.synchronize()
-    ///     }
-    public func `do`(_ closure: (Self) -> Void) {
-        closure(self)
     }
 }
 

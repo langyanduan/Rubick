@@ -29,7 +29,7 @@ open class TabBar: UIView {
         
     }
     private var itemViews: [ItemView]?
-    private lazy var indicator: UIView = UIView().then { [unowned self] in
+    private lazy var indicator: UIView = UIView().then {
         self.addSubview($0)
     }
     
