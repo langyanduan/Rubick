@@ -10,10 +10,10 @@ import Foundation
 
 class TaskHandler {
     let task: URLSessionTask
-    let queue: OperationQueue = OperationQueue().then {
-        $0.maxConcurrentOperationCount = 1
-        $0.isSuspended = true
-        $0.qualityOfService = .utility
+    let queue: OperationQueue = OperationQueue().then { queue in
+        queue.maxConcurrentOperationCount = 1
+        queue.isSuspended = true
+        queue.qualityOfService = .utility
     }
     var data: Data? { return nil }
     var error: Error?
@@ -22,15 +22,15 @@ class TaskHandler {
         self.task = task
     }
     
-    func urlSession(_ session: Foundation.URLSession, task: URLSessionTask, needNewBodyStream completionHandler: (InputStream?) -> Void) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, needNewBodyStream completionHandler: (InputStream?) -> Void) {
         
     }
     
-    func urlSession(_ session: Foundation.URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didSendBodyData bytesSent: Int64, totalBytesSent: Int64, totalBytesExpectedToSend: Int64) {
         
     }
     
-    func urlSession(_ session: Foundation.URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         self.error = error
         queue.isSuspended = false
     }
@@ -42,7 +42,7 @@ class DataTaskHandler: TaskHandler {
     var mutableData: Data = Data()
     
     // NSURLSessionDataDelegate
-    func urlSession(_ session: Foundation.URLSession, dataTask: URLSessionDataTask, didReceiveData data: Data) {
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceiveData data: Data) {
         mutableData.append(data)
     }
 }
@@ -50,16 +50,16 @@ class DataTaskHandler: TaskHandler {
 class DownloadTaskHandler: TaskHandler {
     var downloadTask: URLSessionDownloadTask? { return task as? URLSessionDownloadTask }
     
-    func urlSession(_ session: Foundation.URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingToURL location: URL) { }
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingToURL location: URL) { }
     
     func urlSession(
-        _ session: Foundation.URLSession,
+        _ session: URLSession,
         downloadTask: URLSessionDownloadTask,
         didWriteData bytesWritten: Int64,
         totalBytesWritten: Int64,
         totalBytesExpectedToWrite: Int64) { }
     
-    func urlSession(_ session: Foundation.URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) { }
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didResumeAtOffset fileOffset: Int64, expectedTotalBytes: Int64) { }
 }
 
 public final class Request {
@@ -114,11 +114,15 @@ extension Notification.Name {
 }
 
 extension Request {
-    public func response(_ queue: DispatchQueue = DispatchQueue.main, completionHandler: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) {
+    @discardableResult
+    public func response(_ queue: DispatchQueue = DispatchQueue.main,
+                         completionHandler: @escaping (Data?, HTTPURLResponse?, Error?) -> Void) -> Self
+    {
         handler.queue.addOperation {
             queue.async {
                 completionHandler(self.handler.data, self.response, self.handler.error)
             }
         }
+        return self
     }
 }

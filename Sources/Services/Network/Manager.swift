@@ -168,7 +168,7 @@ public final class Manager {
     let session: URLSession
     let createQueue = DispatchQueue(label: "CreateTask", attributes: [])
     
-    var startRequestsImmediately: Bool = true
+    public var startRequestsImmediately: Bool = true
     
     public init(configuration: URLSessionConfiguration = .default) {
         sessionDelegate = SessionDelegate()
@@ -179,10 +179,10 @@ public final class Manager {
         session.invalidateAndCancel()
     }
     
-    public func sendRequest(_ URLRequest: Foundation.URLRequest) -> Request {
+    public func sendRequest(_ urlRequest: URLRequest) -> Request {
         var dataTask: URLSessionDataTask!
         createQueue.sync {
-            dataTask = self.session.dataTask(with: URLRequest)
+            dataTask = self.session.dataTask(with: urlRequest)
         }
         let request = Request(task: dataTask)
         sessionDelegate.taskHandlers[dataTask] = request.handler
