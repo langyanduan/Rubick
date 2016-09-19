@@ -50,6 +50,6 @@ public struct FormURLParameters: BodyParametersType {
     }
     
     public func build() throws -> RequestBody {
-        throw HTTPError.encoding
+        fatalError("FromURLParameters.build() has not been implemented")
     }
 }
