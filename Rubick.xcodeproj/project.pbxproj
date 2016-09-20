@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		5022940B1D8530E90032CE2F /* Then.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940A1D8530E90032CE2F /* Then.swift */; };
 		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
+		5068DA571D8FC39A00068996 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA561D8FC39A00068996 /* Promise.swift */; };
+		5068DA5D1D8FDF8A00068996 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA5C1D8FDF8A00068996 /* Box.swift */; };
+		5068DA5F1D8FE7D900068996 /* ImageFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA5E1D8FE7D900068996 /* ImageFetcher.swift */; };
+		5068DA611D8FE85F00068996 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA601D8FE85F00068996 /* Cache.swift */; };
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
@@ -42,6 +46,10 @@
 /* Begin PBXFileReference section */
 		5022940A1D8530E90032CE2F /* Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		5068DA561D8FC39A00068996 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		5068DA5C1D8FDF8A00068996 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
+		5068DA5E1D8FE7D900068996 /* ImageFetcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageFetcher.swift; sourceTree = "<group>"; };
+		5068DA601D8FE85F00068996 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
@@ -90,10 +98,13 @@
 			children = (
 				5022940C1D8530FE0032CE2F /* Logger.swift */,
 				5022940A1D8530E90032CE2F /* Then.swift */,
+				5068DA561D8FC39A00068996 /* Promise.swift */,
 				50C901521D84282F000079AA /* Information.swift */,
 				50C901561D843335000079AA /* Device.swift */,
 				50A849671D80F73800A99CAE /* Result.swift */,
 				50A849651D8016AC00A99CAE /* Notifier.swift */,
+				5068DA5C1D8FDF8A00068996 /* Box.swift */,
+				5068DA601D8FE85F00068996 /* Cache.swift */,
 				50A849031D7E5F4100A99CAE /* Network */,
 			);
 			path = Services;
@@ -108,6 +119,7 @@
 				50A8495A1D800BC500A99CAE /* Request.swift */,
 				50A8495B1D800BC500A99CAE /* RequestType.swift */,
 				50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */,
+				5068DA5E1D8FE7D900068996 /* ImageFetcher.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -266,7 +278,9 @@
 				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
 				50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */,
+				5068DA571D8FC39A00068996 /* Promise.swift in Sources */,
 				50A8495F1D800BC500A99CAE /* Request.swift in Sources */,
+				5068DA5D1D8FDF8A00068996 /* Box.swift in Sources */,
 				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
 				50B6BB431D66F49700256B2F /* Constaints.swift in Sources */,
 				5022940D1D8530FE0032CE2F /* Logger.swift in Sources */,
@@ -274,6 +288,7 @@
 				50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */,
 				50C901531D84282F000079AA /* Information.swift in Sources */,
 				50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */,
+				5068DA5F1D8FE7D900068996 /* ImageFetcher.swift in Sources */,
 				50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 				50A849601D800BC500A99CAE /* RequestType.swift in Sources */,
@@ -282,6 +297,7 @@
 				50A849661D8016AC00A99CAE /* Notifier.swift in Sources */,
 				50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */,
 				5022940B1D8530E90032CE2F /* Then.swift in Sources */,
+				5068DA611D8FE85F00068996 /* Cache.swift in Sources */,
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
