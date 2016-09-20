@@ -8,6 +8,8 @@
 
 import Foundation
 
+//private let diskCache: DiskCache
+
 enum ImageFormat {
     case jpeg
     case png
@@ -17,6 +19,16 @@ enum ImageFormat {
 
 class ImageFetcher {
     static let shared = ImageFetcher()
+    
+    var processor: ((UIImage) throws -> UIImage)?
+    
+    
+    
+    
+    
+    
+    init() {
+    }
 }
 
 extension InstanceExtension where Base: UIImageView {

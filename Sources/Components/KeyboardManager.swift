@@ -50,7 +50,8 @@ public class KeyboardManager {
         guard let userInfo = notification.userInfo else {
             return
         }
-        let transition: KeyboardTransition = transitionFrom(userInfo as NSDictionary)
+        
+        let transition: KeyboardTransition = transitionFrom(userInfo)
         if self.transition == transition {
             return
         }
@@ -62,18 +63,20 @@ public class KeyboardManager {
         }
     }
     
-    private func transitionFrom(_ userInfo: NSDictionary) -> KeyboardTransition {
-        let frameBegin = (userInfo[UIKeyboardFrameBeginUserInfoKey] as AnyObject).cgRectValue
-        let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
-        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
-        let animationCurve = UIViewAnimationCurve(rawValue: ((userInfo[UIKeyboardAnimationCurveUserInfoKey] as AnyObject).intValue)!)
-        let animationOptions = UIViewAnimationOptions(rawValue: UInt(animationCurve!.rawValue) << 16)
-        let keyboardVisible = frameEnd!.intersects(UIScreen.main.bounds);
+    private func transitionFrom(_ userInfo: [AnyHashable : Any]) -> KeyboardTransition {
+        let frameBegin = (userInfo[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+        let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? .zero
+        let animationDuration = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
+        let animationCurveValue = (userInfo[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber)?.intValue ?? 0
+        let animationCurve = UIViewAnimationCurve(rawValue: animationCurveValue) ?? .linear
+//        let animationOptions = UIViewAnimationOptions(curve: animationCurve)
+        let animationOptions = UIViewAnimationOptions(rawValue: UInt(animationCurve.rawValue) << 16)
+        let keyboardVisible = frameEnd.intersects(UIScreen.main.bounds);
         return KeyboardTransition(keyboardVisible: keyboardVisible,
-                                  frameBegin: frameBegin!,
-                                  frameEnd: frameEnd!,
-                                  animationDuration: animationDuration!,
-                                  animationCurve: animationCurve!,
+                                  frameBegin: frameBegin,
+                                  frameEnd: frameEnd,
+                                  animationDuration: animationDuration,
+                                  animationCurve: animationCurve,
                                   animationOptions: animationOptions)
     }
     
@@ -88,7 +91,7 @@ public class KeyboardManager {
          UIInputSetContainerView
          UIInputSetHostView << keyboard
          
-         iOS 9:
+         iOS 9/10:
          UIRemoteKeyboardWindow
          UIInputSetContainerView
          UIInputSetHostView << keyboard
@@ -97,28 +100,17 @@ public class KeyboardManager {
         guard let window = window else {
             return nil
         }
-        if #available(iOS 8, *) {
-            for containerView in window.subviews {
-                if NSStringFromClass(type(of: containerView)) != "UIInputSetContainerView" {
-                    continue
-                }
-                for keyboardView in containerView.subviews {
-                    if NSStringFromClass(type(of: keyboardView)) == "UIInputSetHostView" {
-                        return keyboardView
-                    }
-                }
-                break
+        for containerView in window.subviews {
+            if NSStringFromClass(type(of: containerView)) != "UIInputSetContainerView" {
+                continue
             }
-        }
-        /*
-         else if #available(iOS 7, *) {
-            for keyboardView in window.subviews {
-                if NSStringFromClass(type(of: keyboardView)) == "UIPeripheralHostView" {
+            for keyboardView in containerView.subviews {
+                if NSStringFromClass(type(of: keyboardView)) == "UIInputSetHostView" {
                     return keyboardView
                 }
-                break
             }
-        } */
+            break
+        }
         return nil
     }
     
@@ -133,7 +125,7 @@ public class KeyboardManager {
          UIInputSetContainerView
          UIInputSetHostView << keyboard
          
-         iOS 9:
+         iOS 9/10:
          UIRemoteKeyboardWindow
          UIInputSetContainerView
          UIInputSetHostView << keyboard
@@ -149,7 +141,7 @@ public class KeyboardManager {
             if NSStringFromClass(type(of: window)) == "UIRemoteKeyboardWindow" {
                 return true
             }
-        } else if #available(iOS 7, *) {
+        } else {
             if NSStringFromClass(type(of: window)) == "UITextEffectsWindow" {
                 return true
             }

@@ -27,3 +27,18 @@ public let ScreenHeight = UIScreen.main.bounds.height
 public func assertMainThread() {
     assert(Thread.isMainThread)
 }
+
+extension UIViewAnimationOptions {
+    public init(curve: UIViewAnimationCurve) {
+        switch curve {
+        case .easeIn:
+            self = [.curveEaseIn]
+        case .easeInOut:
+            self = [.curveEaseInOut]
+        case .easeOut:
+            self = [.curveEaseOut]
+        case .linear:
+            self = [.curveLinear]
+        }
+    }
+}

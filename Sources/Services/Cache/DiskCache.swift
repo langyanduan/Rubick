@@ -8,7 +8,7 @@
 
 import Foundation
 
-//class DiskCache: Cache {
+class DiskCache: Cache {
 //    func containsObject(forKey key: String) -> Bool {
 //        return false
 //    }
@@ -20,4 +20,4 @@ import Foundation
 //    func setObject(_ object: Any, forKey key: String) {
 //        
 //    }
-//}
+}
