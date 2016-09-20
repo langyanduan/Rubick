@@ -43,6 +43,9 @@
 		50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901541D842A30000079AA /* EmptyPlaceholder.swift */; };
 		50C901571D843335000079AA /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901561D843335000079AA /* Device.swift */; };
 		50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92FF21D658700005A1048 /* UIColor+Extension.swift */; };
+		50F5AAA91D91284C00C67E4C /* ImageSerializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAA81D91284C00C67E4C /* ImageSerializer.swift */; };
+		50F5AAAB1D912C2100C67E4C /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAAA1D912C2100C67E4C /* ImageCache.swift */; };
+		50F5AAAD1D912DFE00C67E4C /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +87,9 @@
 		50E92FE51D658690005A1048 /* Rubick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rubick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E92FF21D658700005A1048 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		50E92FF81D65880E005A1048 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		50F5AAA81D91284C00C67E4C /* ImageSerializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSerializer.swift; sourceTree = "<group>"; };
+		50F5AAAA1D912C2100C67E4C /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +116,7 @@
 				5068DA5C1D8FDF8A00068996 /* Box.swift */,
 				50BDBCCC1D90D48C00F3F8B3 /* Cache */,
 				50A849031D7E5F4100A99CAE /* Network */,
+				50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -124,6 +131,7 @@
 				50A8495B1D800BC500A99CAE /* RequestType.swift */,
 				50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */,
 				5068DA5E1D8FE7D900068996 /* ImageFetcher.swift */,
+				50F5AAA81D91284C00C67E4C /* ImageSerializer.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -150,6 +158,7 @@
 				50BDBCCD1D90D48C00F3F8B3 /* Cache.swift */,
 				50BDBCCF1D90D49500F3F8B3 /* DiskCache.swift */,
 				50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */,
+				50F5AAAA1D912C2100C67E4C /* ImageCache.swift */,
 			);
 			path = Cache;
 			sourceTree = "<group>";
@@ -291,6 +300,7 @@
 				50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */,
 				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
+				50F5AAA91D91284C00C67E4C /* ImageSerializer.swift in Sources */,
 				50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */,
 				5068DA571D8FC39A00068996 /* Promise.swift in Sources */,
 				50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */,
@@ -314,6 +324,8 @@
 				50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */,
 				5022940B1D8530E90032CE2F /* Then.swift in Sources */,
 				50BDBCCE1D90D48C00F3F8B3 /* Cache.swift in Sources */,
+				50F5AAAD1D912DFE00C67E4C /* FileHelper.swift in Sources */,
+				50F5AAAB1D912C2100C67E4C /* ImageCache.swift in Sources */,
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,

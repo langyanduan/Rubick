@@ -8,7 +8,8 @@
 
 import Foundation
 
-//private let diskCache: DiskCache
+private let ImageDiskCachePath = "images"
+private let diskCache: DiskCache = DiskCache(path: ImageDiskCachePath)
 
 enum ImageFormat {
     case jpeg
@@ -17,17 +18,48 @@ enum ImageFormat {
     case unknown
 }
 
+class Resource {
+    
+}
+
+extension Resource: URLRequestConvertible {
+    func asURLRequest() throws -> URLRequest {
+        return URLRequest(url: URL(fileURLWithPath: ""))
+    }
+}
+
 class ImageFetcher {
-    static let shared = ImageFetcher()
+    private let memoryCache = MemoryCache()
+    private let manager = Manager()
+    private let queue = DispatchQueue(label: "imageFetcher", attributes: .concurrent)
     
-    var processor: ((UIImage) throws -> UIImage)?
+    public static let shared = ImageFetcher()
     
+    public var processor: ((UIImage) -> UIImage?)?
+    public var decodeAsync: Bool = false
     
+    init() { }
+    deinit { }
     
-    
-    
-    
-    init() {
+    func download(with resource: Resource) -> Request {
+        let urlRequest = try! resource.asURLRequest()
+        
+        let request = manager.sendRequest(urlRequest).response(queue) { (data, response, error) in
+            if let data = data {
+                let image = ImageSerializer.imageFromData(data)
+                
+                let finalImage: UIImage?
+                if let image = image, let processor = self.processor {
+                    finalImage = processor(image)
+                } else {
+                    finalImage = image
+                }
+                
+                
+            }
+        }
+        
+        return request
     }
 }
 

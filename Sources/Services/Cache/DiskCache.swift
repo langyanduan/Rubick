@@ -8,6 +8,9 @@
 
 import Foundation
 
+public let DiskCacheRootPath = ""
+
+
 class DiskCache: Cache {
 //    func containsObject(forKey key: String) -> Bool {
 //        return false
@@ -20,4 +23,10 @@ class DiskCache: Cache {
 //    func setObject(_ object: Any, forKey key: String) {
 //        
 //    }
+    
+    let storePath: String
+    
+    init(path: String? = nil) {
+        storePath = path ?? ""
+    }
 }
