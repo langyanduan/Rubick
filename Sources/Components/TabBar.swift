@@ -33,7 +33,7 @@ open class TabBar: UIView {
         self.addSubview($0)
     }
     
-    var selectedHandler: ((Int) -> Void)?
+    open var selectedHandler: ((Int) -> Void)?
     
     open var selectedIndex: Int? {
         didSet {
