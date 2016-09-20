@@ -9,9 +9,9 @@
 import Foundation
 
 protocol Cache {
-    func containsObject(forKey key: String) -> Bool
-    func object(forKey key: String) -> Any?
-    func setObject(_ object: Any, forKey key: String)
+//    func containsObject(forKey key: String) -> Bool
+//    func object(forKey key: String) -> Any?
+//    func setObject(_ object: Any, forKey key: String)
 }
 
 //class Cache {

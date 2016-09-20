@@ -21,12 +21,12 @@ func == (left: KeyboardTransition?, right: KeyboardTransition?) -> Bool {
 }
 
 public struct KeyboardTransition {
-    let keyboardVisible: Bool
-    let frameBegin: CGRect
-    let frameEnd: CGRect
-    let animationDuration: TimeInterval
-    let animationCurve: UIViewAnimationCurve
-    let animationOptions: UIViewAnimationOptions
+    public let keyboardVisible: Bool
+    public let frameBegin: CGRect
+    public let frameEnd: CGRect
+    public let animationDuration: TimeInterval
+    public let animationCurve: UIViewAnimationCurve
+    public let animationOptions: UIViewAnimationOptions
 }
 
 public protocol KeyboardManagerObserver: class {

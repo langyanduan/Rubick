@@ -30,7 +30,7 @@ fileprivate class LinkedMap {
 }
 
 
-
+typealias CacheObjectClosure = (_ cache: MemoryCache, _ key: String, _ object: Any?) -> Void
 
 
 class MemoryCache: Cache {
@@ -42,7 +42,22 @@ class MemoryCache: Cache {
         return nil
     }
     
-    func setObject(_ object: Any, forKey key: String) {
+    func object(forKey key: String, _ closure: @escaping CacheObjectClosure) {
+    }
+    
+    
+    func setObject(_ object: Any, forKey key: String, withCost cost: Int = 0) {
         
+        
+    }
+    
+    func setObject(_ object: Any, forKey key: String, withCost cost: Int = 0, _ closure: @escaping CacheObjectClosure) {
+    }
+    
+    func removeObject(forKey key: String) {
+        
+    }
+    
+    func removeAllObjects() {
     }
 }
