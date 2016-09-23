@@ -18,41 +18,50 @@ enum ImageFormat {
     case unknown
 }
 
-extension URL {
-    fileprivate var imageCacheKey: String {
-        return self.absoluteString
-    }
-}
-
 public struct ImageDownloader {
     public class Cancelable {
 //        fileprivate private(set) var completeHandler: ((Void) -> Void)?
-        fileprivate private(set) var request: Request?
-        fileprivate private(set) var downloadCanceled: Bool = false
-        fileprivate private(set) var handleCanceled: Bool = false
         
-        public func cancelDownload() {
-            guard !downloadCanceled else {
+        fileprivate var request: Request? {
+            get { _lock.lock(); defer { _lock.unlock() }; return _request }
+            set { _lock.lock(); defer { _lock.unlock() }; _request = newValue }
+        }
+        fileprivate var handleCanceled: Bool {
+            get { _lock.lock(); defer { _lock.unlock() }; return _handleCanceled }
+            set { _lock.lock(); defer { _lock.unlock() }; _handleCanceled = newValue }
+        }
+        fileprivate var downloadCanceled: Bool {
+            get { _lock.lock(); defer { _lock.unlock() }; return _downloadCanceled }
+            set { _lock.lock(); defer { _lock.unlock() }; _downloadCanceled = newValue }
+        }
+        
+        
+        private let _lock = NSLock()
+        private var _request: Request?
+        private var _downloadCanceled: Bool = false
+        private var _handleCanceled: Bool = false
+        
+        private func cancelDownload() {
+            guard !_downloadCanceled else {
                 return
             }
-            downloadCanceled = true
-            request?.cancel()
+            _downloadCanceled = true
+            _request?.cancel()
         }
-        public func cancelHandle() {
-            guard !handleCanceled else {
+        private func cancelHandle() {
+            guard !_handleCanceled else {
                 return
             }
-            handleCanceled = true
-//            completeHandler = nil
+            _handleCanceled = true
         }
         
-        public func cancelAll() {
-            cancelDownload()
-            cancelHandle()
-        }
-        
-        func setReuqest(_ request: Request) {
+        public func cancel(alsoDownload: Bool = false) {
+            _lock.lock(); defer { _lock.unlock() }
             
+            cancelHandle()
+            if alsoDownload {
+                cancelDownload()
+            }
         }
     }
     
@@ -85,17 +94,36 @@ public struct ImageDownloader {
         self.requestIntercept = requestIntercept
     }
     
-    func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?) -> Void) {
-        
+    func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?, Bool) -> Void) -> Cancelable {
         let cancelable = Cancelable()
         
+        func processAndCacheImage(_ image: UIImage?) -> UIImage? {
+            var image = image
+            for processor in self.processors {
+                guard let originImage = image else {
+                    break
+                }
+                image = processor.process(originImage)
+            }
+            if let image = image {
+                self.cache.setMemoryImage(image, forURL: url)
+            }
+            return image
+        }
+        
         queue.async {
-            if let image = self.memoryImage(withURL: url) {
-                completionHandler(image)
+            if let image = self.cache.memoryImage(withURL: url) {
+                completionHandler(image, cancelable.handleCanceled)
                 return
             }
-            if let image = self.diskImage(withURL: url) {
-                completionHandler(image)
+            
+            if let image = self.cache.diskImage(withURL: url) {
+                completionHandler(processAndCacheImage(image), cancelable.handleCanceled)
+                return
+            }
+            
+            if cancelable.downloadCanceled {
+                completionHandler(nil, true)
                 return
             }
             
@@ -103,31 +131,29 @@ public struct ImageDownloader {
             let urlRequest = self.requestIntercept?(originURLRequest) ?? originURLRequest
             let request = self.manager.sendRequest(urlRequest)
             
+            cancelable.request = request
             
             request.response(self.queue) { (data, response, error) in
-                guard error == nil, let response = response, let data = data, (200..<300).contains(response.statusCode) else {
-                    completionHandler(nil)
+                if cancelable.downloadCanceled {
+                    completionHandler(nil, true)
                     return
                 }
                 
-                var image = UIImage(data: data)
-                for processor in self.processors {
-                    guard let originImage = image else {
-                        break
-                    }
-                    image = processor.process(originImage)
+                guard error == nil, let response = response, let data = data, (200..<300).contains(response.statusCode) else {
+                    completionHandler(nil, false)
+                    return
                 }
                 
-                completionHandler(image)
+                guard let image = ImageDecoder.image(fromBytes: data) else {
+                    completionHandler(nil, false)
+                    return
+                }
+                
+                self.cache.setDiskImage(image, forURL: url)
+                completionHandler(processAndCacheImage(image), cancelable.handleCanceled)
             }
         }
-    }
-    
-    func diskImage(withURL url: URL) -> UIImage? {
-        return cache.diskCache.object(forKey: url.imageCacheKey)
-    }
-    
-    func memoryImage(withURL url: URL) -> UIImage? {
-        return cache.memoryCache.object(forKey: url.imageCacheKey)
+        
+        return cancelable
     }
 }

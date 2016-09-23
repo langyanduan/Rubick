@@ -23,11 +23,19 @@ extension InstanceExtension where Base: UIImageView {
     }
     
     func setImage(withURL url: URL, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
-        if let image = downloader.memoryImage(withURL: url) {
-            base.image = image
-            return
-        }
-        
+//        if let image = downloader.memoryImage(withURL: url) {
+//            base.image = image
+//            return
+//        }
+//        
         base.image = placeholer
+        
+        downloader.fetchImage(withURL: url) { (image, canceled) in
+            if canceled {
+                return
+            }
+            
+            self.base.image = image
+        }
     }
 }

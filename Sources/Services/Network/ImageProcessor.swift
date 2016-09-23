@@ -12,8 +12,27 @@ protocol ImageProcessor {
     func process(_ image: UIImage) -> UIImage?
 }
 
-struct RoundRadiusProcessor: ImageProcessor {
+struct RoundCornerImageProcessor: ImageProcessor {
+    let radius: CGFloat
+    
     func process(_ image: UIImage) -> UIImage? {
-        return image
+        return image.ext.roundCornerImage(withRadius: radius)
+    }
+}
+
+struct CircularImageProcessor: ImageProcessor {
+    let radius: CGFloat
+    
+    func process(_ image: UIImage) -> UIImage? {
+        return image.ext.circularImage(withRadius: radius)
+    }
+}
+
+struct ResizingImageProcessor: ImageProcessor {
+    let size: CGSize
+    let mode: ImageResizeMode
+    
+    func process(_ image: UIImage) -> UIImage? {
+        return image.ext.resizeImage(withSize: size, mode: mode)
     }
 }

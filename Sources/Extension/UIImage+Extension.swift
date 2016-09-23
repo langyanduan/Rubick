@@ -26,6 +26,17 @@ extension UIImage {
     }
 }
 
+enum ImageResizeMode {
+//    case top
+//    case bottom
+//    case left
+//    case right
+//    case center
+    case scaleToFill
+    case scaleAspectFit
+    case scaleAspectFill
+}
+
 extension InstanceExtension where Base: UIImage {
     public func stretchableImage() -> UIImage {
         let width = base.size.width
@@ -35,11 +46,17 @@ extension InstanceExtension where Base: UIImage {
         return base.resizableImage(withCapInsets: UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .tile)
     }
     
-    func image(withRoundRadius roundRadius: CGFloat) -> UIImage {
+    func roundCornerImage(withRadius radius: CGFloat) -> UIImage {
+        return base
+    }
+    func circularImage(withRadius radius: CGFloat) -> UIImage {
+        return base
+    }
+    func image(withTintColor tintColor: UIColor) -> UIImage {
         return base
     }
     
-    func image(withTintColor tintColor: UIColor) -> UIImage {
+    func resizeImage(withSize size: CGSize, mode: ImageResizeMode) -> UIImage {
         return base
     }
 }

@@ -9,12 +9,18 @@
 import Foundation
 import UIKit
 
+extension URL {
+    fileprivate var imageCacheKey: String {
+        return self.absoluteString
+    }
+}
+
 class ImageCache {
     private static let defaultDiskCachePath = "images"
     private static let defaultDiskCache = DiskCache<UIImage>(path: defaultDiskCachePath)
     
-    let diskCache: DiskCache<UIImage>
-    let memoryCache: MemoryCache<UIImage>
+    private let diskCache: DiskCache<UIImage>
+    private let memoryCache: MemoryCache<UIImage>
     
     init(diskCache: DiskCache<UIImage> = defaultDiskCache) {
         self.diskCache = diskCache
