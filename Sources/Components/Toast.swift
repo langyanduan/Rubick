@@ -18,8 +18,8 @@ final public class Toast: UIView, KeyboardManagerObserver {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private init() {
-        fatalError("init() has not been implemented")
+    private convenience init() {
+        self.init(frame: .zero)
     }
     
     let textLabel: UILabel = UILabel().then {

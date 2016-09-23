@@ -133,15 +133,15 @@ open class SegmentedControl: UIControl {
             return
         }
         
-        let width = CGFloatFromScalePixel(bounds.width / labels.count.CGFloat)
+        let width = CGFloatFromScalePixel(bounds.width / labels.count.asCGFloat)
         let height = bounds.height
-        let count = Int((bounds.width - width * labels.count.CGFloat) / CGFloatFromPixel(1))
+        let count = Int((bounds.width - width * labels.count.asCGFloat) / CGFloatFromPixel(1))
         
         for (index, label) in labels.enumerated() {
             if index < count {
-                label.frame = CGRect(x: index.CGFloat * (width + CGFloatFromPixel(1)), y: 0, width: width + CGFloatFromPixel(1), height: height)
+                label.frame = CGRect(x: index.asCGFloat * (width + CGFloatFromPixel(1)), y: 0, width: width + CGFloatFromPixel(1), height: height)
             } else {
-                label.frame = CGRect(x: index.CGFloat * width + count.CGFloat * CGFloatFromPixel(1), y: 0, width: width, height: height)
+                label.frame = CGRect(x: index.asCGFloat * width + count.asCGFloat * CGFloatFromPixel(1), y: 0, width: width, height: height)
             }
             
             if index < dividers.count {

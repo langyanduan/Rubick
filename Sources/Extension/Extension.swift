@@ -18,21 +18,21 @@ public struct InstanceExtension<Base: Any> {
     }
 }
 
-public protocol TypeExtensibility {
-    associatedtype ExtensibilityType
-    static var smt: TypeExtension<ExtensibilityType> { get }
+public protocol TypeCompatible {
+    associatedtype CompatibleType
+    static var ext: TypeExtension<CompatibleType> { get }
 }
-public extension TypeExtensibility {
-    public static var smt: TypeExtension<Self> {
+public extension TypeCompatible {
+    public static var ext: TypeExtension<Self> {
         return TypeExtension()
     }
 }
-public protocol InstanceExtensibility {
-    associatedtype ExtensibilityType
-    var ext: InstanceExtension<ExtensibilityType> { get }
+public protocol InstanceCompatible {
+    associatedtype CompatibleType
+    var ext: InstanceExtension<CompatibleType> { get }
 }
 
-public extension InstanceExtensibility {
+public extension InstanceCompatible {
     public var ext: InstanceExtension<Self> {
         return InstanceExtension(self)
     }
@@ -40,20 +40,16 @@ public extension InstanceExtensibility {
 
 // MARK: class
 
-extension UIView: InstanceExtensibility {}
-extension UIImage: InstanceExtensibility {}
-extension UIColor: InstanceExtensibility {}
-extension UIColor: TypeExtensibility {}
+extension UIView: InstanceCompatible {}
+extension UIImage: InstanceCompatible {}
+extension UIColor: InstanceCompatible {}
+extension UIColor: TypeCompatible {}
 
 // MARK: struct
 
-public protocol _ArrayType: InstanceExtensibility {
-    associatedtype Element
-}
+public protocol _ArrayType: InstanceCompatible { associatedtype Element }
 extension Array: _ArrayType {}
 
-
-
-
-
+public protocol _StringType: InstanceCompatible {}
+extension String: _StringType {}
 

@@ -49,19 +49,10 @@ extension InstanceExtension where Base: UIColor {
     public var alphaComponent: CGFloat {
         return UIColorGetComponents(base)[3]
     }
-    
-    public func alphaColor(with alpha: CGFloat) -> UIColor {
-        let components = UIColorGetComponents(base)
-        let r = components[0]
-        let g = components[1]
-        let b = components[2]
-        
-        return UIColor(red: r, green: g, blue: b, alpha: alpha)
-    }
 }
 
 extension TypeExtension where Base: UIColor {
-    public var randomColor: UIColor {
+    public var random: UIColor {
         return UIColorFromRGB(arc4random_uniform(0xffffff))
     }
 }

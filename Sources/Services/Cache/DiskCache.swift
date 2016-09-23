@@ -10,23 +10,37 @@ import Foundation
 
 public let DiskCacheRootPath = ""
 
-
-class DiskCache: Cache {
-//    func containsObject(forKey key: String) -> Bool {
-//        return false
-//    }
-//    
-//    func object(forKey key: String) -> Any? {
-//        return nil
-//    }
-//    
-//    func setObject(_ object: Any, forKey key: String) {
-//        
-//    }
+final class DiskCache<Element: NSCoding>: Cache {
+    
+    // protocol Cache
+    func containsObject(forKey key: String) -> Bool {
+        return false
+    }
+    
+    func object(forKey key: String) -> Element? {
+        return nil
+    }
+    
+    func setObject(_ object: Element, forKey key: String, withCost cost: Int = 0) {
+        
+    }
+    func removeObject(forKey key: String) {
+        
+    }
+    func removeAllObjects() {
+        
+    }
+    
+    func containsObject(forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Bool) -> Void) { }
+    func object(forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
+    func setObject(_ object: Element, forKey key: String, withCost cost: Int = 0, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
+    
+    
+    
     
     let storePath: String
     
     init(path: String? = nil) {
-        storePath = path ?? ""
+        storePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheRootPath).ext.appendingPathComponent(path ?? "")
     }
 }

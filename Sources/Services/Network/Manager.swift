@@ -199,3 +199,5 @@ public final class Manager {
 //    func upload(URLRequest: NSURLRequest) { }
 //}
 
+
+extension Manager: Then { }

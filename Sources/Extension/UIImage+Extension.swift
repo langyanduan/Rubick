@@ -9,7 +9,7 @@
 import UIKit
 
 extension UIImage {
-    convenience init?(color: UIColor) {
+    public convenience init?(color: UIColor) {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
         UIGraphicsBeginImageContext(rect.size)
         let ctx = UIGraphicsGetCurrentContext()
@@ -34,5 +34,14 @@ extension InstanceExtension where Base: UIImage {
         let hInset = floor(width / 2)
         return base.resizableImage(withCapInsets: UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .tile)
     }
+    
+    func image(withRoundRadius roundRadius: CGFloat) -> UIImage {
+        return base
+    }
+    
+    func image(withTintColor tintColor: UIColor) -> UIImage {
+        return base
+    }
 }
+
 

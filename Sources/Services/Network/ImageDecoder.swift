@@ -8,13 +8,8 @@
 
 import Foundation
 
-struct ImageSerializer {
-    static func imageFromData(_ data: Data) -> UIImage? {
+struct ImageDecoder {
+    static func image(fromBytes data: Data) -> UIImage? {
         return UIImage()
     }
-    
-    
-    
-    
-    
 }

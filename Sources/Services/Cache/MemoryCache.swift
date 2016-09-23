@@ -8,56 +8,29 @@
 
 import Foundation
 
-fileprivate class LinkedMap {
-    class Node {
-        
-    }
+final class MemoryCache<Element>: Cache {
     
-    var dict: CFMutableDictionary
-    var headNode: Node?
-    var tailNode: Node?
-    
-    
-    init() {
-        var keyCallBacks = kCFTypeDictionaryKeyCallBacks
-        var valueCallBacks = kCFTypeDictionaryValueCallBacks
-        
-        dict = CFDictionaryCreateMutable(nil, 0, &keyCallBacks, &valueCallBacks)
-        
-    }
-    
-    
-}
-
-
-typealias CacheObjectClosure = (_ cache: MemoryCache, _ key: String, _ object: Any?) -> Void
-
-
-class MemoryCache: Cache {
+    // protocol Cache
     func containsObject(forKey key: String) -> Bool {
         return false
     }
     
-    func object(forKey key: String) -> Any? {
+    func object(forKey key: String) -> Element? {
         return nil
     }
     
-    func object(forKey key: String, _ closure: @escaping CacheObjectClosure) {
-    }
-    
-    
-    func setObject(_ object: Any, forKey key: String, withCost cost: Int = 0) {
-        
+    func setObject(_ object: Element, forKey key: String, withCost cost: Int = 0) {
         
     }
-    
-    func setObject(_ object: Any, forKey key: String, withCost cost: Int = 0, _ closure: @escaping CacheObjectClosure) {
-    }
-    
     func removeObject(forKey key: String) {
         
     }
-    
     func removeAllObjects() {
+        
     }
+    
+    func containsObject(forKey key: String, _ closure: @escaping (MemoryCache<Element>, String, Bool) -> Void) { }
+    func object(forKey key: String, _ closure: @escaping (MemoryCache<Element>, String, Element?) -> Void) { }
+    func setObject(_ object: Element, forKey key: String, withCost cost: Int = 0, _ closure: @escaping (MemoryCache<Element>, String, Element?) -> Void) { }
+    
 }

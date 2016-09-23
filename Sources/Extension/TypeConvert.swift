@@ -7,10 +7,9 @@
 //
 
 import Foundation
-import CoreGraphics
 
 public extension Int {
-    public var CGFloat: CoreGraphics.CGFloat {
-        return CoreGraphics.CGFloat(self)
+    public var asCGFloat: CGFloat {
+        return CGFloat(self)
     }
 }
