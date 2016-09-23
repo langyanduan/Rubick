@@ -18,34 +18,41 @@ enum ImageFormat {
     case unknown
 }
 
-struct ImageDownloader {
-    class Cancelable {
-        private var request: Request
-        private var downloadCanceled: Bool = false
-        private var completeHandler: ((UIImage) -> Void)?
+extension URL {
+    fileprivate var imageCacheKey: String {
+        return self.absoluteString
+    }
+}
+
+public struct ImageDownloader {
+    public class Cancelable {
+//        fileprivate private(set) var completeHandler: ((Void) -> Void)?
+        fileprivate private(set) var request: Request?
+        fileprivate private(set) var downloadCanceled: Bool = false
+        fileprivate private(set) var handleCanceled: Bool = false
         
-        init(request: Request, completeHandler: @escaping ((UIImage) -> Void)) {
-            self.request = request
-            self.completeHandler = completeHandler
-        }
-        
-        func cancelDownload() {
+        public func cancelDownload() {
             guard !downloadCanceled else {
                 return
             }
             downloadCanceled = true
-            request.cancel()
+            request?.cancel()
         }
-        func cancelHandle() {
-            guard completeHandler != nil else {
+        public func cancelHandle() {
+            guard !handleCanceled else {
                 return
             }
-            completeHandler = nil
+            handleCanceled = true
+//            completeHandler = nil
         }
         
-        func cancelAll() {
+        public func cancelAll() {
             cancelDownload()
             cancelHandle()
+        }
+        
+        func setReuqest(_ request: Request) {
+            
         }
     }
     
@@ -60,7 +67,7 @@ struct ImageDownloader {
     let manager: Manager
     let cache: ImageCache
     let queue: DispatchQueue
-    let process: [ImageProcessor]
+    let processors: [ImageProcessor]
     let requestIntercept: ((URLRequest) -> URLRequest)?
     
     public static let shared = ImageDownloader()
@@ -68,24 +75,27 @@ struct ImageDownloader {
     init(manager: Manager = Default.manager,
          cache: ImageCache = Default.cache,
          queue: DispatchQueue = .global(),
-         process: [ImageProcessor] = [],
+         processors: [ImageProcessor] = [],
          requestIntercept: ((URLRequest) -> URLRequest)? = nil)
     {
         self.manager = manager
         self.cache = cache
         self.queue = queue
-        self.process = process
+        self.processors = processors
         self.requestIntercept = requestIntercept
     }
     
-    func fetchImage(withURL url: URL, completionHandler: (UIImage) -> Void) {
+    func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?) -> Void) {
+        
+        let cancelable = Cancelable()
+        
         queue.async {
-            if let image = self.fetchImageOnlyMemory(withURL: url) {
-                
+            if let image = self.memoryImage(withURL: url) {
+                completionHandler(image)
                 return
             }
-            if let image = self.fetchImageOnlyDisk(withURL: url) {
-                
+            if let image = self.diskImage(withURL: url) {
+                completionHandler(image)
                 return
             }
             
@@ -93,18 +103,31 @@ struct ImageDownloader {
             let urlRequest = self.requestIntercept?(originURLRequest) ?? originURLRequest
             let request = self.manager.sendRequest(urlRequest)
             
+            
             request.response(self.queue) { (data, response, error) in
+                guard error == nil, let response = response, let data = data, (200..<300).contains(response.statusCode) else {
+                    completionHandler(nil)
+                    return
+                }
                 
+                var image = UIImage(data: data)
+                for processor in self.processors {
+                    guard let originImage = image else {
+                        break
+                    }
+                    image = processor.process(originImage)
+                }
+                
+                completionHandler(image)
             }
         }
     }
     
-    func fetchImageOnlyDisk(withURL url: URL) -> UIImage? {
-        return nil
+    func diskImage(withURL url: URL) -> UIImage? {
+        return cache.diskCache.object(forKey: url.imageCacheKey)
     }
     
-    func fetchImageOnlyMemory(withURL url: URL) -> UIImage? {
-        return nil
+    func memoryImage(withURL url: URL) -> UIImage? {
+        return cache.memoryCache.object(forKey: url.imageCacheKey)
     }
-    
 }

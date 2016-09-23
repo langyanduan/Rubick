@@ -8,7 +8,7 @@
 
 import Foundation
 
-public let DiskCacheRootPath = ""
+public let DiskCacheRootPath = "com.rubick.cache"
 
 final class DiskCache<Element: NSCoding>: Cache {
     
@@ -41,6 +41,12 @@ final class DiskCache<Element: NSCoding>: Cache {
     let storePath: String
     
     init(path: String? = nil) {
-        storePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheRootPath).ext.appendingPathComponent(path ?? "")
+        // FIXME: 路径修正
+        let paths = [FileHelper.shared.cachesDirectory, DiskCacheRootPath, path ?? ""]
+        storePath = "/" + paths
+            .map { $0.trimmingCharacters(in: CharacterSet(charactersIn: "/")) }
+            .joined(separator: "/")
+        
+//        storePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheRootPath).ext.appendingPathComponent(path ?? "")
     }
 }
