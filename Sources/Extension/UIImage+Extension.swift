@@ -26,7 +26,7 @@ extension UIImage {
     }
 }
 
-enum ImageResizeMode {
+public enum ImageResizeMode {
 //    case top
 //    case bottom
 //    case left
@@ -46,19 +46,44 @@ extension InstanceExtension where Base: UIImage {
         return base.resizableImage(withCapInsets: UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .tile)
     }
     
-    func roundCornerImage(withRadius radius: CGFloat) -> UIImage {
+    public func roundCornerImage(withRadius radius: CGFloat) -> UIImage {
         return base
     }
-    func circularImage(withRadius radius: CGFloat) -> UIImage {
+    public func circularImage(withRadius radius: CGFloat) -> UIImage {
         return base
     }
-    func image(withTintColor tintColor: UIColor) -> UIImage {
+    public func image(withTintColor tintColor: UIColor) -> UIImage {
         return base
     }
-    
-    func resizeImage(withSize size: CGSize, mode: ImageResizeMode) -> UIImage {
+    public func resizeImage(withSize size: CGSize, mode: ImageResizeMode) -> UIImage {
         return base
     }
 }
 
+extension TypeExtension where Base: UIImage {
+    public func decode(fromData data: Data, scale: CGFloat) -> UIImage? {
+        guard let cgImage = UIImage(data: data, scale: scale)?.cgImage else {
+            return nil
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(.zero, false, scale)
+        let context = UIGraphicsGetCurrentContext()!
+        context.draw(cgImage, in: .zero)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    public func decode(fromContentFile file: String, scale: CGFloat) -> UIImage? {
+        guard let cgImage = UIImage(contentsOfFile: file)?.cgImage else {
+            return nil
+        }
+        
+        UIGraphicsBeginImageContextWithOptions(.zero, false, scale)
+        let context = UIGraphicsGetCurrentContext()!
+        context.draw(cgImage, in: .zero)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
 

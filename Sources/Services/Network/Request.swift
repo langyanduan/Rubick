@@ -95,6 +95,10 @@ public final class Request {
         task.cancel()
         Request.post(notification: .didCancel, object: task)
     }
+    
+    deinit {
+        LogD("request release")
+    }
 }
 
 extension Request: Notifier {

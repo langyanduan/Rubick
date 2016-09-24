@@ -19,9 +19,7 @@ enum ImageFormat {
 }
 
 public struct ImageDownloader {
-    public class Cancelable {
-//        fileprivate private(set) var completeHandler: ((Void) -> Void)?
-        
+    public class Task {
         fileprivate var request: Request? {
             get { _lock.lock(); defer { _lock.unlock() }; return _request }
             set { _lock.lock(); defer { _lock.unlock() }; _request = newValue }
@@ -40,6 +38,12 @@ public struct ImageDownloader {
         private var _request: Request?
         private var _downloadCanceled: Bool = false
         private var _handleCanceled: Bool = false
+        
+        public let url: URL
+        
+        init(url: URL) {
+            self.url = url
+        }
         
         private func cancelDownload() {
             guard !_downloadCanceled else {
@@ -66,7 +70,10 @@ public struct ImageDownloader {
     }
     
     private struct Default {
-        static let sessionConfiguration = URLSessionConfiguration.default.then { (configuration) in }
+        static let sessionConfiguration = URLSessionConfiguration.default.then { (configuration) in
+            configuration.timeoutIntervalForRequest = 10
+            configuration.timeoutIntervalForResource = 10
+        }
         static let manager = Manager(configuration: sessionConfiguration)
         static let cache = ImageCache()
         
@@ -75,7 +82,7 @@ public struct ImageDownloader {
     
     let manager: Manager
     let cache: ImageCache
-    let queue: DispatchQueue
+    let decodeQueue: DispatchQueue
     let processors: [ImageProcessor]
     let requestIntercept: ((URLRequest) -> URLRequest)?
     
@@ -83,19 +90,21 @@ public struct ImageDownloader {
     
     init(manager: Manager = Default.manager,
          cache: ImageCache = Default.cache,
-         queue: DispatchQueue = .global(),
+         decodeQueue: DispatchQueue = .global(),
          processors: [ImageProcessor] = [],
          requestIntercept: ((URLRequest) -> URLRequest)? = nil)
     {
+        assert(!decodeQueue.isMainQueue, "Please does not decode and process image in main queue.")
+        
         self.manager = manager
         self.cache = cache
-        self.queue = queue
+        self.decodeQueue = decodeQueue
         self.processors = processors
         self.requestIntercept = requestIntercept
     }
     
-    func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?, Bool) -> Void) -> Cancelable {
-        let cancelable = Cancelable()
+    public func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?, Bool) -> Void) -> Task {
+        let cancelable = Task(url: url)
         
         func processAndCacheImage(_ image: UIImage?) -> UIImage? {
             var image = image
@@ -111,7 +120,7 @@ public struct ImageDownloader {
             return image
         }
         
-        queue.async {
+        decodeQueue.async {
             if let image = self.cache.memoryImage(withURL: url) {
                 completionHandler(image, cancelable.handleCanceled)
                 return
@@ -133,7 +142,7 @@ public struct ImageDownloader {
             
             cancelable.request = request
             
-            request.response(self.queue) { (data, response, error) in
+            request.response(self.decodeQueue) { (data, response, error) in
                 if cancelable.downloadCanceled {
                     completionHandler(nil, true)
                     return

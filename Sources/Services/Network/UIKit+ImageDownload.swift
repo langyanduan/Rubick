@@ -9,8 +9,20 @@
 import Foundation
 import UIKit
 
+private var associatedKey: Void = ()
+
 extension InstanceExtension where Base: UIImageView {
-    func setImage(withURLString urlString: String?, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
+    
+    private func setDownloadTask(_ task: ImageDownloader.Task) {
+        objc_setAssociatedObject(base, &associatedKey, task, .OBJC_ASSOCIATION_RETAIN)
+    }
+    
+    
+    public var downloadTask: ImageDownloader.Task? {
+        get { return objc_getAssociatedObject(base, &associatedKey) as? ImageDownloader.Task }
+    }
+    
+    public func setImage(withURLString urlString: String?, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
         guard let urlString = urlString else {
             LogW("urlString is nil")
             return
@@ -22,20 +34,23 @@ extension InstanceExtension where Base: UIImageView {
         setImage(withURL: url, placeholer: placeholer, downloader: downloader)
     }
     
-    func setImage(withURL url: URL, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
-//        if let image = downloader.memoryImage(withURL: url) {
-//            base.image = image
-//            return
-//        }
-//        
-        base.image = placeholer
+    public func setImage(withURL url: URL, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
+        downloadTask?.cancel(alsoDownload: false)
         
-        downloader.fetchImage(withURL: url) { (image, canceled) in
-            if canceled {
+        asyncOnMainQueue {
+            self.base.image = placeholer
+        }
+        
+        let task = downloader.fetchImage(withURL: url) { (image, canceled) in
+            if canceled || image == nil {
                 return
             }
             
-            self.base.image = image
+            asyncOnMainQueue {
+                self.base.image = image
+            }
         }
+        
+        setDownloadTask(task)
     }
 }

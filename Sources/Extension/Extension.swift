@@ -43,7 +43,9 @@ public extension InstanceCompatible {
 extension UIView: InstanceCompatible {}
 extension UIImage: InstanceCompatible {}
 extension UIColor: InstanceCompatible {}
+
 extension UIColor: TypeCompatible {}
+extension UIImage: TypeCompatible {}
 
 // MARK: struct
 
@@ -52,4 +54,6 @@ extension Array: _ArrayType {}
 
 public protocol _StringType: InstanceCompatible {}
 extension String: _StringType {}
+
+
 
