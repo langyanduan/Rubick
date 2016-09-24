@@ -66,13 +66,22 @@ extension TypeExtension where Base: UIImage {
             return nil
         }
         
-        UIGraphicsBeginImageContextWithOptions(.zero, false, scale)
-        let context = UIGraphicsGetCurrentContext()!
-        context.draw(cgImage, in: .zero)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+        guard let context = CGContext(
+            data: nil,
+            width: cgImage.width,
+            height: cgImage.height,
+            bitsPerComponent: 8,
+            bytesPerRow: 0,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: cgImage.bitmapInfo.rawValue) else {
+            return nil
+        }
+        
+        context.draw(cgImage, in: CGRect(origin: .zero, size: CGSize(width: cgImage.width, height: cgImage.height)))
+        guard let decodedImageRef = context.makeImage() else { return nil }
+        return UIImage(cgImage: decodedImageRef, scale: scale, orientation: .up)
     }
+    
     public func decode(fromContentFile file: String, scale: CGFloat) -> UIImage? {
         guard let cgImage = UIImage(contentsOfFile: file)?.cgImage else {
             return nil

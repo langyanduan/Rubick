@@ -14,6 +14,9 @@
 		5041EA771D9515890001BA42 /* UIKit+ImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */; };
 		5041EA7A1D951C270001BA42 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA791D951C270001BA42 /* ImageProcessor.swift */; };
 		505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505339551D964AEB004CFE87 /* DispatchQueue+Extension.swift */; };
+		5053395E1D9691FA004CFE87 /* RubickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5053395D1D9691FA004CFE87 /* RubickTests.swift */; };
+		505339601D9691FA004CFE87 /* Rubick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; };
+		505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505339661D969590004CFE87 /* ImageDownloaderTests.swift */; };
 		5068DA571D8FC39A00068996 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA561D8FC39A00068996 /* Promise.swift */; };
 		5068DA5D1D8FDF8A00068996 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA5C1D8FDF8A00068996 /* Box.swift */; };
 		5068DA5F1D8FE7D900068996 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA5E1D8FE7D900068996 /* ImageDownloader.swift */; };
@@ -52,6 +55,16 @@
 		50F5AAAD1D912DFE00C67E4C /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		505339611D9691FA004CFE87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50E92FDA1D658673005A1048 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50E92FE41D658690005A1048;
+			remoteInfo = Rubick;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5022940A1D8530E90032CE2F /* Then.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Then.swift; sourceTree = "<group>"; };
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -60,6 +73,10 @@
 		5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+ImageDownload.swift"; sourceTree = "<group>"; };
 		5041EA791D951C270001BA42 /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		505339551D964AEB004CFE87 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
+		5053395B1D9691FA004CFE87 /* RubickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5053395D1D9691FA004CFE87 /* RubickTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RubickTests.swift; sourceTree = "<group>"; };
+		5053395F1D9691FA004CFE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		505339661D969590004CFE87 /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
 		5068DA561D8FC39A00068996 /* Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		5068DA5C1D8FDF8A00068996 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		5068DA5E1D8FE7D900068996 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
@@ -101,6 +118,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		505339581D9691FA004CFE87 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				505339601D9691FA004CFE87 /* Rubick.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50E92FE11D658690005A1048 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,6 +146,16 @@
 				5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */,
 			);
 			name = Image;
+			sourceTree = "<group>";
+		};
+		5053395C1D9691FA004CFE87 /* RubickTests */ = {
+			isa = PBXGroup;
+			children = (
+				5053395F1D9691FA004CFE87 /* Info.plist */,
+				5053395D1D9691FA004CFE87 /* RubickTests.swift */,
+				505339661D969590004CFE87 /* ImageDownloaderTests.swift */,
+			);
+			path = RubickTests;
 			sourceTree = "<group>";
 		};
 		50A849021D7E5F4100A99CAE /* Services */ = {
@@ -185,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				50E92FE71D658690005A1048 /* Rubick */,
+				5053395C1D9691FA004CFE87 /* RubickTests */,
 				50E92FE61D658690005A1048 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -193,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				50E92FE51D658690005A1048 /* Rubick.framework */,
+				5053395B1D9691FA004CFE87 /* RubickTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -249,6 +286,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		5053395A1D9691FA004CFE87 /* RubickTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 505339631D9691FA004CFE87 /* Build configuration list for PBXNativeTarget "RubickTests" */;
+			buildPhases = (
+				505339571D9691FA004CFE87 /* Sources */,
+				505339581D9691FA004CFE87 /* Frameworks */,
+				505339591D9691FA004CFE87 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				505339621D9691FA004CFE87 /* PBXTargetDependency */,
+			);
+			name = RubickTests;
+			productName = RubickTests;
+			productReference = 5053395B1D9691FA004CFE87 /* RubickTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		50E92FE41D658690005A1048 /* Rubick */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 50E92FEB1D658690005A1048 /* Build configuration list for PBXNativeTarget "Rubick" */;
@@ -273,9 +328,15 @@
 		50E92FDA1D658673005A1048 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
+					5053395A1D9691FA004CFE87 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = BLU32697WN;
+						ProvisioningStyle = Automatic;
+					};
 					50E92FE41D658690005A1048 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
@@ -295,11 +356,19 @@
 			projectRoot = "";
 			targets = (
 				50E92FE41D658690005A1048 /* Rubick */,
+				5053395A1D9691FA004CFE87 /* RubickTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		505339591D9691FA004CFE87 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50E92FE31D658690005A1048 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,6 +379,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		505339571D9691FA004CFE87 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */,
+				5053395E1D9691FA004CFE87 /* RubickTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		50E92FE01D658690005A1048 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -360,7 +438,87 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		505339621D9691FA004CFE87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50E92FE41D658690005A1048 /* Rubick */;
+			targetProxy = 505339611D9691FA004CFE87 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		505339641D9691FA004CFE87 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = BLU32697WN;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = RubickTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rubick.RubickTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		505339651D9691FA004CFE87 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = BLU32697WN;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = RubickTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rubick.RubickTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 3.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		50E92FDE1D658673005A1048 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -524,6 +682,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		505339631D9691FA004CFE87 /* Build configuration list for PBXNativeTarget "RubickTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				505339641D9691FA004CFE87 /* Debug */,
+				505339651D9691FA004CFE87 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		50E92FDD1D658673005A1048 /* Build configuration list for PBXProject "Rubick" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

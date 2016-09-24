@@ -17,7 +17,6 @@ extension InstanceExtension where Base: UIImageView {
         objc_setAssociatedObject(base, &associatedKey, task, .OBJC_ASSOCIATION_RETAIN)
     }
     
-    
     public var downloadTask: ImageDownloader.Task? {
         get { return objc_getAssociatedObject(base, &associatedKey) as? ImageDownloader.Task }
     }

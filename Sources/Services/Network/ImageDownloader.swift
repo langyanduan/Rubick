@@ -8,16 +8,6 @@
 
 import Foundation
 
-private let ImageDiskCachePath = "images"
-//private let diskCache: DiskCache = DiskCache(path: ImageDiskCachePath)
-
-enum ImageFormat {
-    case jpeg
-    case png
-    case gif
-    case unknown
-}
-
 public struct ImageDownloader {
     public class Task {
         fileprivate var request: Request? {
@@ -103,6 +93,7 @@ public struct ImageDownloader {
         self.requestIntercept = requestIntercept
     }
     
+    @discardableResult
     public func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?, Bool) -> Void) -> Task {
         let cancelable = Task(url: url)
         
@@ -153,7 +144,7 @@ public struct ImageDownloader {
                     return
                 }
                 
-                guard let image = ImageDecoder.image(fromBytes: data) else {
+                guard let image = ImageDecoder.image(fromData: data, scale: 1.0) else {
                     completionHandler(nil, false)
                     return
                 }
