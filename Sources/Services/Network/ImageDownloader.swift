@@ -94,7 +94,13 @@ public struct ImageDownloader {
     }
     
     @discardableResult
-    public func fetchImage(withURL url: URL, completionHandler: @escaping (UIImage?, Bool) -> Void) -> Task {
+    public func fetchImage(
+        withURL url: URL,
+        queue: DispatchQueue = .main,
+        processHandler: ((Int64, Int64) -> Void)? = nil,
+        completionHandler: @escaping (UIImage?, Bool) -> Void)
+        -> Task
+    {
         let cancelable = Task(url: url)
         
         func processAndCacheImage(_ image: UIImage?) -> UIImage? {
@@ -129,29 +135,31 @@ public struct ImageDownloader {
             
             let originURLRequest = URLRequest(url: url)
             let urlRequest = self.requestIntercept?(originURLRequest) ?? originURLRequest
-            let request = self.manager.sendRequest(urlRequest)
+            let request = self.manager.request(urlRequest)
             
             cancelable.request = request
+
             
-            request.response(self.decodeQueue) { (data, response, error) in
-                if cancelable.downloadCanceled {
-                    completionHandler(nil, true)
-                    return
+            request
+                .response(self.decodeQueue) { (data, response, error) in
+                    if cancelable.downloadCanceled {
+                        completionHandler(nil, true)
+                        return
+                    }
+                    
+                    guard error == nil, let response = response, let data = data, (200..<300).contains(response.statusCode) else {
+                        completionHandler(nil, false)
+                        return
+                    }
+                    
+                    guard let image = ImageDecoder.image(fromData: data, scale: 1.0) else {
+                        completionHandler(nil, false)
+                        return
+                    }
+                    
+                    self.cache.setDiskImage(image, forURL: url)
+                    completionHandler(processAndCacheImage(image), cancelable.handleCanceled)
                 }
-                
-                guard error == nil, let response = response, let data = data, (200..<300).contains(response.statusCode) else {
-                    completionHandler(nil, false)
-                    return
-                }
-                
-                guard let image = ImageDecoder.image(fromData: data, scale: 1.0) else {
-                    completionHandler(nil, false)
-                    return
-                }
-                
-                self.cache.setDiskImage(image, forURL: url)
-                completionHandler(processAndCacheImage(image), cancelable.handleCanceled)
-            }
         }
         
         return cancelable

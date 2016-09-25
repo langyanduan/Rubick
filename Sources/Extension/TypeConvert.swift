@@ -12,4 +12,8 @@ public extension Int {
     public var asCGFloat: CGFloat {
         return CGFloat(self)
     }
+    
+    public var asInt64: Int64 {
+        return Int64(self)
+    }
 }

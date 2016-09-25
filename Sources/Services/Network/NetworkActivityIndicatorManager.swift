@@ -15,10 +15,10 @@ private extension Selector {
 
 public class NetworkActivityIndicatorManager {
     private init() {
-        Request.addObserver(self, selector: .RequestDidStart, notification: .didResume, object: nil)
-        Request.addObserver(self, selector: .RequestDidStop, notification: .didCancel, object: nil)
-        Request.addObserver(self, selector: .RequestDidStop, notification: .didSuspend, object: nil)
-        Request.addObserver(self, selector: .RequestDidStop, notification: .didComplete, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .RequestDidStart, name: Notification.Name.Rubick.RequestDidResume, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .RequestDidStop, name: Notification.Name.Rubick.RequestDidSuspend, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .RequestDidStop, name: Notification.Name.Rubick.RequestDidComplete, object: nil)
+        NotificationCenter.default.addObserver(self, selector: .RequestDidStop, name: Notification.Name.Rubick.RequestDidCancel, object: nil)
     }
     
     deinit {
@@ -40,7 +40,6 @@ public class NetworkActivityIndicatorManager {
     private var enable = true
     private var activityCount = 0
     private let lock: NSLock = NSLock()
-    
     
     @objc
     fileprivate func requestDidStart() {

@@ -22,6 +22,9 @@
 		5068DA5F1D8FE7D900068996 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA5E1D8FE7D900068996 /* ImageDownloader.swift */; };
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
+		5080171A1D979709005C50D8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508017191D979709005C50D8 /* Response.swift */; };
+		5080171C1D979727005C50D8 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080171B1D979727005C50D8 /* Notification.swift */; };
+		5080171E1D979745005C50D8 /* TaskHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080171D1D979745005C50D8 /* TaskHandler.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
 		50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */; };
 		50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849571D800BC500A99CAE /* BodyParameters.swift */; };
@@ -29,7 +32,6 @@
 		50A8495E1D800BC500A99CAE /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849591D800BC500A99CAE /* Manager.swift */; };
 		50A8495F1D800BC500A99CAE /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A8495A1D800BC500A99CAE /* Request.swift */; };
 		50A849601D800BC500A99CAE /* RequestType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A8495B1D800BC500A99CAE /* RequestType.swift */; };
-		50A849661D8016AC00A99CAE /* Notifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849651D8016AC00A99CAE /* Notifier.swift */; };
 		50A849681D80F73800A99CAE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849671D80F73800A99CAE /* Result.swift */; };
 		50A8496C1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */; };
 		50B6BB0E1D658B8600256B2F /* Rubick.h in Headers */ = {isa = PBXBuildFile; fileRef = 50B6BB0D1D658B8600256B2F /* Rubick.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -82,6 +84,9 @@
 		5068DA5E1D8FE7D900068996 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
+		508017191D979709005C50D8 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		5080171B1D979727005C50D8 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		5080171D1D979745005C50D8 /* TaskHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskHandler.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		50A849571D800BC500A99CAE /* BodyParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyParameters.swift; sourceTree = "<group>"; };
@@ -89,7 +94,6 @@
 		50A849591D800BC500A99CAE /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
 		50A8495A1D800BC500A99CAE /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		50A8495B1D800BC500A99CAE /* RequestType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestType.swift; sourceTree = "<group>"; };
-		50A849651D8016AC00A99CAE /* Notifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifier.swift; sourceTree = "<group>"; };
 		50A849671D80F73800A99CAE /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkActivityIndicatorManager.swift; sourceTree = "<group>"; };
 		50B6BB0D1D658B8600256B2F /* Rubick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Rubick.h; sourceTree = SOURCE_ROOT; };
@@ -167,7 +171,6 @@
 				50C901521D84282F000079AA /* Information.swift */,
 				50C901561D843335000079AA /* Device.swift */,
 				50A849671D80F73800A99CAE /* Result.swift */,
-				50A849651D8016AC00A99CAE /* Notifier.swift */,
 				5068DA5C1D8FDF8A00068996 /* Box.swift */,
 				50BDBCCC1D90D48C00F3F8B3 /* Cache */,
 				50A849031D7E5F4100A99CAE /* Network */,
@@ -181,8 +184,11 @@
 			children = (
 				50A849571D800BC500A99CAE /* BodyParameters.swift */,
 				50A849581D800BC500A99CAE /* Error.swift */,
+				5080171B1D979727005C50D8 /* Notification.swift */,
 				50A849591D800BC500A99CAE /* Manager.swift */,
+				5080171D1D979745005C50D8 /* TaskHandler.swift */,
 				50A8495A1D800BC500A99CAE /* Request.swift */,
+				508017191D979709005C50D8 /* Response.swift */,
 				50A8495B1D800BC500A99CAE /* RequestType.swift */,
 				50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */,
 				5041EA781D9515900001BA42 /* Image */,
@@ -403,6 +409,7 @@
 				50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */,
 				5068DA571D8FC39A00068996 /* Promise.swift in Sources */,
 				50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */,
+				5080171E1D979745005C50D8 /* TaskHandler.swift in Sources */,
 				50A8495F1D800BC500A99CAE /* Request.swift in Sources */,
 				5068DA5D1D8FDF8A00068996 /* Box.swift in Sources */,
 				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
@@ -421,15 +428,16 @@
 				50A849601D800BC500A99CAE /* RequestType.swift in Sources */,
 				50A8496C1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */,
-				50A849661D8016AC00A99CAE /* Notifier.swift in Sources */,
 				50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */,
 				5041EA731D94FB030001BA42 /* ImageCache.swift in Sources */,
 				5022940B1D8530E90032CE2F /* Then.swift in Sources */,
+				5080171A1D979709005C50D8 /* Response.swift in Sources */,
 				50BDBCCE1D90D48C00F3F8B3 /* Cache.swift in Sources */,
 				50F5AAAD1D912DFE00C67E4C /* FileHelper.swift in Sources */,
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
+				5080171C1D979727005C50D8 /* Notification.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				50C901571D843335000079AA /* Device.swift in Sources */,
 				505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */,
@@ -689,6 +697,7 @@
 				505339651D9691FA004CFE87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50E92FDD1D658673005A1048 /* Build configuration list for PBXProject "Rubick" */ = {
 			isa = XCConfigurationList;
