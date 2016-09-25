@@ -21,19 +21,15 @@ extension InstanceExtension where Base: UIImageView {
         get { return objc_getAssociatedObject(base, &associatedKey) as? ImageDownloader.Task }
     }
     
-    public func setImage(withURLString urlString: String?, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
-        guard let urlString = urlString else {
-            LogW("urlString is nil")
-            return
-        }
-        guard let url = URL(string: urlString) else {
-            LogW("convert urlString to url fail!")
+    public func setImage(with url: URLConvertible, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
+        guard let url = try? url.asURL() else {
+            LogW("convert  to url fail!")
             return
         }
         setImage(withURL: url, placeholer: placeholer, downloader: downloader)
     }
     
-    public func setImage(withURL url: URL, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
+    func setImage(withURL url: URL, placeholer: UIImage? = nil, downloader: ImageDownloader = .shared) {
         downloadTask?.cancel(alsoDownload: false)
         
         asyncOnMainQueue {

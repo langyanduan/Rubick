@@ -33,6 +33,10 @@ public protocol URLRequestConvertible {
     func asURLRequest() throws -> URLRequest
 }
 
+public protocol URLConvertible {
+    func asURL() throws -> URL
+}
+
 public protocol RequestType: URLRequestConvertible {
     var baseURL: String { get }
     var path: String { get }
@@ -69,6 +73,7 @@ public extension RequestType {
             guard let URLComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
                 throw HTTPError.url
             }
+            _ = queryParameters
             
             request.url = URLComponents.url
         } else {
@@ -80,5 +85,20 @@ public extension RequestType {
         request.httpMethod = method.rawValue
         
         return request
+    }
+}
+
+extension String: URLConvertible {
+    public func asURL() throws -> URL {
+        guard let url = URL(string: self) else {
+            throw HTTPError.url
+        }
+        return url
+    }
+}
+
+extension URL: URLConvertible {
+    public func asURL() throws -> URL {
+        return self
     }
 }

@@ -182,6 +182,7 @@
 		50A849031D7E5F4100A99CAE /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				50A8495B1D800BC500A99CAE /* RequestType.swift */,
 				50A849571D800BC500A99CAE /* BodyParameters.swift */,
 				50A849581D800BC500A99CAE /* Error.swift */,
 				5080171B1D979727005C50D8 /* Notification.swift */,
@@ -189,7 +190,6 @@
 				5080171D1D979745005C50D8 /* TaskHandler.swift */,
 				50A8495A1D800BC500A99CAE /* Request.swift */,
 				508017191D979709005C50D8 /* Response.swift */,
-				50A8495B1D800BC500A99CAE /* RequestType.swift */,
 				50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */,
 				5041EA781D9515900001BA42 /* Image */,
 			);
