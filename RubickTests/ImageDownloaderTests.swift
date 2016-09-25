@@ -26,8 +26,12 @@ class ImageDownloaderTests: XCTestCase {
         guard let url = URL(string: urlString) else {
             return
         }
+        let downloader = ImageDownloader(processors: [
+            ResizingImageProcessor(size: CGSize(width: 100, height: 100), mode: .scaleToFill),
+            RoundCornerImageProcessor(radius: 50)
+        ])
         
-        ImageDownloader.shared.fetchImage(withURL: url) { (image, canceled) in
+        downloader.fetchImage(withURL: url) { (image, canceled) in
             XCTAssertFalse(canceled)
             XCTAssertNotNil(image)
             expectation.fulfill()

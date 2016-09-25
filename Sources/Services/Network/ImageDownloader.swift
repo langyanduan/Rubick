@@ -78,11 +78,11 @@ public struct ImageDownloader {
     
     public static let shared = ImageDownloader()
     
-    init(manager: Manager = Default.manager,
-         cache: ImageCache = Default.cache,
-         decodeQueue: DispatchQueue = .global(),
-         processors: [ImageProcessor] = [],
-         requestIntercept: ((URLRequest) -> URLRequest)? = nil)
+    public init(manager: Manager = Default.manager,
+                cache: ImageCache = Default.cache,
+                decodeQueue: DispatchQueue = .global(),
+                processors: [ImageProcessor] = [],
+                requestIntercept: ((URLRequest) -> URLRequest)? = nil)
     {
         assert(!decodeQueue.isMainQueue, "Please does not decode and process image in main queue.")
         

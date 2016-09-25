@@ -46,26 +46,62 @@ extension InstanceExtension where Base: UIImage {
         return base.resizableImage(withCapInsets: UIEdgeInsets(top: vInset, left: hInset, bottom: height - vInset - 1, right: width - hInset - 1), resizingMode: .tile)
     }
     
-    public func roundCornerImage(withRadius radius: CGFloat) -> UIImage {
-        return base
-    }
-    public func circularImage(withRadius radius: CGFloat) -> UIImage {
-        return base
-    }
     public func image(withTintColor tintColor: UIColor) -> UIImage {
         return base
     }
-    public func resizeImage(withSize size: CGSize, mode: ImageResizeMode) -> UIImage {
-        return base
+    public func roundCornerImage(withRadius radius: CGFloat) -> UIImage {
+        UIGraphicsBeginImageContext(base.size)
+        defer { UIGraphicsEndImageContext() }
+        
+        let rect = CGRect(origin: .zero, size: base.size)
+        
+        UIBezierPath(roundedRect: rect, cornerRadius: radius).addClip()
+        base.draw(in: rect)
+        
+        return UIGraphicsGetImageFromCurrentImageContext()!
+    }
+    
+    public func circularImage(withRadius radius: CGFloat) -> UIImage {
+        let size = CGSize(width: 2 * radius, height: 2 * radius)
+        
+        UIGraphicsBeginImageContext(size)
+        defer { UIGraphicsEndImageContext() }
+        
+        UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: radius).addClip()
+        
+        let x = radius - base.size.width / 2, y = radius - base.size.height / 2
+        let rect = CGRect(origin: CGPoint(x: x, y: y), size: base.size)
+        base.draw(in: rect)
+        
+        return UIGraphicsGetImageFromCurrentImageContext()!
+    }
+    public func resizeImage(withSize size: CGSize, mode: ImageResizeMode = .scaleToFill) -> UIImage {
+        UIGraphicsBeginImageContext(size)
+        defer { UIGraphicsEndImageContext() }
+        
+        let rect: CGRect
+        switch mode {
+        case .scaleToFill:
+            rect = CGRect(origin: .zero, size: size)
+        case .scaleAspectFill:
+//            let aspectRatio = base.size.height == 0.0 ? 1.0 : base.size.width / base.size.height
+//            let aspectWidth = round(aspectRatio * size.height)
+//            let aspectHeight = round(size.width / aspectRatio)
+//            
+//            let size = aspectWidth < size.width ? CGSize(width: size.width, height: aspectHeight) : CGSize(width: aspectWidth, height: size.height)
+            rect = .zero
+        case .scaleAspectFit:
+            rect = .zero
+        }
+        
+        base.draw(in: rect)
+        
+        return UIGraphicsGetImageFromCurrentImageContext()!
     }
 }
 
 extension TypeExtension where Base: UIImage {
-    public func decode(fromData data: Data, scale: CGFloat) -> UIImage? {
-        guard let cgImage = UIImage(data: data, scale: scale)?.cgImage else {
-            return nil
-        }
-        
+    private func decode(cgImage: CGImage, scale: CGFloat, orientation: UIImageOrientation) -> UIImage? {
         guard let context = CGContext(
             data: nil,
             width: cgImage.width,
@@ -79,20 +115,22 @@ extension TypeExtension where Base: UIImage {
         
         context.draw(cgImage, in: CGRect(origin: .zero, size: CGSize(width: cgImage.width, height: cgImage.height)))
         guard let decodedImageRef = context.makeImage() else { return nil }
-        return UIImage(cgImage: decodedImageRef, scale: scale, orientation: .up)
+        return UIImage(cgImage: decodedImageRef, scale: scale, orientation: orientation)
     }
     
-    public func decode(fromContentFile file: String, scale: CGFloat) -> UIImage? {
-        guard let cgImage = UIImage(contentsOfFile: file)?.cgImage else {
+    public func decode(fromData data: Data, scale: CGFloat) -> UIImage? {
+        guard let image = UIImage(data: data, scale: scale), let cgImage = image.cgImage else {
             return nil
         }
         
-        UIGraphicsBeginImageContextWithOptions(.zero, false, scale)
-        let context = UIGraphicsGetCurrentContext()!
-        context.draw(cgImage, in: .zero)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
+        return decode(cgImage: cgImage, scale: scale, orientation: image.imageOrientation)
+    }
+    
+    public func decode(fromContentFile fileName: String) -> UIImage? {
+        guard let image = UIImage(contentsOfFile: fileName), let cgImage = image.cgImage else {
+            return nil
+        }
+        return decode(cgImage: cgImage, scale: image.scale, orientation: image.imageOrientation)
     }
 }
 

@@ -8,31 +8,44 @@
 
 import Foundation
 
-protocol ImageProcessor {
+public protocol ImageProcessor {
     func process(_ image: UIImage) -> UIImage?
 }
 
-struct RoundCornerImageProcessor: ImageProcessor {
+public struct RoundCornerImageProcessor: ImageProcessor {
     let radius: CGFloat
     
-    func process(_ image: UIImage) -> UIImage? {
+    public init(radius: CGFloat) {
+        self.radius = radius
+    }
+    
+    public func process(_ image: UIImage) -> UIImage? {
         return image.ext.roundCornerImage(withRadius: radius)
     }
 }
 
-struct CircularImageProcessor: ImageProcessor {
+public struct CircularImageProcessor: ImageProcessor {
     let radius: CGFloat
     
-    func process(_ image: UIImage) -> UIImage? {
+    public init(radius: CGFloat) {
+        self.radius = radius
+    }
+    
+    public func process(_ image: UIImage) -> UIImage? {
         return image.ext.circularImage(withRadius: radius)
     }
 }
 
-struct ResizingImageProcessor: ImageProcessor {
+public struct ResizingImageProcessor: ImageProcessor {
     let size: CGSize
     let mode: ImageResizeMode
     
-    func process(_ image: UIImage) -> UIImage? {
+    public init(size: CGSize, mode: ImageResizeMode) {
+        self.size = size
+        self.mode = mode
+    }
+    
+    public func process(_ image: UIImage) -> UIImage? {
         return image.ext.resizeImage(withSize: size, mode: mode)
     }
 }

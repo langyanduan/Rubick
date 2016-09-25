@@ -15,7 +15,7 @@ extension URL {
     }
 }
 
-class ImageCache {
+public class ImageCache {
     private static let defaultDiskCachePath = "images"
     private static let defaultDiskCache = DiskCache<UIImage>(path: defaultDiskCachePath)
     
