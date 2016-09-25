@@ -84,14 +84,35 @@ extension InstanceExtension where Base: UIImage {
         case .scaleToFill:
             rect = CGRect(origin: .zero, size: size)
         case .scaleAspectFill:
-//            let aspectRatio = base.size.height == 0.0 ? 1.0 : base.size.width / base.size.height
-//            let aspectWidth = round(aspectRatio * size.height)
-//            let aspectHeight = round(size.width / aspectRatio)
-//            
-//            let size = aspectWidth < size.width ? CGSize(width: size.width, height: aspectHeight) : CGSize(width: aspectWidth, height: size.height)
-            rect = .zero
+            let aspectRatio = base.size.height == 0.0 ? 1.0 : base.size.width / base.size.height
+            let aspectWidth = round(aspectRatio * size.height)
+            let aspectHeight = round(size.width / aspectRatio)
+            
+            let width: CGFloat, height: CGFloat
+            if aspectWidth < size.width {
+                width = size.width
+                height = aspectHeight
+            } else {
+                width = aspectWidth
+                height = size.height
+            }
+            
+            rect = CGRect(x: (size.width - width) / 2, y: (size.height - height) / 2, width: width, height: height)
         case .scaleAspectFit:
-            rect = .zero
+            let aspectRatio = base.size.height == 0.0 ? 1.0 : base.size.width / base.size.height
+            let aspectWidth = round(aspectRatio * size.height)
+            let aspectHeight = round(size.width / aspectRatio)
+            
+            let width: CGFloat, height: CGFloat
+            if aspectWidth > size.width {
+                width = size.width
+                height = aspectHeight
+            } else {
+                width = aspectWidth
+                height = size.height
+            }
+            
+            rect = CGRect(x: (size.width - width) / 2, y: (size.height - height) / 2, width: width, height: height)
         }
         
         base.draw(in: rect)
