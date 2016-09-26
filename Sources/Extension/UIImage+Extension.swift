@@ -50,7 +50,7 @@ extension InstanceExtension where Base: UIImage {
         return base
     }
     public func roundCornerImage(withRadius radius: CGFloat) -> UIImage {
-        UIGraphicsBeginImageContext(base.size)
+        UIGraphicsBeginImageContextWithOptions(base.size, false, base.scale)
         defer { UIGraphicsEndImageContext() }
         
         let rect = CGRect(origin: .zero, size: base.size)
@@ -63,8 +63,7 @@ extension InstanceExtension where Base: UIImage {
     
     public func circularImage(withRadius radius: CGFloat) -> UIImage {
         let size = CGSize(width: 2 * radius, height: 2 * radius)
-        
-        UIGraphicsBeginImageContext(size)
+        UIGraphicsBeginImageContextWithOptions(size, false, base.scale)
         defer { UIGraphicsEndImageContext() }
         
         UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: radius).addClip()
@@ -75,8 +74,9 @@ extension InstanceExtension where Base: UIImage {
         
         return UIGraphicsGetImageFromCurrentImageContext()!
     }
+    
     public func resizeImage(withSize size: CGSize, mode: ImageResizeMode = .scaleToFill) -> UIImage {
-        UIGraphicsBeginImageContext(size)
+        UIGraphicsBeginImageContextWithOptions(size, false, base.scale)
         defer { UIGraphicsEndImageContext() }
         
         let rect: CGRect

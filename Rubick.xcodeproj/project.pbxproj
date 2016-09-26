@@ -54,6 +54,8 @@
 		50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92FF21D658700005A1048 /* UIColor+Extension.swift */; };
 		50F5AAA91D91284C00C67E4C /* ImageDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAA81D91284C00C67E4C /* ImageDecoder.swift */; };
 		50F5AAAD1D912DFE00C67E4C /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */; };
+		50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB008C1D98CC6D008EE165 /* LruCache.swift */; };
+		50FB008F1D990C4B008EE165 /* LruCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB008E1D990C4B008EE165 /* LruCacheTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +119,8 @@
 		50E92FF81D65880E005A1048 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
 		50F5AAA81D91284C00C67E4C /* ImageDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDecoder.swift; sourceTree = "<group>"; };
 		50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		50FB008C1D98CC6D008EE165 /* LruCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LruCache.swift; sourceTree = "<group>"; };
+		50FB008E1D990C4B008EE165 /* LruCacheTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LruCacheTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,7 @@
 			children = (
 				5053395F1D9691FA004CFE87 /* Info.plist */,
 				505339661D969590004CFE87 /* ImageDownloaderTests.swift */,
+				50FB008E1D990C4B008EE165 /* LruCacheTests.swift */,
 			);
 			path = RubickTests;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 		50BDBCCC1D90D48C00F3F8B3 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
+				50FB008C1D98CC6D008EE165 /* LruCache.swift */,
 				50BDBCCD1D90D48C00F3F8B3 /* Cache.swift */,
 				50BDBCCF1D90D49500F3F8B3 /* DiskCache.swift */,
 				50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */,
@@ -386,6 +392,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50FB008F1D990C4B008EE165 /* LruCacheTests.swift in Sources */,
 				505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,6 +440,7 @@
 				50A849681D80F73800A99CAE /* Result.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
+				50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */,
 				5080171C1D979727005C50D8 /* Notification.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				50C901571D843335000079AA /* Device.swift in Sources */,

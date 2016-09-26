@@ -21,7 +21,7 @@ final class DiskCache<Element: NSCoding>: Cache {
         return nil
     }
     
-    func setObject(_ object: Element, forKey key: String, withCost cost: Int = 0) {
+    func setObject(_ object: Element, forKey key: String) {
         
     }
     func removeObject(forKey key: String) {
@@ -33,7 +33,7 @@ final class DiskCache<Element: NSCoding>: Cache {
     
     func containsObject(forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Bool) -> Void) { }
     func object(forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
-    func setObject(_ object: Element, forKey key: String, withCost cost: Int = 0, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
+    func setObject(_ object: Element, forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
     
     
     
