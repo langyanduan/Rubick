@@ -24,7 +24,7 @@ open class SegmentedControl: UIControl {
     var dividers: [UIView] = []
     var contentLayer: CALayer!
     var borderLayer: CAShapeLayer!
-    
+    open var selectedClick: ((Int) -> Void)?
     private var backgroundColor_: UIColor? = UIColor.white
     
     func reloadStyle() {
@@ -121,6 +121,7 @@ open class SegmentedControl: UIControl {
                 }
                 selectedIndex = index
                 sendActions(for: .valueChanged)
+                selectedClick?(index)
                 return
             }
         }
