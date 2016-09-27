@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import Rubick
+@testable import Rubick
 
 class KeychainTests: XCTestCase {
     
@@ -21,7 +21,44 @@ class KeychainTests: XCTestCase {
         super.tearDown()
     }
     
-    func testSetPassword() {
-        Keychain.shared.set(password: "aaaa", forAccount: "bbbbb")
+    func testAccessGroup() {
+        let keychain = Keychain(accessGroup: "BLU32697WN.com.dacai.RubickHostApp")
+        let account = "abcdefg"
+        let password = "12345678"
+        
+        _ = try? keychain.delete(forAccount: account)
+        
+        do {
+            try keychain.set(password: password, forAccount: account)
+            let pwd = try keychain.password(forAccount: account)
+            try keychain.delete(forAccount: account)
+            
+            XCTAssert(pwd == password)
+        } catch {
+            print(error)
+            XCTFail()
+        }
+    }
+    
+    func testErrorAccessGroup() {
+        let keychain = Keychain(accessGroup: "BLU32697WN.com.dacai.unknown")
+        let account = "abcdefg"
+        let password = "12345678"
+        
+        _ = try? keychain.delete(forAccount: account)
+        
+        do {
+            try keychain.set(password: password, forAccount: account)
+            _ = try keychain.password(forAccount: account)
+            try keychain.delete(forAccount: account)
+            
+            XCTFail()
+        } catch let KeychainError.unhandledError(status) {
+            keychain.printOSStatus(status)
+            XCTAssert(status == -34018) // hard code in iOS 10
+        } catch {
+            XCTFail()
+        }
+        
     }
 }

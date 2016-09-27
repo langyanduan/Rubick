@@ -37,6 +37,8 @@
 		508250401D9A4E4E00656663 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5082503F1D9A4E4E00656663 /* Assets.xcassets */; };
 		508250431D9A4E4E00656663 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 508250411D9A4E4E00656663 /* LaunchScreen.storyboard */; };
 		5082505B1D9A4F4100656663 /* HUDTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5082505A1D9A4F4100656663 /* HUDTests.swift */; };
+		5082505C1D9A55EA00656663 /* Rubick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; };
+		5082505D1D9A55EA00656663 /* Rubick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
 		50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */; };
 		50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849571D800BC500A99CAE /* BodyParameters.swift */; };
@@ -89,7 +91,28 @@
 			remoteGlobalIDString = 508250351D9A4E4E00656663;
 			remoteInfo = RubickHostApp;
 		};
+		5082505E1D9A55EA00656663 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 50E92FDA1D658673005A1048 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 50E92FE41D658690005A1048;
+			remoteInfo = Rubick;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		508250601D9A55EA00656663 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				5082505D1D9A55EA00656663 /* Rubick.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -174,6 +197,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5082505C1D9A55EA00656663 /* Rubick.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,10 +436,12 @@
 				508250321D9A4E4E00656663 /* Sources */,
 				508250331D9A4E4E00656663 /* Frameworks */,
 				508250341D9A4E4E00656663 /* Resources */,
+				508250601D9A55EA00656663 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				5082505F1D9A55EA00656663 /* PBXTargetDependency */,
 			);
 			name = RubickHostApp;
 			productName = RubickHostApp;
@@ -479,6 +505,9 @@
 						DevelopmentTeam = BLU32697WN;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 0;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -493,6 +522,7 @@
 					};
 					50E92FE41D658690005A1048 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = BLU32697WN;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -651,6 +681,11 @@
 			target = 508250351D9A4E4E00656663 /* RubickHostApp */;
 			targetProxy = 508250571D9A4ECA00656663 /* PBXContainerItemProxy */;
 		};
+		5082505F1D9A55EA00656663 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 50E92FE41D658690005A1048 /* Rubick */;
+			targetProxy = 5082505E1D9A55EA00656663 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -750,6 +785,7 @@
 		508250461D9A4E4E00656663 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -791,6 +827,7 @@
 		508250471D9A4E4E00656663 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -975,6 +1012,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = BLU32697WN;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1030,6 +1068,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = BLU32697WN;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1078,6 +1117,7 @@
 				508250471D9A4E4E00656663 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		508250531D9A4E8900656663 /* Build configuration list for PBXNativeTarget "RubickUITests" */ = {
 			isa = XCConfigurationList;
@@ -1086,6 +1126,7 @@
 				508250551D9A4E8900656663 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		50E92FDD1D658673005A1048 /* Build configuration list for PBXProject "Rubick" */ = {
 			isa = XCConfigurationList;
