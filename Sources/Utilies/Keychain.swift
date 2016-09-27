@@ -23,7 +23,7 @@ public class Keychain {
     public let accessGroup: String?
     public let service: String
     
-    func buildQuery(withAccount account: String, options: NSDictionary? = nil) -> CFDictionary {
+    private func buildQuery(withAccount account: String, options: NSDictionary? = nil) -> CFDictionary {
         let query = NSMutableDictionary()
         query[kSecAttrService] = service
         query[kSecClass] = kSecClassGenericPassword

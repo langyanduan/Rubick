@@ -8,6 +8,8 @@
 
 import Foundation
 
+private let KeychainDeviceUUID = "DeviceUUID"
+
 public class Information {
     private init() { }
     
@@ -30,6 +32,15 @@ public class Information {
     
     struct device {
         private init() {}
+        
+        public static var uuid: String {
+            if let uuid = Keychain.shared[KeychainDeviceUUID] {
+                return uuid
+            }
+            let uuid = NSUUID().uuidString
+            Keychain.shared[KeychainDeviceUUID] = uuid
+            return uuid
+        }
         
         public static var systemVersion: String {
             return UIDevice.current.systemVersion
