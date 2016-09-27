@@ -33,11 +33,11 @@ public class ImageCache {
     }
     
     func diskImage(withURL url: URL) -> UIImage? {
-        return nil
+        return diskCache.object(forKey: url.absoluteString)
     }
     
     func setDiskImage(_ image: UIImage, forURL url: URL) {
-        
+        diskCache.setObject(image, forKey: url.absoluteString)
     }
     
     func memoryImage(withURL url: URL) -> UIImage? {

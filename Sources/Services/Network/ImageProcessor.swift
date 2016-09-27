@@ -49,3 +49,15 @@ public struct ResizingImageProcessor: ImageProcessor {
         return image.ext.resizeImage(withSize: size, mode: mode)
     }
 }
+
+public struct TintColorImageProcessor: ImageProcessor {
+    let tintColor: UIColor
+    
+    public init(tintColor: UIColor) {
+        self.tintColor = tintColor
+    }
+    
+    public func process(_ image: UIImage) -> UIImage? {
+        return image.ext.image(withTintColor: tintColor)
+    }
+}
