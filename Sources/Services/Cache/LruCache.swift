@@ -26,6 +26,8 @@ class LruCacheNode<Key, Value> {
 class LruCache<Key: Hashable, Value> {
     typealias Node = LruCacheNode<Key, Value>
     
+//    unowned var z: NSObject?
+    
     private var lock = pthread_mutex_t()
     private var storage = Dictionary<Key, Node>()
     private var head: Node?
@@ -91,6 +93,7 @@ class LruCache<Key: Hashable, Value> {
         }
         
         storage[key] = nil
+        costCount -= node.cost
         
         _removeNode(node)
     }
@@ -98,28 +101,72 @@ class LruCache<Key: Hashable, Value> {
     func removeAll() {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         storage.removeAll()
+        
+        var nextNode: Node? = head
+        repeat {
+            guard let node = nextNode else {
+                break
+            }
+            nextNode = node.next
+            node.next = nil
+        } while nextNode != nil
         head = nil
         tail = nil
+        costCount = 0
     }
     
     func trim() {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
-        _trim()
+        
+        let costOverflow = costLimit > 0 && costCount > costLimit
+        let countOverflow = countLimit > 0 && count > countLimit
+        
+        if !costOverflow && !countOverflow {
+            return
+        }
+        
+        let costNeedRemoved = costOverflow ? costCount - costLimit : 0
+        let countNeedRemoved = countOverflow ? count - countLimit : 0
+        
+        _trim(costNeedRemoved: costNeedRemoved, countNeedRemoved: countNeedRemoved, hitTimeLimit: nil)
     }
     
     func trim(toCount count: Int) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
-        _trim(toCount: count)
+        
+        if count >= self.count {
+            return
+        }
+        
+        let countNeedRemoved = self.count - count
+        
+        _trim(costNeedRemoved: 0, countNeedRemoved: countNeedRemoved, hitTimeLimit: nil)
     }
     
     func trim(toCost cost: Int) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
-        _trim(toCost: cost)
+        
+        if cost >= costCount {
+            return
+        }
+        
+        let costNeedRemoved = costCount - cost
+        
+        _trim(costNeedRemoved: costNeedRemoved, countNeedRemoved: 0, hitTimeLimit: nil)
     }
     
     func trim(toAge age: TimeInterval) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
+        let hitTimeLimit = CACurrentMediaTime() - age
+        if count == 0 {
+            return
+        }
+        if let tail = self.tail, tail.hitTime >= hitTimeLimit {
+            return
+        }
+        
+        _trim(costNeedRemoved: 0, countNeedRemoved: 0, hitTimeLimit: hitTimeLimit)
     }
     
     // Private: node operate
@@ -168,71 +215,54 @@ class LruCache<Key: Hashable, Value> {
             tail = nil
         }
     }
-    
-    private func _removeTail(from node: Node) {
-        if let prev = node.prev {
-            prev.next = nil
-            tail = prev
-        } else {
-            head = nil
-            tail = nil
-        }
-    }
-    
+
     // Private: trim operate
     
-    private func _trim(costNeedRemoved: Int, countNeedRemoved: Int) {
+    private func _trim(costNeedRemoved: Int, countNeedRemoved: Int, hitTimeLimit: TimeInterval?) {
         var costTailCount = 0
         var countTailCount = 0
         var lastNode: Node? = tail
-        
+        var timeoutHasAllRemoved = hitTimeLimit == nil
+
         repeat {
             guard let node = lastNode else {
+                assertionFailure()
                 return
             }
+            lastNode = node.prev
             
             costTailCount += node.cost
             countTailCount += 1
             
+            node.prev = nil
             storage[node.key] = nil
             
-            if costTailCount >= costNeedRemoved && countTailCount >= countNeedRemoved {
-                _removeTail(from: node)
-                return
+            if !timeoutHasAllRemoved {
+                if let prev = lastNode {
+                    timeoutHasAllRemoved = prev.hitTime >= hitTimeLimit!
+                } else {
+                    timeoutHasAllRemoved = true
+                }
             }
             
-            lastNode = node.prev
+            if !timeoutHasAllRemoved { continue }
+            if costTailCount < costNeedRemoved { continue }
+            if countTailCount < countNeedRemoved { continue }
+            
+            if let prev = lastNode {
+                prev.next = nil
+                tail = prev
+            } else {
+                head = nil
+                tail = nil
+            }
+            costCount -= costTailCount
+            
+            return
+            
         } while lastNode != nil
+        
+        assertionFailure()
     }
-    
-    private func _trim() {
-        if (countLimit == 0 || count <= countLimit) && (costLimit == 0 || costCount <= costLimit) {
-            return
-        }
-        
-        let costNeedRemoved = (costLimit == 0 || costCount <= costLimit) ? 0 : costCount - costLimit
-        let countNeedRemoved = (countLimit == 0 || count <= countLimit) ? 0 : count - countLimit
-        
-        _trim(costNeedRemoved: costNeedRemoved, countNeedRemoved: countNeedRemoved)
-    }
-    
-    private func _trim(toCount countLimit: Int) {
-        if countLimit >= count {
-            return
-        }
-        
-        let countNeedRemoved = count - countLimit
-        
-        _trim(costNeedRemoved: 0, countNeedRemoved: countNeedRemoved)
-    }
-    
-    private func _trim(toCost costLimit: Int) {
-        if costLimit >= costCount {
-            return
-        }
-        
-        let costNeedRemoved = costCount - costLimit
-        
-        _trim(costNeedRemoved: costNeedRemoved, countNeedRemoved: 0)
-    }
+
 }
