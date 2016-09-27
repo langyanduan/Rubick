@@ -126,7 +126,7 @@ public class Keychain {
     
     #if DEBUG
     
-    func printOSStatus(_ status: OSStatus) {
+    static func printOSStatus(_ status: OSStatus) {
         switch status {
         case errSecSuccess:
             print("errSecSuccess")
