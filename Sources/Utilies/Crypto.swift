@@ -29,3 +29,6 @@ struct Crypto {
         
     }
 }
+
+typealias AES = Crypto.AES
+typealias DES = Crypto.DES
