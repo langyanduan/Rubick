@@ -8,7 +8,9 @@
 
 import Foundation
 
-public let DiskCacheRootPath = "com.rubick.cache"
+
+public let DiskCacheDirectory = "com.rubick"
+public let DiskCachePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheDirectory)
 
 final class DiskCache<Element: NSCoding>: Cache {
     
@@ -31,22 +33,10 @@ final class DiskCache<Element: NSCoding>: Cache {
         
     }
     
-    func containsObject(forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Bool) -> Void) { }
-    func object(forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
-    func setObject(_ object: Element, forKey key: String, _ closure: @escaping (DiskCache<Element>, String, Element?) -> Void) { }
-    
-    
-    
-    
     let storePath: String
     
     init(path: String? = nil) {
-        // FIXME: 路径修正
-        let paths = [FileHelper.shared.cachesDirectory, DiskCacheRootPath, path ?? ""]
-        storePath = "/" + paths
-            .map { $0.trimmingCharacters(in: CharacterSet(charactersIn: "/")) }
-            .joined(separator: "/")
-        
-//        storePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheRootPath).ext.appendingPathComponent(path ?? "")
+        storePath = DiskCachePath.ext.appendingPathComponent(path ?? "")
+        FileHelper.shared.createDirectory(atPath: storePath)
     }
 }

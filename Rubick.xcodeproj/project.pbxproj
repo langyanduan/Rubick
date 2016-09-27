@@ -167,6 +167,7 @@
 		50A849021D7E5F4100A99CAE /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */,
 				5022940C1D8530FE0032CE2F /* Logger.swift */,
 				5022940A1D8530E90032CE2F /* Then.swift */,
 				5068DA561D8FC39A00068996 /* Promise.swift */,
@@ -176,7 +177,6 @@
 				5068DA5C1D8FDF8A00068996 /* Box.swift */,
 				50BDBCCC1D90D48C00F3F8B3 /* Cache */,
 				50A849031D7E5F4100A99CAE /* Network */,
-				50F5AAAC1D912DFE00C67E4C /* FileHelper.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";

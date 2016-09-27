@@ -32,18 +32,7 @@ public class ImageCache {
         self.memoryCache = MemoryCache()
     }
     
-//    func image(withURL url: URL) -> UIImage? {
-//        if let image = memoryImage(withURL: url) {
-//            return image
-//        }
-//        if let image = diskImage(withURL: url) {
-//            return image
-//        }
-//        return nil
-//    }
-    
     func diskImage(withURL url: URL) -> UIImage? {
-        
         return nil
     }
     
@@ -52,10 +41,10 @@ public class ImageCache {
     }
     
     func memoryImage(withURL url: URL) -> UIImage? {
-        return nil
+        return memoryCache.object(forKey: url.absoluteString)
     }
     
     func setMemoryImage(_ image: UIImage, forURL url: URL) {
-        
+        memoryCache.setObject(image, forKey: url.absoluteString)
     }
 }

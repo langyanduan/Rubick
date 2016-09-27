@@ -24,9 +24,7 @@ class LruCacheNode<Key, Value> {
 }
 
 class LruCache<Key: Hashable, Value> {
-    typealias Node = LruCacheNode<Key, Value>
-    
-//    unowned var z: NSObject?
+    private typealias Node = LruCacheNode<Key, Value>
     
     private var lock = pthread_mutex_t()
     private var storage = Dictionary<Key, Node>()
@@ -39,17 +37,17 @@ class LruCache<Key: Hashable, Value> {
     public var count: Int { return storage.count }
     public private(set) var costCount = 0
     
-    init(countLimit: Int = 0, costLimit: Int = 0) {
+    public init(countLimit: Int = 0, costLimit: Int = 0) {
         self.countLimit = countLimit
         self.costLimit = costLimit
     }
     
-    func contains(_ key: Key) -> Bool {
+    public func contains(_ key: Key) -> Bool {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         return storage[key] != nil
     }
     
-    func value(forKey key: Key) -> Value? {
+    public func value(forKey key: Key) -> Value? {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         guard let node = storage[key] else {
             return nil
@@ -60,7 +58,7 @@ class LruCache<Key: Hashable, Value> {
         return node.value
     }
     
-    func set(value: Value, forKey key: Key, withCost cost: Int = 0) {
+    public func set(value: Value, forKey key: Key, withCost cost: Int = 0) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
         if let node = storage[key] {
@@ -85,7 +83,7 @@ class LruCache<Key: Hashable, Value> {
         }
     }
     
-    func remove(forKey key: Key) {
+    public func remove(forKey key: Key) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
         guard let node = storage[key] else {
@@ -98,7 +96,7 @@ class LruCache<Key: Hashable, Value> {
         _removeNode(node)
     }
     
-    func removeAll() {
+    public func removeAll() {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         storage.removeAll()
         
@@ -115,7 +113,7 @@ class LruCache<Key: Hashable, Value> {
         costCount = 0
     }
     
-    func trim() {
+    public func trim() {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
         let costOverflow = costLimit > 0 && costCount > costLimit
@@ -131,7 +129,7 @@ class LruCache<Key: Hashable, Value> {
         _trim(costNeedRemoved: costNeedRemoved, countNeedRemoved: countNeedRemoved, hitTimeLimit: nil)
     }
     
-    func trim(toCount count: Int) {
+    public func trim(toCount count: Int) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
         if count >= self.count {
@@ -143,7 +141,7 @@ class LruCache<Key: Hashable, Value> {
         _trim(costNeedRemoved: 0, countNeedRemoved: countNeedRemoved, hitTimeLimit: nil)
     }
     
-    func trim(toCost cost: Int) {
+    public func trim(toCost cost: Int) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
         if cost >= costCount {
@@ -155,7 +153,7 @@ class LruCache<Key: Hashable, Value> {
         _trim(costNeedRemoved: costNeedRemoved, countNeedRemoved: 0, hitTimeLimit: nil)
     }
     
-    func trim(toAge age: TimeInterval) {
+    public func trim(toAge age: TimeInterval) {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
         
         let hitTimeLimit = CACurrentMediaTime() - age
