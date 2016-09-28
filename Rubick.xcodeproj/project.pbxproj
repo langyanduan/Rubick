@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5011D4211D9AB08600EB77B8 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4201D9AB08600EB77B8 /* CryptoTests.swift */; };
-		5011D4241D9ABC9000EB77B8 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4231D9ABC9000EB77B8 /* HMAC.swift */; };
-		5011D4261D9ABCA400EB77B8 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4251D9ABCA400EB77B8 /* Digest.swift */; };
-		5011D4281D9ABCCF00EB77B8 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4271D9ABCCF00EB77B8 /* Crypto.swift */; };
-		5011D42A1D9ABF3400EB77B8 /* Cryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4291D9ABF3400EB77B8 /* Cryptor.swift */; };
-		5011D42C1D9AC00D00EB77B8 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D42B1D9AC00D00EB77B8 /* Updatable.swift */; };
 		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
 		5041EA731D94FB030001BA42 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA721D94FB030001BA42 /* ImageCache.swift */; };
 		5041EA751D9506630001BA42 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA741D9506630001BA42 /* String+Extension.swift */; };
@@ -68,6 +63,12 @@
 		50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */; };
 		50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */; };
 		50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901541D842A30000079AA /* EmptyPlaceholder.swift */; };
+		50CDED651D9B5F510047B614 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED5F1D9B5F510047B614 /* Crypto.swift */; };
+		50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED601D9B5F510047B614 /* Cryptor.swift */; };
+		50CDED671D9B5F510047B614 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED611D9B5F510047B614 /* Digest.swift */; };
+		50CDED681D9B5F510047B614 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED621D9B5F510047B614 /* HMAC.swift */; };
+		50CDED691D9B5F510047B614 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED631D9B5F510047B614 /* Random.swift */; };
+		50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED641D9B5F510047B614 /* Updatable.swift */; };
 		50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92FF21D658700005A1048 /* UIColor+Extension.swift */; };
 		50F5AAA91D91284C00C67E4C /* ImageDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAA81D91284C00C67E4C /* ImageDecoder.swift */; };
 		50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB008C1D98CC6D008EE165 /* LruCache.swift */; };
@@ -122,11 +123,6 @@
 /* Begin PBXFileReference section */
 		5011D41D1D9AAE5100EB77B8 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = ../Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
 		5011D4201D9AB08600EB77B8 /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
-		5011D4231D9ABC9000EB77B8 /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
-		5011D4251D9ABCA400EB77B8 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
-		5011D4271D9ABCCF00EB77B8 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
-		5011D4291D9ABF3400EB77B8 /* Cryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptor.swift; sourceTree = "<group>"; };
-		5011D42B1D9AC00D00EB77B8 /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5041EA721D94FB030001BA42 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		5041EA741D9506630001BA42 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -187,6 +183,12 @@
 		50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyPlaceholderSwizzle.m; sourceTree = "<group>"; };
 		50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewLoading.swift; sourceTree = "<group>"; };
 		50C901541D842A30000079AA /* EmptyPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyPlaceholder.swift; sourceTree = "<group>"; };
+		50CDED5F1D9B5F510047B614 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
+		50CDED601D9B5F510047B614 /* Cryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptor.swift; sourceTree = "<group>"; };
+		50CDED611D9B5F510047B614 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
+		50CDED621D9B5F510047B614 /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
+		50CDED631D9B5F510047B614 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
+		50CDED641D9B5F510047B614 /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		50E92FE51D658690005A1048 /* Rubick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rubick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E92FF21D658700005A1048 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		50E92FF81D65880E005A1048 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -237,18 +239,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5011D4221D9ABC8900EB77B8 /* Crypto */ = {
-			isa = PBXGroup;
-			children = (
-				5011D4271D9ABCCF00EB77B8 /* Crypto.swift */,
-				5011D4231D9ABC9000EB77B8 /* HMAC.swift */,
-				5011D4251D9ABCA400EB77B8 /* Digest.swift */,
-				5011D4291D9ABF3400EB77B8 /* Cryptor.swift */,
-				5011D42B1D9AC00D00EB77B8 /* Updatable.swift */,
-			);
-			path = Crypto;
-			sourceTree = "<group>";
-		};
 		5041EA781D9515900001BA42 /* Image */ = {
 			isa = PBXGroup;
 			children = (
@@ -276,7 +266,7 @@
 		508250111D9A205A00656663 /* Utilies */ = {
 			isa = PBXGroup;
 			children = (
-				5011D4221D9ABC8900EB77B8 /* Crypto */,
+				50CDED5E1D9B5F510047B614 /* Crypto */,
 				508250121D9A205A00656663 /* Box.swift */,
 				508250141D9A205A00656663 /* Device.swift */,
 				508250151D9A205A00656663 /* FileHelper.swift */,
@@ -365,6 +355,19 @@
 				50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */,
 			);
 			path = Cache;
+			sourceTree = "<group>";
+		};
+		50CDED5E1D9B5F510047B614 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				50CDED5F1D9B5F510047B614 /* Crypto.swift */,
+				50CDED601D9B5F510047B614 /* Cryptor.swift */,
+				50CDED611D9B5F510047B614 /* Digest.swift */,
+				50CDED621D9B5F510047B614 /* HMAC.swift */,
+				50CDED631D9B5F510047B614 /* Random.swift */,
+				50CDED641D9B5F510047B614 /* Updatable.swift */,
+			);
+			path = Crypto;
 			sourceTree = "<group>";
 		};
 		50E92FD91D658673005A1048 = {
@@ -621,14 +624,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5011D4211D9AB08600EB77B8 /* CryptoTests.swift in Sources */,
-				5011D4241D9ABC9000EB77B8 /* HMAC.swift in Sources */,
 				50FB008F1D990C4B008EE165 /* LruCacheTests.swift in Sources */,
-				5011D42C1D9AC00D00EB77B8 /* Updatable.swift in Sources */,
-				5011D42A1D9ABF3400EB77B8 /* Cryptor.swift in Sources */,
 				505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */,
 				508250311D9A46DD00656663 /* KeychainTests.swift in Sources */,
-				5011D4281D9ABCCF00EB77B8 /* Crypto.swift in Sources */,
-				5011D4261D9ABCA400EB77B8 /* Digest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -675,6 +673,9 @@
 				508250211D9A205A00656663 /* Promise.swift in Sources */,
 				50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */,
 				5068DA5F1D8FE7D900068996 /* ImageDownloader.swift in Sources */,
+				50CDED691D9B5F510047B614 /* Random.swift in Sources */,
+				50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */,
+				50CDED671D9B5F510047B614 /* Digest.swift in Sources */,
 				50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 				5082501B1D9A205A00656663 /* Box.swift in Sources */,
@@ -689,14 +690,17 @@
 				5080171A1D979709005C50D8 /* Response.swift in Sources */,
 				50BDBCCE1D90D48C00F3F8B3 /* Cache.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
+				50CDED651D9B5F510047B614 /* Crypto.swift in Sources */,
 				508250221D9A205A00656663 /* Result.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
+				50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */,
 				5082501F1D9A205A00656663 /* Information.swift in Sources */,
 				50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */,
 				5080171C1D979727005C50D8 /* Notification.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				508250201D9A205A00656663 /* Keychain.swift in Sources */,
 				505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */,
+				50CDED681D9B5F510047B614 /* HMAC.swift in Sources */,
 				5082501D1D9A205A00656663 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -9,7 +9,7 @@
 import Foundation
 import CommonCrypto
 
-struct HMAC {
+public class HMAC: Updatable {
     enum Algorithm {
         case md5
         case sha1
@@ -34,5 +34,46 @@ struct HMAC {
                 return Int(CC_SHA512_DIGEST_LENGTH)
             }
         }
+        
+        fileprivate var nativeValue: Int {
+            switch self {
+            case .md5:
+                return kCCHmacAlgMD5
+            case .sha1:
+                return kCCHmacAlgSHA1
+            case .sha224:
+                return kCCHmacAlgSHA224
+            case .sha256:
+                return kCCHmacAlgSHA256
+            case .sha384:
+                return kCCHmacAlgSHA384
+            case .sha512:
+                return kCCHmacAlgSHA512
+            }
+        }
+    }
+    
+    
+    let algorithm: Algorithm
+    let context = UnsafeMutablePointer<CCHmacContext>.allocate(capacity: 1)
+    
+    init(algorithm: Algorithm, key: [UInt8]) {
+        CCHmacInit(context, UInt32(algorithm.nativeValue), UnsafeRawPointer(key), key.count)
+        self.algorithm = algorithm
+    }
+    
+    deinit {
+        context.deallocate(capacity: 1)
+    }
+    
+    public func update(fromBytes bytes: UnsafeRawPointer, count: Int) -> Self {
+        CCHmacUpdate(context, bytes, count)
+        return self
+    }
+    
+    public func final() -> [UInt8] {
+        var hmac = [UInt8](repeating: 0, count: algorithm.digestLength)
+        CCHmacFinal(context, &hmac)
+        return hmac
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Updatable {
+public protocol Updatable {
     @discardableResult
     func update(fromBytes bytes: UnsafeRawPointer, count: Int) -> Self
     

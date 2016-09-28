@@ -16,6 +16,9 @@ final class DiskCache<Element: NSCoding>: Cache {
     
     // protocol Cache
     func containsObject(forKey key: String) -> Bool {
+        _ = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
+        
+        
         return false
     }
     
