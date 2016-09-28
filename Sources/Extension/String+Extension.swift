@@ -11,7 +11,6 @@ import Foundation
 extension InstanceExtension where Base: _StringType {
     private var _self: String { return base as! String }
     
-    
     public var count: Int {
         return _self.characters.count
     }

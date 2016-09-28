@@ -12,11 +12,13 @@ import Foundation
 public let DiskCacheDirectory = "com.rubick"
 public let DiskCachePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheDirectory)
 
-final class DiskCache<Element: NSCoding>: Cache {
+final class DiskCache<Element: NSSecureCoding>: Cache {
     
     // protocol Cache
     func containsObject(forKey key: String) -> Bool {
-        _ = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
+        let md5 = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
+        
+        
         
         
         return false
@@ -27,6 +29,8 @@ final class DiskCache<Element: NSCoding>: Cache {
     }
     
     func setObject(_ object: Element, forKey key: String) {
+        let md5 = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
+        let url = URL(fileURLWithPath: storePath.ext.appendingPathComponent(md5.ext.hexString()))
         
     }
     func removeObject(forKey key: String) {

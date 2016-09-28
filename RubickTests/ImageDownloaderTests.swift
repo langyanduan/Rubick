@@ -27,7 +27,7 @@ class ImageDownloaderTests: XCTestCase {
             return
         }
         let downloader = ImageDownloader(processors: [
-            ResizingImageProcessor(size: CGSize(width: 100, height: 100), mode: .scaleAspectFit),
+            ResizingImageProcessor(size: CGSize(width: 100, height: 100), mode: .scaleAspectFill),
             CircularImageProcessor(radius: 50)
         ])
         

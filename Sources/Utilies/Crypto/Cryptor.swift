@@ -36,5 +36,9 @@ struct Cryptor {
         self.padding = padding
         self.iv = iv
     }
+    
+    
+    
+    
 }
 

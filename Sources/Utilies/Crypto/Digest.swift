@@ -20,7 +20,7 @@ public class Digest: Updatable {
         case sha384
         case sha512
         
-        var digestLength: Int {
+        public var digestLength: Int {
             switch self {
             case .md2:
                 return Int(CC_MD2_DIGEST_LENGTH)

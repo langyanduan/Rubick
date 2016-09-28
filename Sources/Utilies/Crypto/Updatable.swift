@@ -15,14 +15,29 @@ public protocol Updatable {
     func final() -> [UInt8]
 }
 
-extension Updatable {
+public extension Updatable {
     @discardableResult
     func update(fromData data: Data) -> Self {
-        return self
+        return update(fromBytes: (data as NSData).bytes, count: data.count)
     }
     
     @discardableResult
     func update(fromStream stream: InputStream) -> Self {
+        stream.open(); defer { stream.close() }
+        
+        let maxLength = 32
+        var buffer = [UInt8](repeating: 0, count: maxLength)
+        while true {
+            let length = stream.read(&buffer, maxLength: maxLength)
+            guard length > 0 else { break }
+            update(fromBytes: buffer, count: length)
+        }
+        
         return self
+    }
+    
+    @discardableResult
+    func update(fromBytes bytes: [UInt8]) -> Self {
+        return update(fromBytes: bytes, count: bytes.count)
     }
 }

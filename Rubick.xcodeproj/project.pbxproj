@@ -534,7 +534,6 @@
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = BLU32697WN;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 508250351D9A4E4E00656663;
 					};
 					508250351D9A4E4E00656663 = {
 						CreatedOnToolsVersion = 8.0;
@@ -785,7 +784,6 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubickHostApp.app/RubickHostApp";
 			};
 			name = Debug;
 		};
@@ -817,7 +815,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RubickHostApp.app/RubickHostApp";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

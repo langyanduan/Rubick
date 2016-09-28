@@ -25,3 +25,20 @@ extension InstanceExtension where Base: _ArrayType {
     }
 }
 
+extension InstanceExtension where Base: _ArrayType, Base.Element == UInt8 {
+    private var _self: Array<Base.Element> {
+        return base as! Array<Base.Element>
+    }
+    
+    public func hexString(uppercase: Bool = true) -> String {
+        if uppercase {
+            return _self
+                .map { String(format: "%02X", $0) }
+                .reduce("", +)
+        } else {
+            return _self
+                .map { String(format: "%02x", $0) }
+                .reduce("", +)
+        }
+    }
+}
