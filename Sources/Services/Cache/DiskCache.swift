@@ -12,33 +12,46 @@ import Foundation
 public let DiskCacheDirectory = "com.rubick"
 public let DiskCachePath = FileHelper.shared.cachesDirectory.ext.appendingPathComponent(DiskCacheDirectory)
 
-final class DiskCache<Element: NSSecureCoding>: Cache {
+
+private protocol _DiskCacheType { }
+
+public class DiskCache<Element: CacheSerializer>: CacheProtocol, AsyncCacheProtocol, _DiskCacheType {
+    
+    private func filePath(forKey key: String) -> String {
+        let md5 = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
+        let path = storePath.ext.appendingPathComponent(md5.ext.hexString())
+        return path
+    }
     
     // protocol Cache
-    func containsObject(forKey key: String) -> Bool {
-        let md5 = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
-        
-        
-        
-        
-        return false
+    public func containsObject(forKey key: String) -> Bool {
+        return FileHelper.shared.fileExists(atPath: filePath(forKey: key))
     }
     
-    func object(forKey key: String) -> Element? {
-        return nil
+    public func object(forKey key: String) -> Element? {
+        
+        do {
+            let url = URL(fileURLWithPath: filePath(forKey: key))
+            let data = try Data(contentsOf: url)
+            
+            return nil
+            
+        } catch {
+            return nil
+        }
     }
     
-    func setObject(_ object: Element, forKey key: String) {
-        let md5 = Digest(algorithm: .md5).update(fromData: key.data(using: .utf8)!).final()
-        let url = URL(fileURLWithPath: storePath.ext.appendingPathComponent(md5.ext.hexString()))
+    public func setObject(_ object: Element, forKey key: String) {
         
     }
-    func removeObject(forKey key: String) {
+    public func removeObject(forKey key: String) {
         
     }
-    func removeAllObjects() {
+    public func removeAllObjects() {
         
     }
+    
+    public var asyncQueue: DispatchQueue = DispatchQueue.main
     
     let storePath: String
     
@@ -47,3 +60,4 @@ final class DiskCache<Element: NSSecureCoding>: Cache {
         FileHelper.shared.createDirectory(atPath: storePath)
     }
 }
+

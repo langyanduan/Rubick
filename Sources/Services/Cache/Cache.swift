@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Cache {
+public protocol CacheProtocol {
     associatedtype Element
     
     func containsObject(forKey key: String) -> Bool
@@ -18,3 +18,73 @@ public protocol Cache {
     func removeObject(forKey key: String)
     func removeAllObjects()
 }
+
+public protocol AsyncCacheProtocol {
+    var asyncQueue: DispatchQueue { get }
+}
+
+public struct AsyncCache<Base: CacheProtocol> {
+    public typealias Element = Base.Element
+    
+    fileprivate let base: Base
+    fileprivate init(_ base: Base) {
+        self.base = base
+    }
+}
+
+extension AsyncCache where Base: AsyncCacheProtocol {
+    private func async(execute code: @escaping () -> Void) {
+        base.asyncQueue.async(execute: code)
+    }
+    
+    public func containsObject(forKey key: String, _ closure:  @escaping (Bool) -> Void) {
+        async {
+            closure(self.base.containsObject(forKey: key))
+        }
+    }
+    
+    public func object(forKey key: String, _ closure: @escaping (Element?) -> Void) {
+        async { 
+            closure(self.base.object(forKey: key))
+        }
+    }
+    
+    public func setObject(_ object: Element, forKey key: String) {
+        async { 
+            self.base.setObject(object, forKey: key)
+        }
+    }
+    
+    public func removeObject(forKey key: String) {
+        async { 
+            self.base.removeObject(forKey: key)
+        }
+    }
+    
+    public func removeAllObjects() {
+        async { 
+            self.base.removeAllObjects()
+        }
+    }
+}
+
+extension AsyncCacheProtocol where Self: CacheProtocol {
+    public var async: AsyncCache<Self> {
+        return AsyncCache(self)
+    }
+}
+
+//extension CacheProtocol where Self: AsyncCacheProtocol {
+//    public var async: AsyncCache<Self> {
+//        return AsyncCache(self)
+//    }
+//}
+
+
+public protocol CacheSerializer {
+    associatedtype Element = Self
+    
+    static func data(forObject object: Element) throws -> Data
+    static func object(forData data: Data) throws -> Element
+}
+

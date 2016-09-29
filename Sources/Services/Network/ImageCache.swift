@@ -48,3 +48,14 @@ public class ImageCache {
         memoryCache.setObject(image, forKey: url.absoluteString)
     }
 }
+
+extension UIImage: CacheSerializer {
+    public static func data(forObject object: UIImage) throws -> Data {
+        return Data()
+    }
+    
+    public static func object(forData data: Data) throws -> UIImage {
+        return UIImage()
+    }
+}
+

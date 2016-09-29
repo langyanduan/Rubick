@@ -16,6 +16,8 @@
 		505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505339551D964AEB004CFE87 /* DispatchQueue+Extension.swift */; };
 		505339601D9691FA004CFE87 /* Rubick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; };
 		505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505339661D969590004CFE87 /* ImageDownloaderTests.swift */; };
+		50577F8F1D9CA6F800581A3A /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50577F8E1D9CA6F800581A3A /* Validator.swift */; };
+		50577F911D9CC28800581A3A /* ValidatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50577F901D9CC28800581A3A /* ValidatorTests.swift */; };
 		5068DA5F1D8FE7D900068996 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5068DA5E1D8FE7D900068996 /* ImageDownloader.swift */; };
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
@@ -132,6 +134,8 @@
 		5053395B1D9691FA004CFE87 /* RubickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5053395F1D9691FA004CFE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		505339661D969590004CFE87 /* ImageDownloaderTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloaderTests.swift; sourceTree = "<group>"; };
+		50577F8E1D9CA6F800581A3A /* Validator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
+		50577F901D9CC28800581A3A /* ValidatorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidatorTests.swift; sourceTree = "<group>"; };
 		5068DA5E1D8FE7D900068996 /* ImageDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				50FB008E1D990C4B008EE165 /* LruCacheTests.swift */,
 				508250301D9A46DD00656663 /* KeychainTests.swift */,
 				5011D4201D9AB08600EB77B8 /* CryptoTests.swift */,
+				50577F901D9CC28800581A3A /* ValidatorTests.swift */,
 			);
 			path = RubickTests;
 			sourceTree = "<group>";
@@ -275,6 +280,7 @@
 				508250181D9A205A00656663 /* Promise.swift */,
 				508250191D9A205A00656663 /* Result.swift */,
 				5082501A1D9A205A00656663 /* Then.swift */,
+				50577F8E1D9CA6F800581A3A /* Validator.swift */,
 			);
 			path = Utilies;
 			sourceTree = "<group>";
@@ -623,6 +629,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5011D4211D9AB08600EB77B8 /* CryptoTests.swift in Sources */,
+				50577F911D9CC28800581A3A /* ValidatorTests.swift in Sources */,
 				50FB008F1D990C4B008EE165 /* LruCacheTests.swift in Sources */,
 				505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */,
 				508250311D9A46DD00656663 /* KeychainTests.swift in Sources */,
@@ -654,6 +661,7 @@
 				50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */,
 				5041EA7A1D951C270001BA42 /* ImageProcessor.swift in Sources */,
 				50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */,
+				50577F8F1D9CA6F800581A3A /* Validator.swift in Sources */,
 				50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */,
 				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,

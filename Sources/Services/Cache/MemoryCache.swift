@@ -8,7 +8,7 @@
 
 import Foundation
 
-public final class MemoryCache<Element>: Cache {
+public final class MemoryCache<Element>: CacheProtocol {
     private let lruCache: LruCache<String, Element> = LruCache()
     
     // protocol Cache
