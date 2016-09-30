@@ -37,9 +37,23 @@ public class NetworkActivityIndicatorManager {
         }
     }
     
+    private let lock: NSLock = NSLock()
     private var enable = true
     private var activityCount = 0
-    private let lock: NSLock = NSLock()
+    
+    private var timer: CFRunLoopTimer?
+    private var activityDate: CFAbsoluteTime = 0
+    
+    public var leastDuration: TimeInterval = 0.2
+    public var isNetworkActivityIndicatorVisible: Bool = false {
+        didSet {
+            let visible = isNetworkActivityIndicatorVisible
+            guard visible != oldValue else { return }
+            asyncOnMainQueue {
+                UIApplication.shared.isNetworkActivityIndicatorVisible = visible
+            }
+        }
+    }
     
     @objc
     fileprivate func requestDidStart() {
@@ -74,5 +88,31 @@ public class NetworkActivityIndicatorManager {
             return
         }
         
+        if let timer = self.timer {
+            CFRunLoopTimerInvalidate(timer)
+            self.timer = nil
+        }
+        
+        if activityCount == 0 {
+            guard isNetworkActivityIndicatorVisible else { return }
+            
+            let currentDate = CFAbsoluteTimeGetCurrent()
+            let delay = leastDuration - (currentDate - activityDate)
+            if delay > Double.leastNonzeroMagnitude {
+                timer = CFRunLoopTimerCreateWithHandler(kCFAllocatorDefault, currentDate + delay, 0, 0, 0) { [weak self] _ in
+                    guard let `self` = self else { return }
+                    self.lock.lock()
+                    self.isNetworkActivityIndicatorVisible = false
+                    self.timer = nil
+                    self.lock.unlock()
+                }
+                CFRunLoopAddTimer(CFRunLoopGetMain(), timer, CFRunLoopMode.commonModes)
+            } else {
+                isNetworkActivityIndicatorVisible = false
+            }
+        } else {
+            activityDate = CFAbsoluteTimeGetCurrent()
+            isNetworkActivityIndicatorVisible = true
+        }
     }
 }
