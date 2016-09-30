@@ -32,6 +32,7 @@ class ImageDownloaderTests: XCTestCase {
         ])
         
         downloader.fetchImage(withURL: url) { (image, canceled) in
+            
             XCTAssertFalse(canceled)
             XCTAssertNotNil(image)
             expectation.fulfill()

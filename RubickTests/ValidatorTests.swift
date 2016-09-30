@@ -103,24 +103,23 @@ class ValidatorTests: XCTestCase {
         XCTAssertFalse("1293112".ext.isLetter)
     }
     
-    func testURL() {
-        XCTAssert("http://ooo.0o0.ooo".ext.isURL)
-        XCTAssert("http://ooo.0o0.ooo/".ext.isURL)
-        XCTAssert("http://t.tt".ext.isURL)
-        XCTAssert("http://mi.com".ext.isURL)
-        XCTAssert("http://360.com".ext.isURL)
-        XCTAssert("https://www.baidu.com".ext.isURL)
-        XCTAssert("https://baidu.com".ext.isURL)
-        XCTAssert("http://zj.tiaohaowang.com/ydxuanhao/?dis=3&zifei=269&haoduan=147".ext.isURL)
-        XCTAssert("http://10.12.8.250:8080/tfs/DacaiV5Collection_Git/_git/Dacai.iOSpath=Kathmandu%2FKathmanduAssistants%2FKTMValidator.m&version=GBdisable_315&_a=contents".ext.isURL)
-        
-        XCTAssertFalse("ssh://qq.com".ext.isURL)
-        XCTAssertFalse("http://abc".ext.isURL)
-        XCTAssertFalse("http://qwer.123".ext.isURL)
-        XCTAssertFalse("http://ab%20%%%c.com".ext.isURL)
-        XCTAssertFalse("http://abc".ext.isURL)
-        
-    }
+//    func testURL() {
+//        XCTAssert("http://ooo.0o0.ooo".ext.isURL)
+//        XCTAssert("http://ooo.0o0.ooo/".ext.isURL)
+//        XCTAssert("http://t.tt".ext.isURL)
+//        XCTAssert("http://mi.com".ext.isURL)
+//        XCTAssert("http://360.com".ext.isURL)
+//        XCTAssert("https://www.baidu.com".ext.isURL)
+//        XCTAssert("https://baidu.com".ext.isURL)
+//        XCTAssert("http://zj.tiaohaowang.com/ydxuanhao/?dis=3&zifei=269&haoduan=147".ext.isURL)
+//        XCTAssert("http://10.12.8.250:8080/tfs/DacaiV5Collection_Git/_git/Dacai.iOSpath=Kathmandu%2FKathmanduAssistants%2FKTMValidator.m&version=GBdisable_315&_a=contents".ext.isURL)
+//        
+//        XCTAssertFalse("ssh://qq.com".ext.isURL)
+//        XCTAssertFalse("http://abc".ext.isURL)
+//        XCTAssertFalse("http://qwer.123".ext.isURL)
+//        XCTAssertFalse("http://ab%20%%%c.com".ext.isURL)
+//        XCTAssertFalse("http://abc".ext.isURL)
+//    }
     
     func testIdentifier() {
         

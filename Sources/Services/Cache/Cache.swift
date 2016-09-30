@@ -81,10 +81,21 @@ extension AsyncCacheProtocol where Self: CacheProtocol {
 //}
 
 
-public protocol CacheSerializer {
-    associatedtype Element = Self
+public protocol CacheSerializerProtocol {
+    associatedtype T
     
-    static func data(forObject object: Element) throws -> Data
-    static func object(forData data: Data) throws -> Element
+    func data(forObject object: T) throws -> Data
+    func object(forData data: Data) throws -> T
 }
+
+public class CacheSerializer<T>: CacheSerializerProtocol {
+    public func data(forObject object: T) throws -> Data {
+        fatalError("subclass should implement this method.")
+    }
+    
+    public func object(forData data: Data) throws -> T {
+        fatalError("subclass should implement this method.")
+    }
+}
+
 

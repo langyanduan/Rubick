@@ -48,10 +48,18 @@ public class FileHelper {
     
     
     public func fileExists(atPath path: String) -> Bool {
+        var isDir: ObjCBool = false
+        if (FileManager.default.fileExists(atPath: path, isDirectory: &isDir)) {
+            return !isDir.boolValue
+        }
         return false
     }
     
     public func directoryExists(atPath path: String) -> Bool {
+        var isDir: ObjCBool = false
+        if (FileManager.default.fileExists(atPath: path, isDirectory: &isDir)) {
+            return isDir.boolValue
+        }
         return false
     }
     
@@ -62,16 +70,21 @@ public class FileHelper {
     
     @discardableResult
     public func createDirectory(atPath path: String) -> Bool {
-        return false
+        if directoryExists(atPath: path) {
+            return true
+        }
+        
+        return (try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)) != nil
     }
     
     @discardableResult
     public func removeFile(atPath path: String) -> Bool {
-        return false
+        return (try? FileManager.default.removeItem(atPath: path)) != nil
     }
     
     @discardableResult
     public func removeDirectory(atPath path: String) -> Bool {
+//        FileManager.default.remove
         return false
     }
 }

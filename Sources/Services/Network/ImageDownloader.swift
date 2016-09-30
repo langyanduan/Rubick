@@ -105,12 +105,17 @@ public struct ImageDownloader {
         
         func processAndCacheImage(_ image: UIImage?) -> UIImage? {
             var image = image
-            for processor in self.processors {
-                guard let originImage = image else {
-                    break
+            if processors.count == 0 {
+                image = image?.ext.decoded()
+            } else {
+                for processor in self.processors {
+                    guard let originImage = image else {
+                        break
+                    }
+                    image = processor.process(originImage)
                 }
-                image = processor.process(originImage)
             }
+            
             if let image = image {
                 self.cache.setMemoryImage(image, forURL: url)
             }

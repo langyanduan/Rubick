@@ -53,7 +53,7 @@ struct ImageDecoder {
     static func image(fromData data: Data, scale: CGFloat) -> UIImage? {
         switch format(ofData: data) {
         case .jpeg, .png:
-            return UIImage.ext.decode(fromData: data, scale: scale)
+            return UIImage(data: data, scale: scale)
         case .gif:  // return first frame
             return nil
         default:

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		500116EB1D9DF09900D3E0E8 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500116EA1D9DF09900D3E0E8 /* Errors.swift */; };
 		5011D4211D9AB08600EB77B8 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4201D9AB08600EB77B8 /* CryptoTests.swift */; };
 		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
 		5041EA731D94FB030001BA42 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA721D94FB030001BA42 /* ImageCache.swift */; };
@@ -123,6 +124,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		500116EA1D9DF09900D3E0E8 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		5011D41D1D9AAE5100EB77B8 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = ../Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
 		5011D4201D9AB08600EB77B8 /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
 		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
@@ -413,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				50B6BB421D66F49700256B2F /* Constaints.swift */,
+				500116EA1D9DF09900D3E0E8 /* Errors.swift */,
 				508250111D9A205A00656663 /* Utilies */,
 				50A849021D7E5F4100A99CAE /* Services */,
 				50B6BB251D669DAB00256B2F /* Components */,
@@ -681,6 +684,7 @@
 				50B6BB271D669DBA00256B2F /* ImageLabel.swift in Sources */,
 				5068DA5F1D8FE7D900068996 /* ImageDownloader.swift in Sources */,
 				50CDED691D9B5F510047B614 /* Random.swift in Sources */,
+				500116EB1D9DF09900D3E0E8 /* Errors.swift in Sources */,
 				50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */,
 				50CDED671D9B5F510047B614 /* Digest.swift in Sources */,
 				50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */,

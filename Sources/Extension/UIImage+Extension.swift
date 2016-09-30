@@ -121,37 +121,47 @@ extension InstanceExtension where Base: UIImage {
     }
 }
 
-extension TypeExtension where Base: UIImage {
-    private func decode(cgImage: CGImage, scale: CGFloat, orientation: UIImageOrientation) -> UIImage? {
-        guard let context = CGContext(
-            data: nil,
-            width: cgImage.width,
-            height: cgImage.height,
-            bitsPerComponent: 8,
-            bytesPerRow: 0,
-            space: CGColorSpaceCreateDeviceRGB(),
-            bitmapInfo: cgImage.bitmapInfo.rawValue) else {
+private func forceDecode(forImage image: UIImage) -> UIImage? {
+    guard let cgImage = image.cgImage else { return nil }
+    guard let context = CGContext(
+        data: nil,
+        width: cgImage.width,
+        height: cgImage.height,
+        bitsPerComponent: 8,
+        bytesPerRow: 0,
+        space: CGColorSpaceCreateDeviceRGB(),
+        bitmapInfo: cgImage.bitmapInfo.rawValue) else {
             return nil
-        }
-        
-        context.draw(cgImage, in: CGRect(origin: .zero, size: CGSize(width: cgImage.width, height: cgImage.height)))
-        guard let decodedImageRef = context.makeImage() else { return nil }
-        return UIImage(cgImage: decodedImageRef, scale: scale, orientation: orientation)
     }
     
+    let scale = image.scale
+    let orientation = image.imageOrientation
+    
+    context.draw(cgImage, in: CGRect(origin: .zero, size: CGSize(width: cgImage.width, height: cgImage.height)))
+    guard let decodedImageRef = context.makeImage() else { return nil }
+    return UIImage(cgImage: decodedImageRef, scale: scale, orientation: orientation)
+}
+
+extension InstanceExtension where Base: UIImage {
+    public func decoded() -> UIImage? {
+        return forceDecode(forImage: base)
+    }
+}
+
+extension TypeExtension where Base: UIImage {
     public func decode(fromData data: Data, scale: CGFloat) -> UIImage? {
-        guard let image = UIImage(data: data, scale: scale), let cgImage = image.cgImage else {
+        guard let image = UIImage(data: data, scale: scale) else {
             return nil
         }
         
-        return decode(cgImage: cgImage, scale: scale, orientation: image.imageOrientation)
+        return forceDecode(forImage: image)
     }
     
     public func decode(fromContentFile fileName: String) -> UIImage? {
-        guard let image = UIImage(contentsOfFile: fileName), let cgImage = image.cgImage else {
+        guard let image = UIImage(contentsOfFile: fileName) else {
             return nil
         }
-        return decode(cgImage: cgImage, scale: image.scale, orientation: image.imageOrientation)
+        return forceDecode(forImage: image)
     }
 }
 

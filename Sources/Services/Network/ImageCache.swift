@@ -17,18 +17,18 @@ extension URL {
 
 public class ImageCache {
     private static let defaultDiskCachePath = "images"
-    private static let defaultDiskCache = DiskCache<UIImage>(path: defaultDiskCachePath)
+    private static let defaultDiskCache = DiskCache<UIImage>(path: defaultDiskCachePath, serializer: UIImageCacheSerializer.shared)
     
     private let diskCache: DiskCache<UIImage>
     private let memoryCache: MemoryCache<UIImage>
-    
+//    
     init(diskCache: DiskCache<UIImage> = defaultDiskCache) {
         self.diskCache = diskCache
         self.memoryCache = MemoryCache()
     }
     
     init(diskCachePath: String) {
-        self.diskCache = DiskCache(path: diskCachePath)
+        self.diskCache = DiskCache(path: diskCachePath, serializer: UIImageCacheSerializer.shared)
         self.memoryCache = MemoryCache()
     }
     
@@ -49,13 +49,22 @@ public class ImageCache {
     }
 }
 
-extension UIImage: CacheSerializer {
-    public static func data(forObject object: UIImage) throws -> Data {
-        return Data()
-    }
+public class UIImageCacheSerializer: CacheSerializer<UIImage> {
+    public static let shared = UIImageCacheSerializer()
     
-    public static func object(forData data: Data) throws -> UIImage {
-        return UIImage()
+    private override init() {}
+    
+    public override func data(forObject image: UIImage) throws -> Data {
+        guard let data = UIImagePNGRepresentation(image) else {
+            throw CommonError.serializer
+        }
+        return data
+    }
+
+    public override func object(forData data: Data) throws -> UIImage {
+        guard let image = ImageDecoder.image(fromData: data, scale: UIScreen.main.scale) else {
+            throw CommonError.serializer
+        }
+        return image
     }
 }
-
