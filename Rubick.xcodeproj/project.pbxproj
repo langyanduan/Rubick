@@ -26,7 +26,6 @@
 		5080171C1D979727005C50D8 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080171B1D979727005C50D8 /* Notification.swift */; };
 		5080171E1D979745005C50D8 /* TaskHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080171D1D979745005C50D8 /* TaskHandler.swift */; };
 		5082501B1D9A205A00656663 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250121D9A205A00656663 /* Box.swift */; };
-		5082501D1D9A205A00656663 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250141D9A205A00656663 /* Device.swift */; };
 		5082501E1D9A205A00656663 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250151D9A205A00656663 /* FileHelper.swift */; };
 		5082501F1D9A205A00656663 /* Information.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250161D9A205A00656663 /* Information.swift */; };
 		508250201D9A205A00656663 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250171D9A205A00656663 /* Keychain.swift */; };
@@ -145,7 +144,6 @@
 		5080171B1D979727005C50D8 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		5080171D1D979745005C50D8 /* TaskHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskHandler.swift; sourceTree = "<group>"; };
 		508250121D9A205A00656663 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
-		508250141D9A205A00656663 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		508250151D9A205A00656663 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		508250161D9A205A00656663 /* Information.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Information.swift; sourceTree = "<group>"; };
 		508250171D9A205A00656663 /* Keychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keychain.swift; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 			children = (
 				50CDED5E1D9B5F510047B614 /* Crypto */,
 				508250121D9A205A00656663 /* Box.swift */,
-				508250141D9A205A00656663 /* Device.swift */,
 				508250151D9A205A00656663 /* FileHelper.swift */,
 				508250161D9A205A00656663 /* Information.swift */,
 				508250171D9A205A00656663 /* Keychain.swift */,
@@ -712,7 +709,6 @@
 				508250201D9A205A00656663 /* Keychain.swift in Sources */,
 				505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */,
 				50CDED681D9B5F510047B614 /* HMAC.swift in Sources */,
-				5082501D1D9A205A00656663 /* Device.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
