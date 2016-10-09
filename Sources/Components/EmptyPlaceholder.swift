@@ -9,7 +9,7 @@
 import Foundation
 
 // Protocol
-private var ConfigurationKey: Void = ()
+private var ConfigurationKey = 0
 
 private protocol EmptyPlaceholderConfigurable {
     associatedtype HostView: UIView

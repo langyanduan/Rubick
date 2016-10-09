@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-private var associatedKey: Void = ()
+private var associatedKey = 0
 
 extension InstanceExtension where Base: UIImageView {
     
