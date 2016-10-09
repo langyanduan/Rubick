@@ -74,13 +74,6 @@ extension AsyncCacheProtocol where Self: CacheProtocol {
     }
 }
 
-//extension CacheProtocol where Self: AsyncCacheProtocol {
-//    public var async: AsyncCache<Self> {
-//        return AsyncCache(self)
-//    }
-//}
-
-
 public protocol CacheSerializerProtocol {
     associatedtype T
     

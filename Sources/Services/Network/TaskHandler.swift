@@ -40,14 +40,16 @@ class DataTaskHandler: TaskHandler {
     override var data: Data? { return mutableData as Data }
     var dataTask: URLSessionDataTask? { return task as? URLSessionDataTask }
     var mutableData: Data = Data()
-    var process: (DispatchQueue, (Int64, Int64) -> Void)?
+    var process: (queue: DispatchQueue, handler: (Int64, Int64) -> Void)?
     
     // NSURLSessionDataDelegate
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceiveData data: Data) {
         mutableData.append(data)
         
         if let expectedContentLength = dataTask.response?.expectedContentLength {
-//            processCallback?(expectedContentLength, mutableData.count.asInt64)
+            process?.queue.async {
+                self.process?.handler(expectedContentLength, Int64(self.mutableData.count))
+            }
         }
     }
 }

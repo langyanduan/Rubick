@@ -41,6 +41,8 @@ public extension InstanceCompatible {
 // MARK: class
 
 extension UIView: InstanceCompatible {}
+extension UITapGestureRecognizer: InstanceCompatible {}
+extension UIBarButtonItem: InstanceCompatible {}
 extension UIImage: InstanceCompatible {}
 extension UIColor: InstanceCompatible {}
 

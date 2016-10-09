@@ -20,6 +20,10 @@ struct Random {
         return UInt8(arc4random_uniform(UInt32(UInt8.max)))
     }
     
+    static func generateUInt16() -> UInt16 {
+        return UInt16(arc4random_uniform(UInt32(UInt16.max)))
+    }
+    
     static func generateUInt32() -> UInt32 {
         return arc4random_uniform(UInt32.max)
     }

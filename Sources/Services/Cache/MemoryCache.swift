@@ -29,15 +29,12 @@ public final class MemoryCache<Element>: CacheProtocol {
     }
     
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didReceiveMemoryWarning), name: Notification.Name.UIApplicationDidReceiveMemoryWarning, object: nil)
+        NotificationCenter.default.addObserver(forName: .UIApplicationDidReceiveMemoryWarning, object: nil, queue: nil) { [unowned self] (_) in
+            self.lruCache.removeAll()
+        }
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    @objc
-    func didReceiveMemoryWarning() {
-        lruCache.removeAll()
     }
 }

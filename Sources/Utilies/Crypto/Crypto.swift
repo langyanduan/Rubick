@@ -24,6 +24,12 @@ struct BASE64 {
     }
 }
 
+struct URLEncoder {
+    
+}
+
+
+
 func hexString(from data: Data) -> String {
     return ""
 }
