@@ -59,13 +59,13 @@ public struct ImageDownloader {
         }
     }
     
-    private struct Default {
+    public struct Default {
         static let sessionConfiguration = URLSessionConfiguration.default.then { (configuration) in
             configuration.timeoutIntervalForRequest = 10
             configuration.timeoutIntervalForResource = 10
         }
-        static let manager = Manager(configuration: sessionConfiguration)
-        static let cache = ImageCache()
+        public static let manager = Manager(configuration: sessionConfiguration)
+        public static let cache = ImageCache()
         
         private init() { }
     }
@@ -76,10 +76,10 @@ public struct ImageDownloader {
     let processors: [ImageProcessor]
     let requestIntercept: ((URLRequest) -> URLRequest)?
     
-    public static let shared = ImageDownloader()
+    public static let shared = ImageDownloader(cache: Default.cache)
     
     public init(manager: Manager = Default.manager,
-                cache: ImageCache = Default.cache,
+                cache: ImageCache = ImageCache(),
                 decodeQueue: DispatchQueue = .global(),
                 processors: [ImageProcessor] = [],
                 requestIntercept: ((URLRequest) -> URLRequest)? = nil)

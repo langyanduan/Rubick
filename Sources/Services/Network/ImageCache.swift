@@ -22,12 +22,12 @@ public class ImageCache {
     private let diskCache: DiskCache<UIImage>
     private let memoryCache: MemoryCache<UIImage>
 //    
-    init(diskCache: DiskCache<UIImage> = defaultDiskCache) {
+    public init(diskCache: DiskCache<UIImage> = defaultDiskCache) {
         self.diskCache = diskCache
         self.memoryCache = MemoryCache()
     }
     
-    init(diskCachePath: String) {
+    public init(diskCachePath: String) {
         self.diskCache = DiskCache(path: diskCachePath, serializer: UIImageCacheSerializer.shared)
         self.memoryCache = MemoryCache()
     }
