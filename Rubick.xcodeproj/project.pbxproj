@@ -23,7 +23,6 @@
 		50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */; };
 		50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50766F461D6EF31A000DFA1A /* SegmentedControl.swift */; };
 		5080171A1D979709005C50D8 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508017191D979709005C50D8 /* Response.swift */; };
-		5080171C1D979727005C50D8 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080171B1D979727005C50D8 /* Notification.swift */; };
 		5080171E1D979745005C50D8 /* TaskHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5080171D1D979745005C50D8 /* TaskHandler.swift */; };
 		5082501B1D9A205A00656663 /* Box.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250121D9A205A00656663 /* Box.swift */; };
 		5082501E1D9A205A00656663 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 508250151D9A205A00656663 /* FileHelper.swift */; };
@@ -72,6 +71,7 @@
 		50CDED691D9B5F510047B614 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED631D9B5F510047B614 /* Random.swift */; };
 		50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED641D9B5F510047B614 /* Updatable.swift */; };
 		50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF423C1DAA32CF001A5B18 /* UIKit+Closure.swift */; };
+		50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF423E1DAB24CE001A5B18 /* Notification.swift */; };
 		50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E92FF21D658700005A1048 /* UIColor+Extension.swift */; };
 		50F5AAA91D91284C00C67E4C /* ImageDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F5AAA81D91284C00C67E4C /* ImageDecoder.swift */; };
 		50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50FB008C1D98CC6D008EE165 /* LruCache.swift */; };
@@ -142,7 +142,6 @@
 		50766F3A1D6ECC30000DFA1A /* TypeConvert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeConvert.swift; sourceTree = "<group>"; };
 		50766F461D6EF31A000DFA1A /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		508017191D979709005C50D8 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		5080171B1D979727005C50D8 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		5080171D1D979745005C50D8 /* TaskHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskHandler.swift; sourceTree = "<group>"; };
 		508250121D9A205A00656663 /* Box.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
 		508250151D9A205A00656663 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
@@ -195,6 +194,7 @@
 		50CDED631D9B5F510047B614 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		50CDED641D9B5F510047B614 /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		50DF423C1DAA32CF001A5B18 /* UIKit+Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Closure.swift"; sourceTree = "<group>"; };
+		50DF423E1DAB24CE001A5B18 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		50E92FE51D658690005A1048 /* Rubick.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Rubick.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50E92FF21D658700005A1048 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		50E92FF81D65880E005A1048 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
@@ -326,7 +326,6 @@
 				50A8495B1D800BC500A99CAE /* RequestType.swift */,
 				50A849571D800BC500A99CAE /* BodyParameters.swift */,
 				50A849581D800BC500A99CAE /* Error.swift */,
-				5080171B1D979727005C50D8 /* Notification.swift */,
 				50A849591D800BC500A99CAE /* Manager.swift */,
 				5080171D1D979745005C50D8 /* TaskHandler.swift */,
 				50A8495A1D800BC500A99CAE /* Request.swift */,
@@ -415,6 +414,7 @@
 			children = (
 				50B6BB421D66F49700256B2F /* Constaints.swift */,
 				500116EA1D9DF09900D3E0E8 /* Errors.swift */,
+				50DF423E1DAB24CE001A5B18 /* Notification.swift */,
 				508250111D9A205A00656663 /* Utilies */,
 				50A849021D7E5F4100A99CAE /* Services */,
 				50B6BB251D669DAB00256B2F /* Components */,
@@ -670,6 +670,7 @@
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
 				50F5AAA91D91284C00C67E4C /* ImageDecoder.swift in Sources */,
 				508250231D9A205A00656663 /* Then.swift in Sources */,
+				50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */,
 				50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */,
 				5082501E1D9A205A00656663 /* FileHelper.swift in Sources */,
 				50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */,
@@ -708,7 +709,6 @@
 				5082501F1D9A205A00656663 /* Information.swift in Sources */,
 				50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */,
 				50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */,
-				5080171C1D979727005C50D8 /* Notification.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				508250201D9A205A00656663 /* Keychain.swift in Sources */,
 				505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */,
