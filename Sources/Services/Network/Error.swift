@@ -12,8 +12,9 @@ import Foundation
 public enum HTTPError: Error {
     case url
     case encoding
-    case response
+    case response(Int, String)
     case parser
+    case empty
     
     case custom(Any)
     
