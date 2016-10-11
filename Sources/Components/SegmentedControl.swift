@@ -116,12 +116,11 @@ open class SegmentedControl: UIControl {
         let location = tapGesture.location(in: self)
         for (index, label) in labels.enumerated() {
             if label.frame.contains(location) {
-                if selectedIndex == index {
-                    return
-                }
-                selectedIndex = index
-                sendActions(for: .valueChanged)
                 selectedHandler?(index)
+                if selectedIndex != index {
+                    selectedIndex = index
+                    sendActions(for: .valueChanged)
+                }
                 return
             }
         }
@@ -152,4 +151,7 @@ open class SegmentedControl: UIControl {
         }
     }
     
+    open override var intrinsicContentSize: CGSize {
+        return CGSize(width: labels?.reduce(0) { $0 + $1.intrinsicContentSize.width + 16 } ?? 0, height: 35)
+    }
 }

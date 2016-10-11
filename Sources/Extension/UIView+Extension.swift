@@ -10,8 +10,11 @@ import UIKit
 
 extension InstanceExtension where Base: UIView {
     public var viewController: UIViewController? {
-        let nextResponse: UIResponder? = base
-        while let nextResponse = nextResponse?.next {
+        var nextResponse: UIResponder? = base
+        while true {
+            nextResponse = nextResponse?.next
+            guard nextResponse != nil else { return nil }
+            
             if let viewController = nextResponse as? UIViewController {
                 return viewController
             }
