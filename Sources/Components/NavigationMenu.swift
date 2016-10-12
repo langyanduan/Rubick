@@ -16,10 +16,27 @@ public class NavigationMenu: UIView {
         label.font = UIFont.systemFont(ofSize: 17)
         label.translatesAutoresizingMaskIntoConstraints = false
     }
-    let titleImage: UIImageView = UIImageView().then {
-        $0.translatesAutoresizingMaskIntoConstraints = false
+    let titleImage: UIView = UIView().then { (view) in
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 20).isActive = true
+        NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 8).isActive = true
+        
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x: 6, y: 2))
+        path.addLine(to: CGPoint(x: 10, y: 6))
+        path.addLine(to: CGPoint(x: 14, y: 2))
+        let layer = CAShapeLayer()
+        layer.path = path
+        layer.lineCap = kCALineCapRound
+        layer.lineJoin = kCALineJoinMiter
+        layer.lineWidth = 2
+        layer.strokeColor = UIColor.white.cgColor
+        layer.fillColor = UIColor.clear.cgColor
+        layer.frame = CGRect(x: 0, y: 0, width: 32, height: 32)
+        view.layer.addSublayer(layer)
     }
     
+    public var handler: ((Int, String) -> Void)?
     public var isActive = false {
         didSet {
             guard isActive != oldValue else {
@@ -31,38 +48,42 @@ public class NavigationMenu: UIView {
             } else {
                 dismiss()
             }
+            
+            UIView.animate(withDuration: 0.2) {
+                self.titleImage.transform = self.isActive ? CGAffineTransform.identity.rotated(by: CGFloat(M_PI)) : .identity
+            }
         }
     }
     
     public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     public init(items: [String]) {
         self.items = items
-        super.init(frame: .zero)
+        super.init(frame: CGRect(x: 0, y: 0, width: 160, height: 44))
         
         addGestureRecognizer(UITapGestureRecognizer { [unowned self] _ in
             self.isActive = !self.isActive
         })
-        addSubview(titleLabel)
-        addSubview(titleImage)
+        
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(titleLabel)
+        view.addSubview(titleImage)
         
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[titleLabel][titleImage]|", options: .alignAllCenterY, metrics: nil, views: ["titleLabel": titleLabel, "titleImage": titleImage])
         NSLayoutConstraint.activate(constraints)
-        NSLayoutConstraint(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .lessThanOrEqual, toItem: self, attribute: .height, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .lessThanOrEqual, toItem: view, attribute: .height, multiplier: 1, constant: 0).isActive = true
+        
+        addSubview(view)
+        NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         
         titleLabel.text = items.first
     }
     
-    func resize() {
-        translatesAutoresizingMaskIntoConstraints = false
-        setNeedsLayout()
-        layoutIfNeeded()
-        translatesAutoresizingMaskIntoConstraints = true
-    }
-    
-    public override func willMove(toSuperview newSuperview: UIView?) {
-        if newSuperview is UINavigationBar {
-            resize()
+    public override var tintColor: UIColor! {
+        didSet {
+            segment.tintColor = tintColor
         }
     }
     
@@ -80,7 +101,8 @@ public class NavigationMenu: UIView {
             
             guard index != self.segment.selectedIndex else { return }
             self.titleLabel.text = self.items[index]
-            self.resize()
+            self.titleLabel.invalidateIntrinsicContentSize()
+            self.handler?(index, self.items[index])
         }
     }
     
@@ -91,12 +113,6 @@ public class NavigationMenu: UIView {
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[segment]-10-|", options: [], metrics: nil, views: views))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=20)-[segment]-(>=20)-|", options: [], metrics: nil, views: views))
         NSLayoutConstraint(item: self.segment, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-    }
-    
-    public override var tintColor: UIColor! {
-        didSet {
-            segment.tintColor = tintColor
-        }
     }
     
     func show() {
