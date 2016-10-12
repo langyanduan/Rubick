@@ -59,7 +59,7 @@ public extension RequestType {
             headerFields["Content-Type"] = bodyParameters.contentType
             
             do {
-                let body = try bodyParameters.build()
+                let body = try bodyParameters.buildBody()
                 switch body {
                 case .data(let data):
                     request.httpBody = data

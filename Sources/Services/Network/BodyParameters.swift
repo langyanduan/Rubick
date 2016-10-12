@@ -15,7 +15,7 @@ public enum RequestBody {
 
 public protocol BodyParametersType {
     var contentType: String { get }
-    func build() throws -> RequestBody
+    func buildBody() throws -> RequestBody
 }
 
 public struct JSONParameters: BodyParametersType {
@@ -29,7 +29,7 @@ public struct JSONParameters: BodyParametersType {
         return "application/json"
     }
     
-    public func build() throws -> RequestBody {
+    public func buildBody() throws -> RequestBody {
         do {
             return .data(try JSONSerialization.data(withJSONObject: parameters, options: []))
         } catch {
@@ -49,7 +49,7 @@ public struct FormURLParameters: BodyParametersType {
         return "application/x-www-form-urlencoded"
     }
     
-    public func build() throws -> RequestBody {
+    public func buildBody() throws -> RequestBody {
         fatalError("FromURLParameters.build() has not been implemented")
     }
 }
