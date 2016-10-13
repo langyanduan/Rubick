@@ -62,7 +62,7 @@
 		50BDBCD21D90D4A700F3F8B3 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */; };
 		50C3E7861D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */; };
 		50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */; };
-		50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */; };
+		50C3E7891D893E450038A8E3 /* UIScrollView+Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7881D893E450038A8E3 /* UIScrollView+Values.swift */; };
 		50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901541D842A30000079AA /* EmptyPlaceholder.swift */; };
 		50CDED651D9B5F510047B614 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED5F1D9B5F510047B614 /* Crypto.swift */; };
 		50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED601D9B5F510047B614 /* Cryptor.swift */; };
@@ -70,6 +70,10 @@
 		50CDED681D9B5F510047B614 /* HMAC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED621D9B5F510047B614 /* HMAC.swift */; };
 		50CDED691D9B5F510047B614 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED631D9B5F510047B614 /* Random.swift */; };
 		50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED641D9B5F510047B614 /* Updatable.swift */; };
+		50D1A2971DAE1B080038815B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2961DAE1B080038815B /* IndicatorView.swift */; };
+		50D1A2991DAF6AB80038815B /* ProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */; };
+		50D1A29C1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */; };
+		50D1A29E1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */; };
 		50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF423C1DAA32CF001A5B18 /* UIKit+Closure.swift */; };
 		50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF423E1DAB24CE001A5B18 /* Notification.swift */; };
 		50DF42411DAB8923001A5B18 /* NavigationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF42401DAB8923001A5B18 /* NavigationMenu.swift */; };
@@ -186,7 +190,7 @@
 		50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
 		50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyPlaceholderSwizzle.h; sourceTree = "<group>"; };
 		50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyPlaceholderSwizzle.m; sourceTree = "<group>"; };
-		50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIScrollViewLoading.swift; sourceTree = "<group>"; };
+		50C3E7881D893E450038A8E3 /* UIScrollView+Values.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Values.swift"; sourceTree = "<group>"; };
 		50C901541D842A30000079AA /* EmptyPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyPlaceholder.swift; sourceTree = "<group>"; };
 		50CDED5F1D9B5F510047B614 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		50CDED601D9B5F510047B614 /* Cryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptor.swift; sourceTree = "<group>"; };
@@ -194,6 +198,10 @@
 		50CDED621D9B5F510047B614 /* HMAC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMAC.swift; sourceTree = "<group>"; };
 		50CDED631D9B5F510047B614 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		50CDED641D9B5F510047B614 /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
+		50D1A2961DAE1B080038815B /* IndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
+		50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorView.swift; sourceTree = "<group>"; };
+		50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+PullRefresh.swift"; sourceTree = "<group>"; };
+		50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollVIew+InfiniteScrolling.swift"; sourceTree = "<group>"; };
 		50DF423C1DAA32CF001A5B18 /* UIKit+Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Closure.swift"; sourceTree = "<group>"; };
 		50DF423E1DAB24CE001A5B18 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		50DF42401DAB8923001A5B18 /* NavigationMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenu.swift; sourceTree = "<group>"; };
@@ -341,16 +349,17 @@
 		50B6BB251D669DAB00256B2F /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				50D1A29A1DAF6B900038815B /* UIScrollView+Loading */,
 				50B6BB261D669DBA00256B2F /* ImageLabel.swift */,
 				50B6BB441D66F62700256B2F /* KeyboardManager.swift */,
 				50B6BB461D66F68700256B2F /* Toast.swift */,
 				50B7B90B1D6E9D1400D6F84B /* TabBar.swift */,
 				50766F461D6EF31A000DFA1A /* SegmentedControl.swift */,
-				50C3E7881D893E450038A8E3 /* UIScrollViewLoading.swift */,
 				50C901541D842A30000079AA /* EmptyPlaceholder.swift */,
 				50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */,
 				50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */,
 				50DF42401DAB8923001A5B18 /* NavigationMenu.swift */,
+				50D1A2961DAE1B080038815B /* IndicatorView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -377,6 +386,17 @@
 				50CDED631D9B5F510047B614 /* Random.swift */,
 			);
 			path = Crypto;
+			sourceTree = "<group>";
+		};
+		50D1A29A1DAF6B900038815B /* UIScrollView+Loading */ = {
+			isa = PBXGroup;
+			children = (
+				50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */,
+				50C3E7881D893E450038A8E3 /* UIScrollView+Values.swift */,
+				50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */,
+				50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */,
+			);
+			name = "UIScrollView+Loading";
 			sourceTree = "<group>";
 		};
 		50E92FD91D658673005A1048 = {
@@ -667,15 +687,19 @@
 				50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */,
 				5041EA7A1D951C270001BA42 /* ImageProcessor.swift in Sources */,
 				50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */,
+				50D1A2971DAE1B080038815B /* IndicatorView.swift in Sources */,
+				50D1A29E1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift in Sources */,
 				50DF42411DAB8923001A5B18 /* NavigationMenu.swift in Sources */,
 				50577F8F1D9CA6F800581A3A /* Validator.swift in Sources */,
 				50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */,
 				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
+				50D1A29C1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift in Sources */,
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
 				50F5AAA91D91284C00C67E4C /* ImageDecoder.swift in Sources */,
+				50D1A2991DAF6AB80038815B /* ProgressIndicatorView.swift in Sources */,
 				508250231D9A205A00656663 /* Then.swift in Sources */,
 				50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */,
-				50C3E7891D893E450038A8E3 /* UIScrollViewLoading.swift in Sources */,
+				50C3E7891D893E450038A8E3 /* UIScrollView+Values.swift in Sources */,
 				5082501E1D9A205A00656663 /* FileHelper.swift in Sources */,
 				50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */,
 				5080171E1D979745005C50D8 /* TaskHandler.swift in Sources */,

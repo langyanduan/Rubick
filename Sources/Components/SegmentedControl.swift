@@ -92,6 +92,7 @@ open class SegmentedControl: UIControl {
             label.textColor = UIColor.black
             label.backgroundColor = backgroundColor_
             label.textAlignment = .center
+            label.adjustsFontSizeToFitWidth = true
             addSubview(label)
             
             return label
