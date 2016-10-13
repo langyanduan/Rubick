@@ -62,14 +62,29 @@ extension InstanceExtension where Base: UIImage {
     }
     
     public func circularImage(withRadius radius: CGFloat) -> UIImage {
-        let size = CGSize(width: 2 * radius, height: 2 * radius)
+        let length = radius * 2
+        let width = base.size.width, height = base.size.height
+        let aspectRatio = height == 0.0 ? 1.0 : width / height
+        let rect: CGRect
+        if width > height {
+            let aspectWidth = round(aspectRatio * length)
+            rect = CGRect(
+                x: radius - aspectWidth / 2,
+                y: 0,
+                width: aspectWidth,
+                height: length)
+        } else {
+            let aspectHeight = round(length / aspectRatio)
+            rect = CGRect(
+                x: 0,
+                y: radius - aspectHeight / 2,
+                width: length,
+                height: aspectHeight)
+        }
+        let size = CGSize(width: length, height: length)
         UIGraphicsBeginImageContextWithOptions(size, false, base.scale)
         defer { UIGraphicsEndImageContext() }
-        
         UIBezierPath(roundedRect: CGRect(origin: .zero, size: size), cornerRadius: radius).addClip()
-        
-        let x = radius - base.size.width / 2, y = radius - base.size.height / 2
-        let rect = CGRect(origin: CGPoint(x: x, y: y), size: base.size)
         base.draw(in: rect)
         
         return UIGraphicsGetImageFromCurrentImageContext()!
