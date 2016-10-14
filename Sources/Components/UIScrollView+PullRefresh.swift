@@ -11,6 +11,12 @@ import UIKit
 
 private let HeaderHeight: CGFloat = 60
 
+private enum RefreshState {
+    case normal
+    case triggering
+    case loading
+}
+
 private class HeaderView: UIView, Loadable {
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     

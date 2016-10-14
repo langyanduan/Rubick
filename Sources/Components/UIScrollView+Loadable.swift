@@ -18,8 +18,6 @@ public protocol Loadable {
     func stopAnimating()
 }
 
-enum RefreshState {
-    case normal
-    case triggering
-    case loading
+public protocol NextLoadable: Loadable {
+    func finish()
 }

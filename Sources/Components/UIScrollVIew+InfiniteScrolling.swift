@@ -21,7 +21,13 @@ private struct Observer {
     }
 }
 
-private class FooterView: UIView, Loadable {
+private enum RefreshState {
+    case normal
+    case loading
+    case finish
+}
+
+private class FooterView: UIView, NextLoadable {
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     // Loadable
@@ -33,12 +39,12 @@ private class FooterView: UIView, Loadable {
         state = .loading
     }
     
-    var handler: (() -> Void)?
-    var isEnable: Bool = true {
-        didSet {
-            
-        }
+    func finish() {
+        state = .finish
     }
+    
+    var handler: (() -> Void)?
+    var isEnable: Bool = true
     
     var originInsets: UIEdgeInsets = .zero
     var isAnimating: Bool { return state == .loading }
@@ -51,13 +57,15 @@ private class FooterView: UIView, Loadable {
                 indicatorView.stopAnimating()
             case .loading:
                 indicatorView.startAnimating()
-            default:
-                assertionFailure()
+            case .finish:
+                indicatorView.stopAnimating()
             }
+            
+            textLabel.isHidden = oldValue == .finish || state != .finish
         }
     }
     
-    // 
+    //
     
     var prefix: CGFloat = 0
     weak var scrollView: UIScrollView!
@@ -103,11 +111,10 @@ private class FooterView: UIView, Loadable {
         
         textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = "iazai...."
+        textLabel.text = "加载完成..."
         textLabel.textColor = UIColor.green
         textLabel.isHidden = true
         addSubview(textLabel)
-        
         NSLayoutConstraint(item: textLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
         NSLayoutConstraint(item: textLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
     }
@@ -128,14 +135,12 @@ private class FooterView: UIView, Loadable {
     }
     
     func offsetChanged() {
-        guard isEnable else {
-            return
-        }
-        guard scrollView.frame.width > 0, scrollView.frame.height > 0, scrollView.contentSize.height > 0 else {
-            return
-        }
+        guard isEnable else { return }
+        guard scrollView.frame.width > 0, scrollView.frame.height > 0, scrollView.contentSize.height > 0 else { return }
+        guard scrollView.contentSize.height >= scrollView.bounds.height else { return }
+        if state == .finish { return }
         
-        if scrollView.contentOffset.y + scrollView.frame.height >= frame.minY && state != .loading {
+        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && state != .loading {
             state = .loading
             handler?()
         }
@@ -157,7 +162,7 @@ extension InstanceExtension where Base: UIScrollView {
         return objc_getAssociatedObject(base, &associatedFooterKey) as? FooterView
     }
     
-    public var infiniteScrollingView: Loadable? {
+    public var infiniteScrollingView: NextLoadable? {
         return footerView
     }
     
@@ -179,8 +184,11 @@ extension InstanceExtension where Base: UIScrollView {
     public func startInfiniteScrolling() {
         footerView?.startAnimating()
     }
-    public func stopInfiniteScrolling(with infinite: Bool = true) {
-        footerView?.stopAnimating()
-        footerView?.isEnable = infinite
+    public func stopInfiniteScrolling(with hasNext: Bool = true) {
+        if hasNext {
+            footerView?.stopAnimating()
+        } else {
+            footerView?.finish()
+        }
     }
 }

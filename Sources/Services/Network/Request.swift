@@ -11,9 +11,9 @@ import Foundation
 public class Request {
     let handler: TaskHandler
     
-    var task: URLSessionTask { return handler.task }
-    var request: URLRequest? { return task.originalRequest }
-    var response: HTTPURLResponse? { return task.response as? HTTPURLResponse }
+    public var task: URLSessionTask { return handler.task }
+    public var request: URLRequest? { return task.originalRequest }
+    public var response: HTTPURLResponse? { return task.response as? HTTPURLResponse }
     
     init(task: URLSessionTask) {
         switch task {
@@ -32,15 +32,15 @@ public class Request {
     
     public func resume() {
         task.resume()
-        NotificationCenter.default.post(name: Notification.Name.Rubick.RequestDidResume, object: task, userInfo: nil)
+        NotificationCenter.default.post(name: Notification.Name.Rubick.RequestDidResume, object: self, userInfo: nil)
     }
     public func suspend() {
         task.suspend()
-        NotificationCenter.default.post(name: Notification.Name.Rubick.RequestDidSuspend, object: task, userInfo: nil)
+        NotificationCenter.default.post(name: Notification.Name.Rubick.RequestDidSuspend, object: self, userInfo: nil)
     }
     public func cancel() {
         task.cancel()
-        NotificationCenter.default.post(name: Notification.Name.Rubick.RequestDidCancel, object: task, userInfo: nil)
+        NotificationCenter.default.post(name: Notification.Name.Rubick.RequestDidCancel, object: self, userInfo: nil)
     }
 }
 

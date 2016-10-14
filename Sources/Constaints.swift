@@ -28,6 +28,10 @@ public func assertMainThread() {
     assert(Thread.isMainThread)
 }
 
+public func address<T: AnyObject>(of object: T) -> Int {
+    return unsafeBitCast(object, to: Int.self)
+}
+
 extension UIViewAnimationOptions {
     public init(curve: UIViewAnimationCurve) {
         switch curve {

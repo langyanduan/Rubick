@@ -11,7 +11,7 @@ import Foundation
 class SessionDelegate: NSObject {
     class HandlerCollection {
         var collection: [Int: TaskHandler] = [:]
-        let queue = DispatchQueue(label: "HandlerAccessor", attributes: DispatchQueue.Attributes.concurrent)
+        let queue = DispatchQueue(label: "com.rubick.HandlerAccessor", attributes: DispatchQueue.Attributes.concurrent)
         
         subscript(task: URLSessionTask) -> TaskHandler? {
             get {
@@ -175,7 +175,7 @@ extension SessionDelegate: URLSessionDataDelegate {
 public final class Manager {
     let sessionDelegate: SessionDelegate
     let session: URLSession
-    let createQueue = DispatchQueue(label: "CreateTask", attributes: [])
+    let createQueue = DispatchQueue(label: "com.rubick.CreateTask", attributes: [])
     
     public var startRequestsImmediately: Bool = true
     
