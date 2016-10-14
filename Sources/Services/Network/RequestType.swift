@@ -41,7 +41,7 @@ public protocol RequestType: URLRequestConvertible {
     var baseURL: String { get }
     var path: String { get }
     var headerFields: [String: String]? { get }
-    var queryParameters: [String: AnyObject]? { get }
+    var queryParameters: [String: Any]? { get }
     var bodyParameters: BodyParametersType? { get }
     var method: Method { get }
 }
@@ -69,17 +69,16 @@ public extension RequestType {
             }
         }
         
-        if let queryParameters = queryParameters {
-            guard let URLComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
+        if let queryParameters = queryParameters, !queryParameters.isEmpty {
+            guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
                 throw HTTPError.url
             }
-            _ = queryParameters
-            
-            request.url = URLComponents.url
+            let percentEncodedQuery = (urlComponents.percentEncodedQuery.map { $0 + "&" } ?? "") + FormURLParameters.query(queryParameters)
+            urlComponents.percentEncodedQuery = percentEncodedQuery
+            request.url = urlComponents.url
         } else {
             request.url = url
         }
-        
         
         request.allHTTPHeaderFields = headerFields
         request.httpMethod = method.rawValue
