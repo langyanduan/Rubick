@@ -74,6 +74,8 @@
 		50D1A2991DAF6AB80038815B /* ProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */; };
 		50D1A29C1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */; };
 		50D1A29E1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */; };
+		50D1A2A41DB0D4BE0038815B /* HTTPStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2A31DB0D4BE0038815B /* HTTPStub.swift */; };
+		50D1A2A61DB0D4EA0038815B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2A51DB0D4EA0038815B /* Reachability.swift */; };
 		50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF423C1DAA32CF001A5B18 /* UIKit+Closure.swift */; };
 		50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF423E1DAB24CE001A5B18 /* Notification.swift */; };
 		50DF42411DAB8923001A5B18 /* NavigationMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DF42401DAB8923001A5B18 /* NavigationMenu.swift */; };
@@ -202,6 +204,8 @@
 		50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorView.swift; sourceTree = "<group>"; };
 		50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+PullRefresh.swift"; sourceTree = "<group>"; };
 		50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollVIew+InfiniteScrolling.swift"; sourceTree = "<group>"; };
+		50D1A2A31DB0D4BE0038815B /* HTTPStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStub.swift; sourceTree = "<group>"; };
+		50D1A2A51DB0D4EA0038815B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		50DF423C1DAA32CF001A5B18 /* UIKit+Closure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+Closure.swift"; sourceTree = "<group>"; };
 		50DF423E1DAB24CE001A5B18 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		50DF42401DAB8923001A5B18 /* NavigationMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationMenu.swift; sourceTree = "<group>"; };
@@ -340,6 +344,8 @@
 				5080171D1D979745005C50D8 /* TaskHandler.swift */,
 				50A8495A1D800BC500A99CAE /* Request.swift */,
 				508017191D979709005C50D8 /* Response.swift */,
+				50D1A2A31DB0D4BE0038815B /* HTTPStub.swift */,
+				50D1A2A51DB0D4EA0038815B /* Reachability.swift */,
 				50A8496B1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift */,
 				5041EA781D9515900001BA42 /* Image */,
 			);
@@ -699,6 +705,7 @@
 				50D1A2991DAF6AB80038815B /* ProgressIndicatorView.swift in Sources */,
 				508250231D9A205A00656663 /* Then.swift in Sources */,
 				50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */,
+				50D1A2A41DB0D4BE0038815B /* HTTPStub.swift in Sources */,
 				50C3E7891D893E450038A8E3 /* UIScrollView+Loadable.swift in Sources */,
 				5082501E1D9A205A00656663 /* FileHelper.swift in Sources */,
 				50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */,
@@ -720,6 +727,7 @@
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 				5082501B1D9A205A00656663 /* Box.swift in Sources */,
 				5041EA751D9506630001BA42 /* String+Extension.swift in Sources */,
+				50D1A2A61DB0D4EA0038815B /* Reachability.swift in Sources */,
 				50BDBCD21D90D4A700F3F8B3 /* MemoryCache.swift in Sources */,
 				5041EA771D9515890001BA42 /* UIKit+ImageDownload.swift in Sources */,
 				50A849601D800BC500A99CAE /* RequestType.swift in Sources */,

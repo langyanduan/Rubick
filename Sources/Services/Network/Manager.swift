@@ -179,7 +179,16 @@ public final class Manager {
     
     public var startRequestsImmediately: Bool = true
     
-    public init(configuration: URLSessionConfiguration = .default) {
+    public convenience init() {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 10
+        configuration.timeoutIntervalForResource = 20
+        self.init(configuration: configuration)
+    }
+    
+    public init(configuration: URLSessionConfiguration) {
+        configuration.protocolClasses?.insert(StubProtocol.self, at: 0)
+        
         sessionDelegate = SessionDelegate()
         session = URLSession(configuration: configuration, delegate: sessionDelegate, delegateQueue: nil)
     }

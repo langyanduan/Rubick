@@ -165,6 +165,7 @@ extension InstanceExtension where Base: UIScrollView {
     }
     
     public var pullRefreshView: Loadable? { return headerView }
+    public var isPullRefreshAnimating: Bool { return headerView?.isAnimating ?? false }
     
     public func addPullToRefresh(with handler: @escaping () -> Void) {
         if let view = headerView {

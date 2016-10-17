@@ -139,6 +139,7 @@ private class FooterView: UIView, NextLoadable {
         guard scrollView.frame.width > 0, scrollView.frame.height > 0, scrollView.contentSize.height > 0 else { return }
         guard scrollView.contentSize.height >= scrollView.bounds.height else { return }
         if state == .finish { return }
+        if scrollView.ext.isPullRefreshAnimating { return }
         
         if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && state != .loading {
             state = .loading
@@ -162,9 +163,8 @@ extension InstanceExtension where Base: UIScrollView {
         return objc_getAssociatedObject(base, &associatedFooterKey) as? FooterView
     }
     
-    public var infiniteScrollingView: NextLoadable? {
-        return footerView
-    }
+    public var infiniteScrollingView: NextLoadable? { return footerView }
+    public var isInfiniteScrollingAnimating: Bool { return footerView?.isAnimating ?? false }
     
     public func addInfiniteScrolling(with handler: @escaping () -> Void) {
         if let view = footerView {
