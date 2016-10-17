@@ -14,5 +14,7 @@ extension Notification.Name {
         public static let RequestDidSuspend = Notification.Name("com.rubick.RequestDidSuspend")
         public static let RequestDidCancel = Notification.Name("com.rubick.RequestDidCancel")
         public static let RequestDidComplete = Notification.Name("com.rubick.RequestDidComplete")
+        
+        public static let ReachabilityChanged = Notification.Name("com.rubick.ReachabilityChanged")
     }
 }

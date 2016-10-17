@@ -94,8 +94,6 @@ class StubProtocol: URLProtocol {
         let optionalStub = stubSets.first { request.url?.absoluteString == $0.urlString }
         pthread_mutex_unlock(&lock)
         
-        LogD("stub startLoading: \(request.url!)")
-        
         guard let stub = optionalStub else {
             client?.urlProtocol(self, didFailWithError: NSError(domain: "com.rubick.httpstub", code: 0, userInfo: nil))
             return
@@ -130,8 +128,6 @@ class StubProtocol: URLProtocol {
     }
     
     override func stopLoading() {
-        LogD("stub stopLoading: \(request.url!)")
-        
         isStopped = false
     }
 }

@@ -136,10 +136,9 @@ private class FooterView: UIView, NextLoadable {
     
     func offsetChanged() {
         guard isEnable else { return }
-        guard scrollView.frame.width > 0, scrollView.frame.height > 0, scrollView.contentSize.height > 0 else { return }
-        guard scrollView.contentSize.height >= scrollView.bounds.height else { return }
         if state == .finish { return }
         if scrollView.ext.isPullRefreshAnimating { return }
+        guard scrollView.frame.width > 0, scrollView.frame.height > 0, scrollView.contentSize.height > scrollView.bounds.height else { return }
         
         if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && state != .loading {
             state = .loading
