@@ -19,6 +19,5 @@ extension InstanceExtension where Base: UIView {
                 return viewController
             }
         }
-        return nil
     }
 }

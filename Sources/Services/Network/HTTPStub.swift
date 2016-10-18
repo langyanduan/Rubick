@@ -13,31 +13,36 @@ public struct HTTPStub {
     let response: (URLRequest) -> (HTTPURLResponse?, Data?, Error?)
     let delay: TimeInterval
     
-    public init(
+    public init?(
         urlString: String,
         response: @escaping (URLRequest) -> (HTTPURLResponse?, Data?, Error?),
         delay: TimeInterval = 0.5)
     {
+        guard let _ = URL(string: urlString) else {
+            return nil
+        }
+        
         self.urlString = urlString
         self.response = response
         self.delay = delay
     }
     
-    public init(
+    public init?(
         urlString: String,
         statusCode: Int = 200,
-        contentType: String,
+        contentType: String? = nil,
         data: Data,
         delay: TimeInterval = 0.5)
     {
         let response = { (request: URLRequest) -> (HTTPURLResponse?, Data?, Error?) in
-            return (HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: "1.1", headerFields: ["ContentType": contentType]), data, nil)
+            let headerFields: [String: String] = contentType == nil ? [:] : ["ContentType": contentType!]
+            return (HTTPURLResponse(url: request.url!, statusCode: statusCode, httpVersion: "1.1", headerFields: headerFields), data, nil)
         }
         
         self.init(urlString: urlString, response: response, delay: delay)
     }
     
-    public init(
+    public init?(
         urlString: String,
         statusCode: Int,
         error: Error?,
@@ -74,15 +79,31 @@ extension HTTPStub {
             URLProtocol.registerClass(StubProtocol.self)
         }
     }
+    
+    @discardableResult
+    public static func add(urlString: String, data: Data, contentType: String? = nil, delay: TimeInterval = 0.5) -> Bool {
+        guard let stub = HTTPStub(urlString: urlString, contentType: contentType, data: data, delay: delay) else {
+            return false
+        }
+        add(stub: stub)
+        return true
+    }
 }
 
 class StubProtocol: URLProtocol {
     var isStopped = false
     
+    class func compareURLString(_ l: String?, _ r: String?) -> Bool {
+        guard var l = l, var r = r else { return false }
+        if let index = l.characters.index(of: Character("?")) { l = l.substring(to: index) }
+        if let index = r.characters.index(of: Character("?")) { r = r.substring(to: index) }
+        return r == l
+    }
+    
     // override
     override class func canInit(with request: URLRequest) -> Bool {
         pthread_mutex_lock(&lock); defer { pthread_mutex_unlock(&lock) }
-        return stubSets.first { request.url?.absoluteString == $0.urlString } != nil
+        return stubSets.first { compareURLString(request.url?.absoluteString, $0.urlString) } != nil
     }
     
     override class func canonicalRequest(for request: URLRequest) -> URLRequest {
@@ -91,7 +112,7 @@ class StubProtocol: URLProtocol {
     
     override func startLoading() {
         pthread_mutex_lock(&lock)
-        let optionalStub = stubSets.first { request.url?.absoluteString == $0.urlString }
+        let optionalStub = stubSets.first { StubProtocol.compareURLString(request.url?.absoluteString, $0.urlString) }
         pthread_mutex_unlock(&lock)
         
         guard let stub = optionalStub else {
@@ -121,8 +142,6 @@ class StubProtocol: URLProtocol {
                     self.client?.urlProtocol(self, didLoad: data)
                 }
                 self.client?.urlProtocol(self, didFailWithError: error)
-            default:
-                assertionFailure()
             }
         }
     }

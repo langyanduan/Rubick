@@ -86,7 +86,7 @@ public class Reachability {
     // notify
     public func startListening() {
         var object = self
-        var info = withUnsafeMutablePointer(to: &object) { UnsafeMutableRawPointer($0) }
+        let info = withUnsafeMutablePointer(to: &object) { UnsafeMutableRawPointer($0) }
         var context = SCNetworkReachabilityContext(version: 0, info: info, retain: nil, release: nil, copyDescription: nil)
         let callback: SCNetworkReachabilityCallBack = { (reachability, flags, info) in
             guard let object = info?.assumingMemoryBound(to: Reachability.self).pointee else { return }
