@@ -60,8 +60,6 @@
 		50BDBCCE1D90D48C00F3F8B3 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCCD1D90D48C00F3F8B3 /* Cache.swift */; };
 		50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCCF1D90D49500F3F8B3 /* DiskCache.swift */; };
 		50BDBCD21D90D4A700F3F8B3 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */; };
-		50C3E7861D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */; };
-		50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */; };
 		50C3E7891D893E450038A8E3 /* UIScrollView+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7881D893E450038A8E3 /* UIScrollView+Loadable.swift */; };
 		50C901551D842A30000079AA /* EmptyPlaceholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C901541D842A30000079AA /* EmptyPlaceholder.swift */; };
 		50CDED651D9B5F510047B614 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED5F1D9B5F510047B614 /* Crypto.swift */; };
@@ -191,8 +189,6 @@
 		50BDBCCD1D90D48C00F3F8B3 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		50BDBCCF1D90D49500F3F8B3 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
-		50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyPlaceholderSwizzle.h; sourceTree = "<group>"; };
-		50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyPlaceholderSwizzle.m; sourceTree = "<group>"; };
 		50C3E7881D893E450038A8E3 /* UIScrollView+Loadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Loadable.swift"; sourceTree = "<group>"; };
 		50C901541D842A30000079AA /* EmptyPlaceholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyPlaceholder.swift; sourceTree = "<group>"; };
 		50CDED5F1D9B5F510047B614 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
@@ -365,8 +361,6 @@
 				50B7B90B1D6E9D1400D6F84B /* TabBar.swift */,
 				50766F461D6EF31A000DFA1A /* SegmentedControl.swift */,
 				50C901541D842A30000079AA /* EmptyPlaceholder.swift */,
-				50C3E7841D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h */,
-				50C3E7851D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m */,
 				50DF42401DAB8923001A5B18 /* NavigationMenu.swift */,
 				50D1A2961DAE1B080038815B /* IndicatorView.swift */,
 			);
@@ -480,7 +474,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				50B6BB0E1D658B8600256B2F /* Rubick.h in Headers */,
-				50C3E7861D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -727,7 +720,6 @@
 				500116EB1D9DF09900D3E0E8 /* Errors.swift in Sources */,
 				50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */,
 				50CDED671D9B5F510047B614 /* Digest.swift in Sources */,
-				50C3E7871D88EBB80038A8E3 /* EmptyPlaceholderSwizzle.m in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 				5082501B1D9A205A00656663 /* Box.swift in Sources */,
 				5041EA751D9506630001BA42 /* String+Extension.swift in Sources */,

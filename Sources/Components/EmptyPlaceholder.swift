@@ -58,14 +58,15 @@ extension EmptyPlaceholderContainer where Self: UIView, Self: EmptyPlaceholderCo
         configuration.lastSize = frame.size
         configuration.setupPlaceholderView()
         
-        addSubview(configuration.contentView)
-        
         let contentView = configuration.contentView
+        var contentFrame = bounds
+        contentFrame.origin = .zero
+        contentView.frame = contentFrame
+        addSubview(contentView)
+        
         let placeholderView = configuration.placeholderView
         contentView.addSubview(placeholderView)
-        contentView.frame = bounds
         contentView.removeConstraints(contentView.constraints)
-        
         let layoutDescriptions: [(NSLayoutAttribute, NSLayoutRelation)] = [
             (.width, .equal),
             (.centerX, .equal),
@@ -95,7 +96,7 @@ extension EmptyPlaceholderContainer where Self: UIView, Self: EmptyPlaceholderCo
 //
 private class PlaceholderView: UIView {
     let titleLabel = UILabel().then { label in
-        label.textColor = .red
+        label.textColor = UIColor(white: 0.6, alpha: 1)
     }
     let descriptionLabel: UILabel = UILabel()
     let imageView = UIImageView()
@@ -135,6 +136,47 @@ private class PlaceholderView: UIView {
         )
     }
 }
+
+//class ObserverView: UIView {
+//    let frameKeyPath = "frame"
+//    let boundsKeyPath = "bounds"
+//    
+//    struct Observer {
+//        struct frame {
+//            static let keyPath = "frame"
+//            static var context = 0
+//        }
+//        struct bounds {
+//            static let keyPath = "bounds"
+//            static var context = 0
+//        }
+//    }
+//    
+//    override func willMove(toSuperview newSuperview: UIView?) {
+//        if let superview = superview as? UIScrollView {
+//            superview.removeObserver(self, forKeyPath: Observer.frame.keyPath)
+//            superview.removeObserver(self, forKeyPath: Observer.bounds.keyPath)
+//        }
+//        
+//        if let superview = newSuperview as? UIScrollView {
+//            superview.addObserver(self, forKeyPath: Observer.frame.keyPath, options: [.new], context: &Observer.frame.context)
+//            superview.addObserver(self, forKeyPath: Observer.bounds.keyPath, options: [.new], context: &Observer.bounds.context)
+//        }
+//    }
+//    
+//    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+//        guard let context = context else {
+//            return super.observeValue(forKeyPath: keyPath, of: object, change: change, context: nil)
+//        }
+//        
+//        switch context {
+//        case &Observer.frame.context, &Observer.bounds.context:
+//            self.frame = self.superview!.bounds
+//        default:
+//            return super.observeValue(forKeyPath: keyPath, of: object, change: change, context: nil)
+//        }
+//    }
+//}
 
 public class PlaceholderConfiguration<HostView: UIView> {
     fileprivate var lastSize: CGSize?
@@ -242,14 +284,13 @@ extension UITableView: EmptyPlaceholderView {
         reloadPlaceholder(force: true)
     }
     
-    private static func didSwizzle() -> Int {
+    private static func didSwizzle() {
         func exchangeSelector(_ selector1: Selector, _ selector2: Selector) {
             let m1 = class_getInstanceMethod(UITableView.self, selector1)
             let m2 = class_getInstanceMethod(UITableView.self, selector2)
             method_exchangeImplementations(m1, m2)
         }
         exchangeSelector(#selector(reloadData), #selector(swz_reloadData))
-        return 0
     }
     
     fileprivate static let didSwizzleOnce = didSwizzle()
@@ -271,15 +312,13 @@ extension UICollectionView: EmptyPlaceholderView {
         reloadPlaceholder(force: true)
     }
     
-    
-    private static func didSwizzle() -> Int {
+    private static func didSwizzle() {
         func exchangeSelector(_ selector1: Selector, _ selector2: Selector) {
             let m1 = class_getInstanceMethod(UICollectionView.self, selector1)
             let m2 = class_getInstanceMethod(UICollectionView.self, selector2)
             method_exchangeImplementations(m1, m2)
         }
         exchangeSelector(#selector(reloadData), #selector(swz_reloadData))
-        return 0
     }
     
     fileprivate static let didSwizzleOnce = didSwizzle()

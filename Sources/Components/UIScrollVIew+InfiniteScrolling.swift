@@ -67,7 +67,11 @@ private class FooterView: UIView, NextLoadable {
     
     //
     
-    var prefix: CGFloat = 0
+    var finishText: String = "" {
+        didSet {
+            textLabel.text = finishText
+        }
+    }
     weak var scrollView: UIScrollView!
     
     override init(frame: CGRect) {
@@ -112,7 +116,8 @@ private class FooterView: UIView, NextLoadable {
         textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "加载完成..."
-        textLabel.textColor = UIColor.green
+        textLabel.textColor = UIColor(white: 0.6, alpha: 1)
+        textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.isHidden = true
         addSubview(textLabel)
         NSLayoutConstraint(item: textLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
@@ -170,6 +175,7 @@ extension InstanceExtension where Base: UIScrollView {
             view.handler = handler
         } else {
             let view = FooterView()
+            view.finishText = "没有更多数据了..."
             view.handler = handler
             base.addSubview(view)
             objc_setAssociatedObject(base, &associatedFooterKey, view, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
