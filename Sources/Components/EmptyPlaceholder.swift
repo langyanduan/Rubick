@@ -154,7 +154,6 @@ public class PlaceholderConfiguration<HostView: UIView> {
             
             if let view = hostView as? EmptyPlaceholderContainer {
                 view.reloadPlaceholder(force: false)
-                LogD("visible")
             }
         }
     }

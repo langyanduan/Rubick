@@ -27,26 +27,32 @@ extension InstanceExtension where Base: _StringType {
         return NSPredicate(format: "SELF MATCHES %@", candidate).evaluate(with: _self)
     }
     
+    /// 是否是纯数字
     public var isNumber: Bool {
         return validator(candidate: Expression.number)
     }
     
+    /// 是否是邮箱地址
     public var isEmail: Bool {
         return validator(candidate: Expression.email)
     }
     
+    /// 是否是手机号码
     public var isPhoneNumber: Bool {
         return validator(candidate: Expression.phoneNumber)
     }
     
+    /// 是否是身份证号
     public var isIdentifier: Bool {
         return validator(candidate: Expression.identifier)
     }
     
+    /// 是否是纯字母
     public var isLetter: Bool {
         return validator(candidate: Expression.letter)
     }
     
+    /// 是否是纯中文
     public var isChinese: Bool {
         return validator(candidate: Expression.chinese)
     }

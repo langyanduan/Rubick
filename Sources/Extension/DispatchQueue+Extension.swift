@@ -29,3 +29,10 @@ public func asyncOnGlobalQueue(delay: TimeInterval = 0, execute work: @escaping 
         DispatchQueue.global().async(execute: work)
     }
 }
+
+extension DispatchQueue {
+    /// Extract the current dispatch queue's label name (Temp workaround until this is added to Swift 3.0 properly)
+    public static var currentQueueLabel: String? {
+        return String(validatingUTF8: __dispatch_queue_get_label(nil))
+    }
+}

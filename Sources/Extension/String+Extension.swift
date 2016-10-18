@@ -15,6 +15,10 @@ extension InstanceExtension where Base: _StringType {
         return _self.characters.count
     }
     
+    public var lastPathComponent: String {
+        return (_self as NSString).lastPathComponent
+    }
+    
     public func appendingPathComponent(_ str: String) -> String {
         return (_self as NSString).appendingPathComponent(str)
     }
