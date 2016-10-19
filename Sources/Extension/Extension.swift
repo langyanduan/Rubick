@@ -57,5 +57,5 @@ extension Array: _ArrayType {}
 public protocol _StringType: InstanceCompatible {}
 extension String: _StringType {}
 
-
-
+public protocol _CGRectType: InstanceCompatible {}
+extension CGRect: _CGRectType {}

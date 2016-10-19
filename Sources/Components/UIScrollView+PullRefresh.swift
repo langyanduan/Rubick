@@ -38,6 +38,8 @@ private class HeaderView: UIView, Loadable {
             case .normal where oldValue == .loading:
                 progressView.stopAnimation()
                 
+                // 消除 progressIndicator 回弹动画
+                
                 UIView.animate(withDuration: 0.25, animations: { 
                     self.scrollView.contentInset = self.originInsets
                 })

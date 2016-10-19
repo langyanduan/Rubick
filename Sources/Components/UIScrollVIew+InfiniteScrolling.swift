@@ -143,7 +143,7 @@ private class FooterView: UIView, NextLoadable {
         guard isEnable else { return }
         if state == .finish { return }
         if scrollView.ext.isPullRefreshAnimating { return }
-        guard scrollView.frame.width > 0, scrollView.frame.height > 0, scrollView.contentSize.height > scrollView.bounds.height else { return }
+        guard !scrollView.frame.isEmpty, scrollView.contentSize.height > scrollView.bounds.height else { return }
         
         if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height && state != .loading {
             state = .loading
