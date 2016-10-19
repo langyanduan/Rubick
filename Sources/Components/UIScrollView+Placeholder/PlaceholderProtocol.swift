@@ -62,23 +62,11 @@ extension PlaceholderContainer where Self: UIView, Self: PlaceholderConfigurable
         let placeholderView = configuration.placeholderView
         contentView.addSubview(placeholderView)
         contentView.removeConstraints(contentView.constraints)
-        let layoutDescriptions: [(NSLayoutAttribute, NSLayoutRelation)] = [
-            (.width, .equal),
-            (.centerX, .equal),
-            (.centerY, .equal),
-        ]
         
-        for (attribute, relate) in layoutDescriptions {
-            let constraint = NSLayoutConstraint(
-                item: placeholderView,
-                attribute: attribute,
-                relatedBy: relate,
-                toItem: contentView,
-                attribute: attribute,
-                multiplier: 1,
-                constant: 0)
-            
-            contentView.addConstraint(constraint)
-        }
+        NSLayoutConstraint.activate([
+            placeholderView.centerX == contentView.centerX,
+            placeholderView.centerY == contentView.centerY,
+            placeholderView.width == contentView.width,
+        ])
     }
 }

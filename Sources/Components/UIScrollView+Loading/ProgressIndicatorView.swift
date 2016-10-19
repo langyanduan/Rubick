@@ -168,13 +168,13 @@ public class ProgressIndicatorView: UIView {
         contentView.backgroundColor = .clear
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
-        let constraints = [
-            NSLayoutConstraint(item: contentView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: contentView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: contentView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30),
-            NSLayoutConstraint(item: contentView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 30),
-        ]
-        NSLayoutConstraint.activate(constraints)
+        
+        NSLayoutConstraint.activate([
+            contentView.centerX == self.centerX,
+            contentView.centerY == self.centerY,
+            contentView.width == 30,
+            contentView.height == 30,
+        ])
     }
     
     public override var intrinsicContentSize: CGSize {

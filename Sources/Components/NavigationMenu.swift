@@ -18,8 +18,10 @@ public class NavigationMenu: UIView {
     }
     let titleImage: UIView = UIView().then { (view) in
         view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 20).isActive = true
-        NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 8).isActive = true
+        NSLayoutConstraint.activate([
+            view.width == 20,
+            view.height == 8
+        ])
         
         let path = CGMutablePath()
         path.move(to: CGPoint(x: 6, y: 2))
@@ -68,15 +70,16 @@ public class NavigationMenu: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         view.addSubview(titleImage)
+        addSubview(view)
         
         let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[titleLabel][titleImage]|", options: .alignAllCenterY, metrics: nil, views: ["titleLabel": titleLabel, "titleImage": titleImage])
         NSLayoutConstraint.activate(constraints)
-        NSLayoutConstraint(item: titleLabel, attribute: .centerY, relatedBy: .equal, toItem: view, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: titleLabel, attribute: .height, relatedBy: .lessThanOrEqual, toItem: view, attribute: .height, multiplier: 1, constant: 0).isActive = true
-        
-        addSubview(view)
-        NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        NSLayoutConstraint.activate([
+            titleLabel.centerY == view.centerY,
+            titleLabel.height <= view.height,
+            view.centerX == self.centerX,
+            view.centerY == self.centerY,
+        ])
         
         titleLabel.text = items.first
     }
@@ -110,6 +113,14 @@ public class NavigationMenu: UIView {
         let views = ["segment": self.segment]
         view.backgroundColor = .white
         view.addSubview(self.segment)
+        
+//        NSLayoutConstraint.activeLineLayout(axis: .vertical, options: [.alignCenter(to: view)], first: view.top, last: view.bottom, items: [
+//            ==10, self.segment, ==10
+//        ])
+//        NSLayoutConstraint.activeLineLayout(axis: .horizontal, first: view.left, last: view.right, items: [
+//            >=20, self.segment, >=20
+//        ])
+        
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[segment]-10-|", options: [], metrics: nil, views: views))
         NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=20)-[segment]-(>=20)-|", options: [], metrics: nil, views: views))
         NSLayoutConstraint(item: self.segment, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true

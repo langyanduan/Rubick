@@ -95,8 +95,11 @@ private class HeaderView: UIView, Loadable {
         progressView = ProgressIndicatorView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(progressView)
-        NSLayoutConstraint(item: progressView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: progressView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        
+        NSLayoutConstraint.activate([
+            progressView.centerX == self.centerX,
+            progressView.centerY == self.centerY,
+        ])
     }
     
     @objc

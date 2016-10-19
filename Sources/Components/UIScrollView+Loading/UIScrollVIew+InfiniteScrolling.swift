@@ -110,8 +110,6 @@ private class FooterView: UIView, NextLoadable {
         indicatorView = IndicatorView()
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(indicatorView)
-        NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: indicatorView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
         
         textLabel = UILabel()
         textLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -120,8 +118,13 @@ private class FooterView: UIView, NextLoadable {
         textLabel.font = UIFont.systemFont(ofSize: 14)
         textLabel.isHidden = true
         addSubview(textLabel)
-        NSLayoutConstraint(item: textLabel, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint(item: textLabel, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0).isActive = true
+        
+        NSLayoutConstraint.activate([
+            indicatorView.centerX == self.centerX,
+            indicatorView.centerY == self.centerY,
+            textLabel.centerX == self.centerX,
+            textLabel.centerY == self.centerY
+        ])
     }
     
     private override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
