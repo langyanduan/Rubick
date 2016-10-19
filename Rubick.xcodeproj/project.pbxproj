@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		500116EB1D9DF09900D3E0E8 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 500116EA1D9DF09900D3E0E8 /* Errors.swift */; };
 		5011D4211D9AB08600EB77B8 /* CryptoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5011D4201D9AB08600EB77B8 /* CryptoTests.swift */; };
-		5022940D1D8530FE0032CE2F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5022940C1D8530FE0032CE2F /* Logger.swift */; };
 		5041EA731D94FB030001BA42 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA721D94FB030001BA42 /* ImageCache.swift */; };
 		5041EA751D9506630001BA42 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA741D9506630001BA42 /* String+Extension.swift */; };
 		5041EA771D9515890001BA42 /* UIKit+ImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */; };
@@ -41,11 +40,17 @@
 		5082505C1D9A55EA00656663 /* Rubick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; };
 		5082505D1D9A55EA00656663 /* Rubick.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		5093E57D1DB6FFD700784E92 /* CGRect+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E57C1DB6FFD700784E92 /* CGRect+Extension.swift */; };
-		5093E5801DB7034D00784E92 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E57F1DB7034D00784E92 /* PlaceholderView.swift */; };
-		5093E5821DB7035E00784E92 /* PlaceholderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5811DB7035E00784E92 /* PlaceholderProtocol.swift */; };
-		5093E5841DB7038000784E92 /* PlaceholderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5831DB7038000784E92 /* PlaceholderConfiguration.swift */; };
-		5093E5881DB704D500784E92 /* UITableView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5871DB704D500784E92 /* UITableView+Placeholder.swift */; };
-		5093E58A1DB7056A00784E92 /* UICollectionView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5891DB7056A00784E92 /* UICollectionView+Placeholder.swift */; };
+		5093E58D1DB7091600784E92 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E58C1DB7091600784E92 /* Logger.swift */; };
+		5093E59C1DB70E1400784E92 /* ProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5921DB70E1400784E92 /* ProgressIndicatorView.swift */; };
+		5093E59D1DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5931DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift */; };
+		5093E59E1DB70E1400784E92 /* UIScrollView+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5941DB70E1400784E92 /* UIScrollView+Loadable.swift */; };
+		5093E59F1DB70E1400784E92 /* UIScrollView+PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5951DB70E1400784E92 /* UIScrollView+PullRefresh.swift */; };
+		5093E5A01DB70E1400784E92 /* PlaceholderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5971DB70E1400784E92 /* PlaceholderConfiguration.swift */; };
+		5093E5A11DB70E1400784E92 /* PlaceholderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5981DB70E1400784E92 /* PlaceholderProtocol.swift */; };
+		5093E5A21DB70E1400784E92 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5991DB70E1400784E92 /* PlaceholderView.swift */; };
+		5093E5A31DB70E1400784E92 /* UICollectionView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E59A1DB70E1400784E92 /* UICollectionView+Placeholder.swift */; };
+		5093E5A41DB70E1400784E92 /* UITableView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E59B1DB70E1400784E92 /* UITableView+Placeholder.swift */; };
+		5093E5A61DB70E2800784E92 /* AutolayoutDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5A51DB70E2800784E92 /* AutolayoutDSL.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
 		50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */; };
 		50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849571D800BC500A99CAE /* BodyParameters.swift */; };
@@ -66,7 +71,6 @@
 		50BDBCCE1D90D48C00F3F8B3 /* Cache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCCD1D90D48C00F3F8B3 /* Cache.swift */; };
 		50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCCF1D90D49500F3F8B3 /* DiskCache.swift */; };
 		50BDBCD21D90D4A700F3F8B3 /* MemoryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */; };
-		50C3E7891D893E450038A8E3 /* UIScrollView+Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50C3E7881D893E450038A8E3 /* UIScrollView+Loadable.swift */; };
 		50CDED651D9B5F510047B614 /* Crypto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED5F1D9B5F510047B614 /* Crypto.swift */; };
 		50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED601D9B5F510047B614 /* Cryptor.swift */; };
 		50CDED671D9B5F510047B614 /* Digest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED611D9B5F510047B614 /* Digest.swift */; };
@@ -74,9 +78,6 @@
 		50CDED691D9B5F510047B614 /* Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED631D9B5F510047B614 /* Random.swift */; };
 		50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50CDED641D9B5F510047B614 /* Updatable.swift */; };
 		50D1A2971DAE1B080038815B /* IndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2961DAE1B080038815B /* IndicatorView.swift */; };
-		50D1A2991DAF6AB80038815B /* ProgressIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */; };
-		50D1A29C1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */; };
-		50D1A29E1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */; };
 		50D1A2A41DB0D4BE0038815B /* HTTPStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2A31DB0D4BE0038815B /* HTTPStub.swift */; };
 		50D1A2A61DB0D4EA0038815B /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2A51DB0D4EA0038815B /* Reachability.swift */; };
 		50D1A2A81DB4D1C00038815B /* HTTPStubTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50D1A2A71DB4D1C00038815B /* HTTPStubTests.swift */; };
@@ -138,7 +139,6 @@
 		500116EA1D9DF09900D3E0E8 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		5011D41D1D9AAE5100EB77B8 /* CommonCrypto.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CommonCrypto.framework; path = ../Carthage/Build/iOS/CommonCrypto.framework; sourceTree = "<group>"; };
 		5011D4201D9AB08600EB77B8 /* CryptoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CryptoTests.swift; sourceTree = "<group>"; };
-		5022940C1D8530FE0032CE2F /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		5041EA721D94FB030001BA42 /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		5041EA741D9506630001BA42 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+ImageDownload.swift"; sourceTree = "<group>"; };
@@ -175,11 +175,17 @@
 		508250591D9A4F4100656663 /* RubickUITests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RubickUITests-Bridging-Header.h"; sourceTree = "<group>"; };
 		5082505A1D9A4F4100656663 /* HUDTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDTests.swift; sourceTree = "<group>"; };
 		5093E57C1DB6FFD700784E92 /* CGRect+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Extension.swift"; sourceTree = "<group>"; };
-		5093E57F1DB7034D00784E92 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
-		5093E5811DB7035E00784E92 /* PlaceholderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderProtocol.swift; sourceTree = "<group>"; };
-		5093E5831DB7038000784E92 /* PlaceholderConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderConfiguration.swift; sourceTree = "<group>"; };
-		5093E5871DB704D500784E92 /* UITableView+Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Placeholder.swift"; sourceTree = "<group>"; };
-		5093E5891DB7056A00784E92 /* UICollectionView+Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Placeholder.swift"; sourceTree = "<group>"; };
+		5093E58C1DB7091600784E92 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		5093E5921DB70E1400784E92 /* ProgressIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorView.swift; sourceTree = "<group>"; };
+		5093E5931DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollVIew+InfiniteScrolling.swift"; sourceTree = "<group>"; };
+		5093E5941DB70E1400784E92 /* UIScrollView+Loadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Loadable.swift"; sourceTree = "<group>"; };
+		5093E5951DB70E1400784E92 /* UIScrollView+PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+PullRefresh.swift"; sourceTree = "<group>"; };
+		5093E5971DB70E1400784E92 /* PlaceholderConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderConfiguration.swift; sourceTree = "<group>"; };
+		5093E5981DB70E1400784E92 /* PlaceholderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderProtocol.swift; sourceTree = "<group>"; };
+		5093E5991DB70E1400784E92 /* PlaceholderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		5093E59A1DB70E1400784E92 /* UICollectionView+Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Placeholder.swift"; sourceTree = "<group>"; };
+		5093E59B1DB70E1400784E92 /* UITableView+Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Placeholder.swift"; sourceTree = "<group>"; };
+		5093E5A51DB70E2800784E92 /* AutolayoutDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutolayoutDSL.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		50A849571D800BC500A99CAE /* BodyParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyParameters.swift; sourceTree = "<group>"; };
@@ -200,7 +206,6 @@
 		50BDBCCD1D90D48C00F3F8B3 /* Cache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cache.swift; sourceTree = "<group>"; };
 		50BDBCCF1D90D49500F3F8B3 /* DiskCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskCache.swift; sourceTree = "<group>"; };
 		50BDBCD11D90D4A700F3F8B3 /* MemoryCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryCache.swift; sourceTree = "<group>"; };
-		50C3E7881D893E450038A8E3 /* UIScrollView+Loadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Loadable.swift"; sourceTree = "<group>"; };
 		50CDED5F1D9B5F510047B614 /* Crypto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Crypto.swift; sourceTree = "<group>"; };
 		50CDED601D9B5F510047B614 /* Cryptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cryptor.swift; sourceTree = "<group>"; };
 		50CDED611D9B5F510047B614 /* Digest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Digest.swift; sourceTree = "<group>"; };
@@ -208,9 +213,6 @@
 		50CDED631D9B5F510047B614 /* Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Random.swift; sourceTree = "<group>"; };
 		50CDED641D9B5F510047B614 /* Updatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		50D1A2961DAE1B080038815B /* IndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndicatorView.swift; sourceTree = "<group>"; };
-		50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressIndicatorView.swift; sourceTree = "<group>"; };
-		50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+PullRefresh.swift"; sourceTree = "<group>"; };
-		50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollVIew+InfiniteScrolling.swift"; sourceTree = "<group>"; };
 		50D1A2A31DB0D4BE0038815B /* HTTPStub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStub.swift; sourceTree = "<group>"; };
 		50D1A2A51DB0D4EA0038815B /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		50D1A2A71DB4D1C00038815B /* HTTPStubTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPStubTests.swift; sourceTree = "<group>"; };
@@ -333,22 +335,49 @@
 			path = RubickUITests;
 			sourceTree = "<group>";
 		};
-		5093E57E1DB7030800784E92 /* UIScrollView+Placeholder */ = {
+		5093E58B1DB7090100784E92 /* Logger */ = {
 			isa = PBXGroup;
 			children = (
-				5093E5811DB7035E00784E92 /* PlaceholderProtocol.swift */,
-				5093E5831DB7038000784E92 /* PlaceholderConfiguration.swift */,
-				5093E57F1DB7034D00784E92 /* PlaceholderView.swift */,
-				5093E5871DB704D500784E92 /* UITableView+Placeholder.swift */,
-				5093E5891DB7056A00784E92 /* UICollectionView+Placeholder.swift */,
+				5093E58C1DB7091600784E92 /* Logger.swift */,
 			);
-			name = "UIScrollView+Placeholder";
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		5093E5901DB70E1400784E92 /* AutoLayout */ = {
+			isa = PBXGroup;
+			children = (
+				5093E5A51DB70E2800784E92 /* AutolayoutDSL.swift */,
+			);
+			path = AutoLayout;
+			sourceTree = "<group>";
+		};
+		5093E5911DB70E1400784E92 /* UIScrollView+Loading */ = {
+			isa = PBXGroup;
+			children = (
+				5093E5921DB70E1400784E92 /* ProgressIndicatorView.swift */,
+				5093E5931DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift */,
+				5093E5941DB70E1400784E92 /* UIScrollView+Loadable.swift */,
+				5093E5951DB70E1400784E92 /* UIScrollView+PullRefresh.swift */,
+			);
+			path = "UIScrollView+Loading";
+			sourceTree = "<group>";
+		};
+		5093E5961DB70E1400784E92 /* UIScrollView+Placeholder */ = {
+			isa = PBXGroup;
+			children = (
+				5093E5971DB70E1400784E92 /* PlaceholderConfiguration.swift */,
+				5093E5981DB70E1400784E92 /* PlaceholderProtocol.swift */,
+				5093E5991DB70E1400784E92 /* PlaceholderView.swift */,
+				5093E59A1DB70E1400784E92 /* UICollectionView+Placeholder.swift */,
+				5093E59B1DB70E1400784E92 /* UITableView+Placeholder.swift */,
+			);
+			path = "UIScrollView+Placeholder";
 			sourceTree = "<group>";
 		};
 		50A849021D7E5F4100A99CAE /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				5022940C1D8530FE0032CE2F /* Logger.swift */,
+				5093E58B1DB7090100784E92 /* Logger */,
 				50BDBCCC1D90D48C00F3F8B3 /* Cache */,
 				50A849031D7E5F4100A99CAE /* Network */,
 			);
@@ -376,8 +405,9 @@
 		50B6BB251D669DAB00256B2F /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				5093E57E1DB7030800784E92 /* UIScrollView+Placeholder */,
-				50D1A29A1DAF6B900038815B /* UIScrollView+Loading */,
+				5093E5901DB70E1400784E92 /* AutoLayout */,
+				5093E5911DB70E1400784E92 /* UIScrollView+Loading */,
+				5093E5961DB70E1400784E92 /* UIScrollView+Placeholder */,
 				50B6BB261D669DBA00256B2F /* ImageLabel.swift */,
 				50B6BB441D66F62700256B2F /* KeyboardManager.swift */,
 				50B6BB461D66F68700256B2F /* Toast.swift */,
@@ -411,17 +441,6 @@
 				50CDED631D9B5F510047B614 /* Random.swift */,
 			);
 			path = Crypto;
-			sourceTree = "<group>";
-		};
-		50D1A29A1DAF6B900038815B /* UIScrollView+Loading */ = {
-			isa = PBXGroup;
-			children = (
-				50D1A2981DAF6AB80038815B /* ProgressIndicatorView.swift */,
-				50C3E7881D893E450038A8E3 /* UIScrollView+Loadable.swift */,
-				50D1A29B1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift */,
-				50D1A29D1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift */,
-			);
-			name = "UIScrollView+Loading";
 			sourceTree = "<group>";
 		};
 		50E92FD91D658673005A1048 = {
@@ -710,32 +729,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				50A8495D1D800BC500A99CAE /* Error.swift in Sources */,
+				5093E59F1DB70E1400784E92 /* UIScrollView+PullRefresh.swift in Sources */,
 				50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */,
 				5041EA7A1D951C270001BA42 /* ImageProcessor.swift in Sources */,
 				50B6BB2B1D66ADB600256B2F /* Array+Extension.swift in Sources */,
 				50D1A2971DAE1B080038815B /* IndicatorView.swift in Sources */,
-				50D1A29E1DAF6BF80038815B /* UIScrollVIew+InfiniteScrolling.swift in Sources */,
 				50DF42411DAB8923001A5B18 /* NavigationMenu.swift in Sources */,
+				5093E58D1DB7091600784E92 /* Logger.swift in Sources */,
 				50577F8F1D9CA6F800581A3A /* Validator.swift in Sources */,
 				50766F3B1D6ECC30000DFA1A /* TypeConvert.swift in Sources */,
 				5093E57D1DB6FFD700784E92 /* CGRect+Extension.swift in Sources */,
+				5093E5A11DB70E1400784E92 /* PlaceholderProtocol.swift in Sources */,
 				50B7B9081D6E94F200D6F84B /* UIView+Extension.swift in Sources */,
-				50D1A29C1DAF6BAE0038815B /* UIScrollView+PullRefresh.swift in Sources */,
+				5093E59C1DB70E1400784E92 /* ProgressIndicatorView.swift in Sources */,
 				50B7B90A1D6E9AC200D6F84B /* UIImage+Extension.swift in Sources */,
 				50F5AAA91D91284C00C67E4C /* ImageDecoder.swift in Sources */,
-				50D1A2991DAF6AB80038815B /* ProgressIndicatorView.swift in Sources */,
 				508250231D9A205A00656663 /* Then.swift in Sources */,
 				50DF423F1DAB24CE001A5B18 /* Notification.swift in Sources */,
 				50D1A2A41DB0D4BE0038815B /* HTTPStub.swift in Sources */,
-				50C3E7891D893E450038A8E3 /* UIScrollView+Loadable.swift in Sources */,
 				5082501E1D9A205A00656663 /* FileHelper.swift in Sources */,
 				50BDBCD01D90D49500F3F8B3 /* DiskCache.swift in Sources */,
 				5080171E1D979745005C50D8 /* TaskHandler.swift in Sources */,
-				5093E58A1DB7056A00784E92 /* UICollectionView+Placeholder.swift in Sources */,
 				50A8495F1D800BC500A99CAE /* Request.swift in Sources */,
 				50B6BB471D66F68700256B2F /* Toast.swift in Sources */,
 				50B6BB431D66F49700256B2F /* Constaints.swift in Sources */,
-				5022940D1D8530FE0032CE2F /* Logger.swift in Sources */,
 				50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */,
 				50B6BB451D66F62700256B2F /* KeyboardManager.swift in Sources */,
 				508250211D9A205A00656663 /* Promise.swift in Sources */,
@@ -744,33 +761,36 @@
 				50CDED691D9B5F510047B614 /* Random.swift in Sources */,
 				500116EB1D9DF09900D3E0E8 /* Errors.swift in Sources */,
 				50CDED661D9B5F510047B614 /* Cryptor.swift in Sources */,
+				5093E5A31DB70E1400784E92 /* UICollectionView+Placeholder.swift in Sources */,
+				5093E5A61DB70E2800784E92 /* AutolayoutDSL.swift in Sources */,
 				50CDED671D9B5F510047B614 /* Digest.swift in Sources */,
 				50E92FF31D658700005A1048 /* UIColor+Extension.swift in Sources */,
 				5082501B1D9A205A00656663 /* Box.swift in Sources */,
 				5041EA751D9506630001BA42 /* String+Extension.swift in Sources */,
 				50D1A2A61DB0D4EA0038815B /* Reachability.swift in Sources */,
+				5093E5A41DB70E1400784E92 /* UITableView+Placeholder.swift in Sources */,
+				5093E5A21DB70E1400784E92 /* PlaceholderView.swift in Sources */,
 				50BDBCD21D90D4A700F3F8B3 /* MemoryCache.swift in Sources */,
 				5041EA771D9515890001BA42 /* UIKit+ImageDownload.swift in Sources */,
-				5093E5821DB7035E00784E92 /* PlaceholderProtocol.swift in Sources */,
 				50A849601D800BC500A99CAE /* RequestType.swift in Sources */,
-				5093E5841DB7038000784E92 /* PlaceholderConfiguration.swift in Sources */,
 				50A8496C1D81007F00A99CAE /* NetworkActivityIndicatorManager.swift in Sources */,
 				50766F471D6EF31A000DFA1A /* SegmentedControl.swift in Sources */,
 				5041EA731D94FB030001BA42 /* ImageCache.swift in Sources */,
 				5080171A1D979709005C50D8 /* Response.swift in Sources */,
 				50BDBCCE1D90D48C00F3F8B3 /* Cache.swift in Sources */,
+				5093E59D1DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift in Sources */,
 				50B7B90C1D6E9D1400D6F84B /* TabBar.swift in Sources */,
 				50CDED651D9B5F510047B614 /* Crypto.swift in Sources */,
+				5093E59E1DB70E1400784E92 /* UIScrollView+Loadable.swift in Sources */,
 				508250221D9A205A00656663 /* Result.swift in Sources */,
 				50A8495E1D800BC500A99CAE /* Manager.swift in Sources */,
 				50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */,
+				5093E5A01DB70E1400784E92 /* PlaceholderConfiguration.swift in Sources */,
 				5082501F1D9A205A00656663 /* Information.swift in Sources */,
 				50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */,
-				5093E5801DB7034D00784E92 /* PlaceholderView.swift in Sources */,
 				50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
 				508250201D9A205A00656663 /* Keychain.swift in Sources */,
-				5093E5881DB704D500784E92 /* UITableView+Placeholder.swift in Sources */,
 				505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */,
 				50CDED681D9B5F510047B614 /* HMAC.swift in Sources */,
 			);
