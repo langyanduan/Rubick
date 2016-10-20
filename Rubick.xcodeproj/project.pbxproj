@@ -52,6 +52,7 @@
 		5093E5A41DB70E1400784E92 /* UITableView+Placeholder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E59B1DB70E1400784E92 /* UITableView+Placeholder.swift */; };
 		5093E5A61DB70E2800784E92 /* AutolayoutDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5A51DB70E2800784E92 /* AutolayoutDSL.swift */; };
 		5093E5A81DB7630C00784E92 /* LineLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5A71DB7630C00784E92 /* LineLayout.swift */; };
+		5093E5AA1DB8643C00784E92 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5093E5A91DB8643C00784E92 /* HUD.swift */; };
 		50A15AF51D82AA4300355F8A /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A15AF41D82AA4300355F8A /* Extension.swift */; };
 		50A4DCC31D742DF20023E8E6 /* UIEdgeInsets+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */; };
 		50A8495C1D800BC500A99CAE /* BodyParameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50A849571D800BC500A99CAE /* BodyParameters.swift */; };
@@ -188,6 +189,7 @@
 		5093E59B1DB70E1400784E92 /* UITableView+Placeholder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Placeholder.swift"; sourceTree = "<group>"; };
 		5093E5A51DB70E2800784E92 /* AutolayoutDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutolayoutDSL.swift; sourceTree = "<group>"; };
 		5093E5A71DB7630C00784E92 /* LineLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LineLayout.swift; sourceTree = "<group>"; };
+		5093E5A91DB8643C00784E92 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		50A15AF41D82AA4300355F8A /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		50A4DCC21D742DF20023E8E6 /* UIEdgeInsets+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIEdgeInsets+Extension.swift"; sourceTree = "<group>"; };
 		50A849571D800BC500A99CAE /* BodyParameters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BodyParameters.swift; sourceTree = "<group>"; };
@@ -418,6 +420,7 @@
 				50766F461D6EF31A000DFA1A /* SegmentedControl.swift */,
 				50DF42401DAB8923001A5B18 /* NavigationMenu.swift */,
 				50D1A2961DAE1B080038815B /* IndicatorView.swift */,
+				5093E5A91DB8643C00784E92 /* HUD.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -791,6 +794,7 @@
 				50CDED6A1D9B5F510047B614 /* Updatable.swift in Sources */,
 				5093E5A01DB70E1400784E92 /* PlaceholderConfiguration.swift in Sources */,
 				5082501F1D9A205A00656663 /* Information.swift in Sources */,
+				5093E5AA1DB8643C00784E92 /* HUD.swift in Sources */,
 				50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */,
 				50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */,
 				50A15AF51D82AA4300355F8A /* Extension.swift in Sources */,
