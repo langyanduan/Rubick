@@ -119,7 +119,7 @@ private class FooterView: UIView, NextLoadable {
         textLabel.isHidden = true
         addSubview(textLabel)
         
-        NSLayoutConstraint.activate([
+        activateLayoutConstraints([
             indicatorView.centerX == self.centerX,
             indicatorView.centerY == self.centerY,
             textLabel.centerX == self.centerX,

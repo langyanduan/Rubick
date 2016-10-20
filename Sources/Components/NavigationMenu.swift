@@ -18,7 +18,7 @@ public class NavigationMenu: UIView {
     }
     let titleImage: UIView = UIView().then { (view) in
         view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+        activateLayoutConstraints([
             view.width == 20,
             view.height == 8
         ])
@@ -72,11 +72,10 @@ public class NavigationMenu: UIView {
         view.addSubview(titleImage)
         addSubview(view)
         
-        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[titleLabel][titleImage]|", options: .alignAllCenterY, metrics: nil, views: ["titleLabel": titleLabel, "titleImage": titleImage])
-        NSLayoutConstraint.activate(constraints)
-        NSLayoutConstraint.activate([
-            titleLabel.centerY == view.centerY,
-            titleLabel.height <= view.height,
+        activateHorizontalLayout(in: view, options: [.alignCenter(to: view), .heightLessThanOrEqual(to: view)], items: [
+            titleLabel, titleImage
+        ])
+        activateLayoutConstraints([
             view.centerX == self.centerX,
             view.centerY == self.centerY,
         ])
@@ -114,16 +113,12 @@ public class NavigationMenu: UIView {
         view.backgroundColor = .white
         view.addSubview(self.segment)
         
-//        NSLayoutConstraint.activeLineLayout(axis: .vertical, options: [.alignCenter(to: view)], first: view.top, last: view.bottom, items: [
-//            ==10, self.segment, ==10
-//        ])
-//        NSLayoutConstraint.activeLineLayout(axis: .horizontal, first: view.left, last: view.right, items: [
-//            >=20, self.segment, >=20
-//        ])
-        
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[segment]-10-|", options: [], metrics: nil, views: views))
-        NSLayoutConstraint.activate(NSLayoutConstraint.constraints(withVisualFormat: "H:|-(>=20)-[segment]-(>=20)-|", options: [], metrics: nil, views: views))
-        NSLayoutConstraint(item: self.segment, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+        activateVerticalLayout(in: view, options: [.alignCenter(to: view)], items: [
+            ==10, self.segment, ==10
+        ])
+        activateHorizontalLayout(in: view, items: [
+            >=20, self.segment, >=20
+        ])
     }
     
     func show() {

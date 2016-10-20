@@ -169,7 +169,7 @@ public class ProgressIndicatorView: UIView {
         contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         
-        NSLayoutConstraint.activate([
+        activateLayoutConstraints([
             contentView.centerX == self.centerX,
             contentView.centerY == self.centerY,
             contentView.width == 30,

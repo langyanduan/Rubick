@@ -73,20 +73,9 @@ class PlaceholderView: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-        NSLayoutConstraint.activate(
-            NSLayoutConstraint.constraints(
-                withVisualFormat: "V:|[imageView][titleLabel][descriptionLabel]|",
-                options: [.alignAllCenterX],
-                metrics: nil,
-                views: [
-                    "imageView": imageView,
-                    "titleLabel": titleLabel,
-                    "descriptionLabel": descriptionLabel,
-                    "superView": self
-                ]
-            )
-        )
+        
+        activateVerticalLayout(in: self, options: [.alignCenter(to: self)], items: [
+            imageView, titleLabel, descriptionLabel
+        ])
     }
 }

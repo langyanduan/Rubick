@@ -10,28 +10,29 @@ import Foundation
 import UIKit
 
 extension UIView {
-    var left: ConstraintItem { return ConstraintItem(view: self, attribute: .left) }
-    var right: ConstraintItem { return ConstraintItem(view: self, attribute: .right) }
-    var top: ConstraintItem { return ConstraintItem(view: self, attribute: .top) }
-    var bottom: ConstraintItem { return ConstraintItem(view: self, attribute: .bottom) }
-    var width: ConstraintItem { return ConstraintItem(view: self, attribute: .width) }
-    var height: ConstraintItem { return ConstraintItem(view: self, attribute: .height) }
-    var centerX: ConstraintItem { return ConstraintItem(view: self, attribute: .centerX) }
-    var centerY: ConstraintItem { return ConstraintItem(view: self, attribute: .centerY) }
-    var lastBaseline: ConstraintItem { return ConstraintItem(view: self, attribute: .lastBaseline) }
-    var firstBaseline: ConstraintItem { return ConstraintItem(view: self, attribute: .firstBaseline) }
+    public var left: LayoutItem { return LayoutItem(view: self, attribute: .left) }
+    public var right: LayoutItem { return LayoutItem(view: self, attribute: .right) }
+    public var top: LayoutItem { return LayoutItem(view: self, attribute: .top) }
+    public var bottom: LayoutItem { return LayoutItem(view: self, attribute: .bottom) }
+    public var width: LayoutItem { return LayoutItem(view: self, attribute: .width) }
+    public var height: LayoutItem { return LayoutItem(view: self, attribute: .height) }
+    public var centerX: LayoutItem { return LayoutItem(view: self, attribute: .centerX) }
+    public var centerY: LayoutItem { return LayoutItem(view: self, attribute: .centerY) }
+    public var lastBaseline: LayoutItem { return LayoutItem(view: self, attribute: .lastBaseline) }
+    public var firstBaseline: LayoutItem { return LayoutItem(view: self, attribute: .firstBaseline) }
 }
 
-public struct ConstraintItem {
+public struct LayoutItem {
     let view: UIView
     let attribute: NSLayoutAttribute
 }
 
-public struct ConstraintDSL {
+public struct LayoutCondition {
     fileprivate let view: UIView?
     fileprivate let attribute: NSLayoutAttribute
     fileprivate var constant: CGFloat
     fileprivate var multiplier: CGFloat = 1
+    fileprivate var priority: UILayoutPriority = UILayoutPriorityRequired
     
     fileprivate init(view: UIView?, attribute: NSLayoutAttribute, constant: CGFloat = 0) {
         self.view = view
@@ -40,79 +41,115 @@ public struct ConstraintDSL {
     }
 }
 
-// convertible
-public protocol ConstraintDSLConvertible {
-    func asConstraintDSL() -> ConstraintDSL
+public struct LayoutConstraintDSL {
+    fileprivate let firstItem: UIView
+    fileprivate let firstAttribute: NSLayoutAttribute
+    fileprivate let relation: NSLayoutRelation
+    fileprivate let secondItem: UIView?
+    fileprivate let secondAttribute: NSLayoutAttribute
+    fileprivate let constant: CGFloat
+    fileprivate let multiplier: CGFloat
+    fileprivate var priority: UILayoutPriority
 }
 
-extension ConstraintDSL: ConstraintDSLConvertible {
-    public func asConstraintDSL() -> ConstraintDSL {
+// convertible
+public protocol LayoutConditionConvertible {
+    func asLayoutCondition() -> LayoutCondition
+}
+
+extension LayoutCondition: LayoutConditionConvertible {
+    public func asLayoutCondition() -> LayoutCondition {
         return self
     }
 }
 
-extension ConstraintItem: ConstraintDSLConvertible {
-    public func asConstraintDSL() -> ConstraintDSL {
-        return ConstraintDSL(view: view, attribute: attribute)
+extension LayoutItem: LayoutConditionConvertible {
+    public func asLayoutCondition() -> LayoutCondition {
+        return LayoutCondition(view: view, attribute: attribute)
     }
 }
 
-extension CGFloat: ConstraintDSLConvertible {
-    public func asConstraintDSL() -> ConstraintDSL {
-        return ConstraintDSL(view: nil, attribute: .notAnAttribute, constant: CGFloat(self))
+extension CGFloat: LayoutConditionConvertible {
+    public func asLayoutCondition() -> LayoutCondition {
+        return LayoutCondition(view: nil, attribute: .notAnAttribute, constant: CGFloat(self))
     }
 }
 
-extension Int: ConstraintDSLConvertible {
-    public func asConstraintDSL() -> ConstraintDSL {
-        return ConstraintDSL(view: nil, attribute: .notAnAttribute, constant: CGFloat(self))
+extension Int: LayoutConditionConvertible {
+    public func asLayoutCondition() -> LayoutCondition {
+        return LayoutCondition(view: nil, attribute: .notAnAttribute, constant: CGFloat(self))
     }
 }
 
 // operator
-public func *(dsl: ConstraintDSLConvertible, multiplier: CGFloat) -> ConstraintDSL {
-    var constraintDSL = dsl.asConstraintDSL()
-    constraintDSL.multiplier = multiplier
-    return constraintDSL
+public func *(convertible: LayoutConditionConvertible, multiplier: CGFloat) -> LayoutCondition {
+    var condition = convertible.asLayoutCondition()
+    condition.multiplier = multiplier
+    return condition
 }
 
-public func +(dsl: ConstraintDSLConvertible, constant: CGFloat) -> ConstraintDSL {
-    var constraintDSL = dsl.asConstraintDSL()
-    constraintDSL.constant += constant
-    return constraintDSL
+public func +(convertible: LayoutConditionConvertible, constant: CGFloat) -> LayoutCondition {
+    var condition = convertible.asLayoutCondition()
+    condition.constant += constant
+    return condition
 }
 
-public func -(dsl: ConstraintDSLConvertible, constant: CGFloat) -> ConstraintDSL {
-    var constraintDSL = dsl.asConstraintDSL()
-    constraintDSL.constant -= constant
-    return constraintDSL
-}
-
-// generate constraint
-public func ==(item: ConstraintItem, dsl: ConstraintDSLConvertible) -> NSLayoutConstraint {
-    let constraintDSL = dsl.asConstraintDSL()
-    let constraint = NSLayoutConstraint(item: item.view, attribute: item.attribute, relatedBy: .equal, toItem: constraintDSL.view, attribute: constraintDSL.attribute, multiplier: constraintDSL.multiplier, constant: constraintDSL.constant)
-    return constraint
-}
-
-public func >=(item: ConstraintItem, dsl: ConstraintDSLConvertible) -> NSLayoutConstraint {
-    let constraintDSL = dsl.asConstraintDSL()
-    let constraint = NSLayoutConstraint(item: item.view, attribute: item.attribute, relatedBy: .greaterThanOrEqual, toItem: constraintDSL.view, attribute: constraintDSL.attribute, multiplier: constraintDSL.multiplier, constant: constraintDSL.constant)
-    return constraint
-}
-
-public func <=(item: ConstraintItem, dsl: ConstraintDSLConvertible) -> NSLayoutConstraint {
-    let constraintDSL = dsl.asConstraintDSL()
-    let constraint = NSLayoutConstraint(item: item.view, attribute: item.attribute, relatedBy: .lessThanOrEqual, toItem: constraintDSL.view, attribute: constraintDSL.attribute, multiplier: constraintDSL.multiplier, constant: constraintDSL.constant)
-    return constraint
+public func -(convertible: LayoutConditionConvertible, constant: CGFloat) -> LayoutCondition {
+    var condition = convertible.asLayoutCondition()
+    condition.constant -= constant
+    return condition
 }
 
 precedencegroup DSLPriorityPrecedence {
     associativity: left
-    lowerThan: ComparisonPrecedence
+    higherThan: ComparisonPrecedence
 }
 infix operator ~: DSLPriorityPrecedence
-public func ~(constraint: NSLayoutConstraint, priority: UILayoutPriority) -> NSLayoutConstraint {
-    constraint.priority = priority
-    return constraint
+public func ~(convertible: LayoutConditionConvertible, priority: UILayoutPriority) -> LayoutCondition {
+    var condition = convertible.asLayoutCondition()
+    condition.priority = priority
+    return condition
+}
+
+// generate constraint
+extension LayoutConstraintDSL {
+    init(item: LayoutItem, layoutCondition: LayoutCondition, relatedBy relation: NSLayoutRelation) {
+        self.firstItem = item.view
+        self.firstAttribute = item.attribute
+        self.relation = relation
+        self.secondItem = layoutCondition.view
+        self.secondAttribute = layoutCondition.attribute
+        self.constant = layoutCondition.constant
+        self.multiplier = layoutCondition.multiplier
+        self.priority = layoutCondition.priority
+    }
+    func asConstraint() -> NSLayoutConstraint {
+        let constraint = NSLayoutConstraint(
+            item: firstItem,
+            attribute: firstAttribute,
+            relatedBy: relation,
+            toItem: secondItem,
+            attribute: secondAttribute,
+            multiplier: multiplier,
+            constant: constant
+        )
+        constraint.priority = priority
+        return constraint
+    }
+}
+
+public func ==(item: LayoutItem, condition: LayoutConditionConvertible) -> LayoutConstraintDSL {
+    return LayoutConstraintDSL(item: item, layoutCondition: condition.asLayoutCondition(), relatedBy: .equal)
+}
+
+public func >=(item: LayoutItem, condition: LayoutConditionConvertible) -> LayoutConstraintDSL {
+    return LayoutConstraintDSL(item: item, layoutCondition: condition.asLayoutCondition(), relatedBy: .greaterThanOrEqual)
+}
+
+public func <=(item: LayoutItem, condition: LayoutConditionConvertible) -> LayoutConstraintDSL {
+    return LayoutConstraintDSL(item: item, layoutCondition: condition.asLayoutCondition(), relatedBy: .lessThanOrEqual)
+}
+
+public func activateLayoutConstraints(_ constraints: [LayoutConstraintDSL]) {
+    NSLayoutConstraint.activate( constraints.map { $0.asConstraint() } )
 }
