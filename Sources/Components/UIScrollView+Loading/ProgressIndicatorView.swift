@@ -58,9 +58,9 @@ public class ProgressIndicatorView: UIView {
                 }
                 
                 if isAnimating {
-                    count = 13
+                    count = 26
                     start = 0
-                    end = 0.05 + 13 * 0.06
+                    end = 0.05 + 26 * 0.03
                     colorIndex = 0
                     animationColor = colors[0]
                     
@@ -85,18 +85,18 @@ public class ProgressIndicatorView: UIView {
         
         @objc func update() {
             switch count {
-            case 0..<13:
-                end += 0.06
-            case 18..<31:
-                start += 0.06
-            case 33:
+            case 0..<26:
+                end += 0.03
+            case 33..<59:
+                start += 0.03
+            case 65:
                 colorIndex = (colorIndex + 1) % 4
                 animationColor = colors[colorIndex]
             default:
                 break
             }
             
-            count = (count + 1) % 36
+            count = (count + 1) % 66
             setNeedsDisplay()
         }
         

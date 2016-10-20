@@ -11,6 +11,8 @@ import UIKit
 
 
 public class IndicatorView: UIView {
+    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     class ContentView: UIView {
         var count = 0
         var start: CGFloat = 0
@@ -76,18 +78,18 @@ public class IndicatorView: UIView {
         
         @objc func update() {
             switch count {
-            case 0..<13:
-                end += 0.06
-            case 18..<31:
-                start += 0.06
-            case 33:
+            case 0..<26:
+                end += 0.03
+            case 33..<59:
+                start += 0.03
+            case 65:
                 colorIndex = (colorIndex + 1) % 4
                 color = colors[colorIndex]
             default:
                 break
             }
             
-            count = (count + 1) % 36
+            count = (count + 1) % 66
             setNeedsDisplay()
         }
         
@@ -104,9 +106,9 @@ public class IndicatorView: UIView {
         }
     }
     
-    let contentView = ContentView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    private let contentView = ContentView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     
-    public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    public var isAnimating: Bool { return contentView.isAnimating }
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
@@ -126,14 +128,12 @@ public class IndicatorView: UIView {
         contentView.frame = frame
     }
     
-    func startAnimating() {
+    public func startAnimating() {
         contentView.isAnimating = true
-        contentView.isHidden = false
     }
     
-    func stopAnimating() {
+    public func stopAnimating() {
         contentView.isAnimating = false
-        contentView.isHidden = true
     }
     
     public override var intrinsicContentSize: CGSize {
