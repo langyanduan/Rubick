@@ -69,13 +69,6 @@ public class IndicatorView: UIView {
             }
         }
         
-        required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            backgroundColor = UIColor.clear
-        }
-        
         @objc func update() {
             switch count {
             case 0..<26:
@@ -106,37 +99,28 @@ public class IndicatorView: UIView {
         }
     }
     
-    private let contentView = ContentView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    private let contentView = ContentView().then {
+        $0.backgroundColor = .clear
+    }
     
     public var isAnimating: Bool { return contentView.isAnimating }
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
+        activateLayoutConstraints([
+            contentView.centerX == self.centerX,
+            contentView.centerY == self.centerY,
+            contentView.width == 20,
+            contentView.height == 20,
+        ])
     }
-    
-    public convenience init(frame: CGRect = .zero, animating: Bool) {
-        self.init(frame: frame)
-        contentView.isAnimating = animating
+    public override var intrinsicContentSize: CGSize {
+        return CGSize(width: 20, height: 20)
     }
-    
-    public override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        var frame = contentView.frame
-        frame.origin.x = (bounds.width - frame.width) / 2
-        frame.origin.y = (bounds.height - frame.height) / 2
-        contentView.frame = frame
-    }
-    
     public func startAnimating() {
         contentView.isAnimating = true
     }
-    
     public func stopAnimating() {
         contentView.isAnimating = false
-    }
-    
-    public override var intrinsicContentSize: CGSize {
-        return CGSize(width: 20, height: 20)
     }
 }

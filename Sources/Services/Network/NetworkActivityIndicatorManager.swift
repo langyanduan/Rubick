@@ -38,7 +38,7 @@ public class NetworkActivityIndicatorManager {
     }
     
     private let lock: NSLock = NSLock()
-    private var enable = true
+    private var enable = false
     private var activityCount = 0
     
     private var timer: CFRunLoopTimer?

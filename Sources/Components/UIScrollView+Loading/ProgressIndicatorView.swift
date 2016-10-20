@@ -148,26 +148,18 @@ public class ProgressIndicatorView: UIView {
         }
     }
     
-    var contentView = ContentView()
+    private let contentView = ContentView().then {
+        $0.backgroundColor = .clear
+    }
     public var progress: CGFloat {
         get { return contentView.progress }
         set { contentView.progress = newValue }
     }
     
-    public func startAnimating() {
-        contentView.isAnimating = true
-    }
-    public func stopAnimation() {
-        contentView.isAnimating = false
-    }
-    
     public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.frame = CGRect(x: (bounds.width - 30) / 2, y: (bounds.height - 30) / 2, width: 30, height: 30)
-        contentView.backgroundColor = .clear
         addSubview(contentView)
-        
         activateLayoutConstraints([
             contentView.centerX == self.centerX,
             contentView.centerY == self.centerY,
@@ -175,8 +167,13 @@ public class ProgressIndicatorView: UIView {
             contentView.height == 30,
         ])
     }
-    
     public override var intrinsicContentSize: CGSize {
         return CGSize(width: 30, height: 30)
+    }
+    public func startAnimating() {
+        contentView.isAnimating = true
+    }
+    public func stopAnimation() {
+        contentView.isAnimating = false
     }
 }
