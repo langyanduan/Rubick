@@ -44,13 +44,11 @@ extension UITableView: PlaceholderProtocol {
         reloadPlaceholder(force: true)
     }
     
-    private static func didSwizzle() {
+    fileprivate static let didSwizzleOnce: Void = {
         let m1 = class_getInstanceMethod(UICollectionView.self, #selector(reloadData))
         let m2 = class_getInstanceMethod(UICollectionView.self, #selector(swz_reloadData))
         method_exchangeImplementations(m1, m2)
-    }
-    
-    fileprivate static let didSwizzleOnce = didSwizzle()
+    }()
 }
 
 extension InstanceExtension where Base: UITableView {

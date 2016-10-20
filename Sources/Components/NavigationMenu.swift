@@ -14,10 +14,8 @@ public class NavigationMenu: UIView {
     let titleLabel = UILabel().then { (label: UILabel) in
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 17)
-        label.translatesAutoresizingMaskIntoConstraints = false
     }
     let titleImage: UIView = UIView().then { (view) in
-        view.translatesAutoresizingMaskIntoConstraints = false
         activateLayoutConstraints([
             view.width == 20,
             view.height == 8
@@ -67,7 +65,6 @@ public class NavigationMenu: UIView {
         })
         
         let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(titleLabel)
         view.addSubview(titleImage)
         addSubview(view)
@@ -97,7 +94,6 @@ public class NavigationMenu: UIView {
     }
     
     lazy var segment: SegmentedControl = SegmentedControl(titles: self.items).then { (view) in
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.selectedHandler = { [unowned self] (index) in
             self.isActive = false
             
@@ -109,15 +105,15 @@ public class NavigationMenu: UIView {
     }
     
     lazy var contentView: UIView = UIView().then { (view: UIView) in
-        let views = ["segment": self.segment]
         view.backgroundColor = .white
         view.addSubview(self.segment)
         
-        activateVerticalLayout(in: view, options: [.alignCenter(to: view)], items: [
-            ==10, self.segment, ==10
-        ])
-        activateHorizontalLayout(in: view, items: [
-            >=20, self.segment, >=20
+        activateLayoutConstraints([
+            self.segment.left >= view.left + 20,
+            self.segment.right <= view.right - 20,
+            self.segment.centerX == view.centerX,
+            self.segment.top == view.top + 10,
+            self.segment.bottom == view.bottom - 10,
         ])
     }
     

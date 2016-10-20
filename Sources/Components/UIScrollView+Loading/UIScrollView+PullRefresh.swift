@@ -93,7 +93,6 @@ private class HeaderView: UIView, Loadable {
         autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         
         progressView = ProgressIndicatorView()
-        progressView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(progressView)
         
         activateLayoutConstraints([

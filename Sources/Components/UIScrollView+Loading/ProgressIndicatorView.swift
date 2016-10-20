@@ -166,7 +166,6 @@ public class ProgressIndicatorView: UIView {
         super.init(frame: frame)
         contentView.frame = CGRect(x: (bounds.width - 30) / 2, y: (bounds.height - 30) / 2, width: 30, height: 30)
         contentView.backgroundColor = .clear
-        contentView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(contentView)
         
         activateLayoutConstraints([

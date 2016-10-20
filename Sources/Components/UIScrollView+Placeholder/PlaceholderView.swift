@@ -69,11 +69,6 @@ class PlaceholderView: UIView {
         addSubview(titleLabel)
         addSubview(descriptionLabel)
         
-        self.translatesAutoresizingMaskIntoConstraints = false
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         activateVerticalLayout(in: self, options: [.alignCenter(to: self)], items: [
             imageView, titleLabel, descriptionLabel
         ])

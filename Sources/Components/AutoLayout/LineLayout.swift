@@ -236,6 +236,33 @@ private func buildLineLayoutConstraints(
     items: [LineLayoutItemConvertible])
     -> [NSLayoutConstraint]
 {
+    assert( { () -> Bool in
+        func isHorizontal(attribute: NSLayoutAttribute) -> Bool {
+            switch attribute {
+            case .left, .right, .centerX:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        func isVertical(attribute: NSLayoutAttribute) -> Bool {
+            switch attribute {
+            case .top, .bottom, .centerY:
+                return true
+            default:
+                return false
+            }
+        }
+        
+        switch axis {
+        case .horizontal:
+            return isHorizontal(attribute: first.attribute) && isHorizontal(attribute: last.attribute)
+        case .vertical:
+            return isVertical(attribute: first.attribute) && isVertical(attribute: last.attribute)
+        }
+    }())
+    
     var constraints: [NSLayoutConstraint] = []
     var constant: CGFloat?
     var relation: NSLayoutRelation = .equal
@@ -269,6 +296,7 @@ private func buildLineLayoutConstraints(
             )
             constraints += buildConstraints(for: view, axis: axis, options: options)
             
+            view.translatesAutoresizingMaskIntoConstraints = false
             constant = nil
             relation = .equal
             prevLayoutItem = LayoutItem(view: view, attribute: axis == .vertical ? .top : .right)

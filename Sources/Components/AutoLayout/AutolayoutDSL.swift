@@ -100,11 +100,12 @@ public func -(convertible: LayoutConditionConvertible, constant: CGFloat) -> Lay
     return condition
 }
 
-precedencegroup DSLPriorityPrecedence {
-    associativity: left
-    higherThan: ComparisonPrecedence
-}
-infix operator ~: DSLPriorityPrecedence
+//precedencegroup DSLPriorityPrecedence {
+//    associativity: left
+//    lowerThan: ComparisonPrecedence
+//}
+//infix operator ~: DSLPriorityPrecedence
+infix operator ~: AdditionPrecedence
 public func ~(convertible: LayoutConditionConvertible, priority: UILayoutPriority) -> LayoutCondition {
     var condition = convertible.asLayoutCondition()
     condition.priority = priority
@@ -133,6 +134,7 @@ extension LayoutConstraintDSL {
             multiplier: multiplier,
             constant: constant
         )
+        firstItem.translatesAutoresizingMaskIntoConstraints = false
         constraint.priority = priority
         return constraint
     }

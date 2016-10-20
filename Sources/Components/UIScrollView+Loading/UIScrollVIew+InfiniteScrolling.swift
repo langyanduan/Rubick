@@ -108,11 +108,9 @@ private class FooterView: UIView, NextLoadable {
         autoresizingMask = [.flexibleWidth, .flexibleTopMargin]
         
         indicatorView = IndicatorView()
-        indicatorView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(indicatorView)
         
         textLabel = UILabel()
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
         textLabel.text = "加载完成..."
         textLabel.textColor = UIColor(white: 0.6, alpha: 1)
         textLabel.font = UIFont.systemFont(ofSize: 14)
