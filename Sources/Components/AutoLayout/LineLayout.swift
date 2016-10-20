@@ -9,26 +9,55 @@
 import Foundation
 import UIKit
 
+public enum LayoutValue {
+    case view(UIView)
+    case value(CGFloat)
+}
+
+public enum LayoutConstant {
+    case lessThanOrEqual(LayoutValue)
+    case greaterThanOrEqual(LayoutValue)
+    case equal(LayoutValue)
+}
+
 public enum LineLayoutItem {
     case lessThanOrEqual(CGFloatConvertible)
     case greaterThanOrEqual(CGFloatConvertible)
     case equal(CGFloatConvertible)
     case view(UIView)
+    case viewConstant(UIView, LayoutConstant)
 }
 
 public protocol LineLayoutItemConvertible {
     func asLineLayoutItem() -> LineLayoutItem
 }
-
 extension LineLayoutItem: LineLayoutItemConvertible {
     public func asLineLayoutItem() -> LineLayoutItem {
         return self
     }
 }
-
 extension UIView: LineLayoutItemConvertible {
     public func asLineLayoutItem() -> LineLayoutItem {
         return .view(self)
+    }
+}
+
+public protocol LayoutValueConvertible {
+    func asLayoutValue() -> LayoutValue
+}
+extension UIView: LayoutValueConvertible {
+    public func asLayoutValue() -> LayoutValue {
+        return .view(self)
+    }
+}
+extension CGFloat: LayoutValueConvertible {
+    public func asLayoutValue() -> LayoutValue {
+        return .value(self)
+    }
+}
+extension Int: LayoutValueConvertible {
+    public func asLayoutValue() -> LayoutValue {
+        return .value(self.asCGFloat)
     }
 }
 
@@ -45,14 +74,25 @@ public prefix func ==(value: CGFloatConvertible) -> LineLayoutItem {
     return .equal(value)
 }
 
+//infix operator =~: ComparisonPrecedence
+public func ==(view: UIView, value: LayoutValueConvertible) -> LineLayoutItem {
+    return .viewConstant(view, .equal(value.asLayoutValue()))
+}
+public func >=(view: UIView, value: LayoutValueConvertible) -> LineLayoutItem {
+    return .viewConstant(view, .greaterThanOrEqual(value.asLayoutValue()))
+}
+public func <=(view: UIView, value: LayoutValueConvertible) -> LineLayoutItem {
+    return .viewConstant(view, .lessThanOrEqual(value.asLayoutValue()))
+}
+
 // line layout option
 public enum LineLayoutOption {
     case head(UIView, Attribute)
     case tail(UIView, Attribute)
     case center(UIView, Attribute)
     
-    case width(Constant)
-    case height(Constant)
+    case width(LayoutConstant)
+    case height(LayoutConstant)
 }
 
 extension LineLayoutOption {
@@ -61,20 +101,9 @@ extension LineLayoutOption {
         case tail
         case center
     }
-    
-    public enum Value {
-        case view(UIView)
-        case value(CGFloat)
-    }
-    
-    public enum Constant {
-        case lessThanOrEqual(Value)
-        case greaterThanOrEqual(Value)
-        case equal(Value)
-    }
 }
 
-extension LineLayoutOption.Constant {
+extension LayoutConstant {
     var relation: NSLayoutRelation {
         switch self {
         case .lessThanOrEqual:
@@ -86,32 +115,13 @@ extension LineLayoutOption.Constant {
         }
     }
     
-    var value: LineLayoutOption.Value {
+    var value: LayoutValue {
         switch self {
         case let .lessThanOrEqual(value),
              let .greaterThanOrEqual(value),
              let .equal(value):
             return value
         }
-    }
-}
-
-public protocol LineLayoutOptionValueConvertible {
-    func asLineLayoutOptionValue() -> LineLayoutOption.Value
-}
-extension UIView: LineLayoutOptionValueConvertible {
-    public func asLineLayoutOptionValue() -> LineLayoutOption.Value {
-        return .view(self)
-    }
-}
-extension CGFloat: LineLayoutOptionValueConvertible {
-    public func asLineLayoutOptionValue() -> LineLayoutOption.Value {
-        return .value(self)
-    }
-}
-extension Int: LineLayoutOptionValueConvertible {
-    public func asLineLayoutOptionValue() -> LineLayoutOption.Value {
-        return .value(self.asCGFloat)
     }
 }
 
@@ -126,24 +136,24 @@ extension LineLayoutOption {
         return .center(view, attribute)
     }
     
-    public static func widthLessThanOrEqual(to value: LineLayoutOptionValueConvertible) -> LineLayoutOption {
-        return .width(.lessThanOrEqual(value.asLineLayoutOptionValue()))
+    public static func widthLessThanOrEqual(to value: LayoutValueConvertible) -> LineLayoutOption {
+        return .width(.lessThanOrEqual(value.asLayoutValue()))
     }
-    public static func widthGreaterThanOrEqual(to value: LineLayoutOptionValueConvertible) -> LineLayoutOption {
-        return .width(.greaterThanOrEqual(value.asLineLayoutOptionValue()))
+    public static func widthGreaterThanOrEqual(to value: LayoutValueConvertible) -> LineLayoutOption {
+        return .width(.greaterThanOrEqual(value.asLayoutValue()))
     }
-    public static func widthEqual(to value: LineLayoutOptionValueConvertible) -> LineLayoutOption {
-        return .width(.equal(value.asLineLayoutOptionValue()))
+    public static func widthEqual(to value: LayoutValueConvertible) -> LineLayoutOption {
+        return .width(.equal(value.asLayoutValue()))
     }
     
-    public static func heightLessThanOrEqual(to value: LineLayoutOptionValueConvertible) -> LineLayoutOption {
-        return .height(.lessThanOrEqual(value.asLineLayoutOptionValue()))
+    public static func heightLessThanOrEqual(to value: LayoutValueConvertible) -> LineLayoutOption {
+        return .height(.lessThanOrEqual(value.asLayoutValue()))
     }
-    public static func heightGreaterThanOrEqual(to value: LineLayoutOptionValueConvertible) -> LineLayoutOption {
-        return .height(.greaterThanOrEqual(value.asLineLayoutOptionValue()))
+    public static func heightGreaterThanOrEqual(to value: LayoutValueConvertible) -> LineLayoutOption {
+        return .height(.greaterThanOrEqual(value.asLayoutValue()))
     }
-    public static func heightEqual(to value: LineLayoutOptionValueConvertible) -> LineLayoutOption {
-        return .height(.equal(value.asLineLayoutOptionValue()))
+    public static func heightEqual(to value: LayoutValueConvertible) -> LineLayoutOption {
+        return .height(.equal(value.asLayoutValue()))
     }
 }
 
@@ -211,12 +221,12 @@ private func buildConstraints(for view: UIView, axis: UILayoutConstraintAxis, op
                     multiplier: 1,
                     constant: value
                 )
-            case let .view(view):
+            case let .view(otherView):
                 constraint = NSLayoutConstraint(
                     item: view,
                     attribute: attribute,
                     relatedBy: constant.relation,
-                    toItem: view,
+                    toItem: otherView,
                     attribute: attribute,
                     multiplier: 1,
                     constant: 0
@@ -299,7 +309,48 @@ private func buildLineLayoutConstraints(
             view.translatesAutoresizingMaskIntoConstraints = false
             constant = nil
             relation = .equal
-            prevLayoutItem = LayoutItem(view: view, attribute: axis == .vertical ? .top : .right)
+            prevLayoutItem = LayoutItem(view: view, attribute: axis == .vertical ? .bottom : .right)
+        case let .viewConstant(view, layoutConstant):
+            constraints.append(NSLayoutConstraint(
+                item: view,
+                attribute: axis == .vertical ? .top : .left,
+                relatedBy: relation,
+                toItem: prevLayoutItem.view,
+                attribute: prevLayoutItem.attribute,
+                multiplier: 1,
+                constant: constant ?? 0)
+            )
+            
+            let attribute: NSLayoutAttribute = axis == .vertical ? .height : .width
+            switch layoutConstant.value {
+            case .value(let value):
+                constraints.append(NSLayoutConstraint(
+                    item: view,
+                    attribute: attribute,
+                    relatedBy: layoutConstant.relation,
+                    toItem: nil,
+                    attribute: .notAnAttribute,
+                    multiplier: 1,
+                    constant: value)
+                )
+            case .view(let otherView):
+                constraints.append(NSLayoutConstraint(
+                    item: view,
+                    attribute: attribute,
+                    relatedBy: layoutConstant.relation,
+                    toItem: otherView,
+                    attribute: attribute,
+                    multiplier: 1,
+                    constant: 0)
+                )
+            }
+            
+            constraints += buildConstraints(for: view, axis: axis, options: options)
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            constant = nil
+            relation = .equal
+            prevLayoutItem = LayoutItem(view: view, attribute: axis == .vertical ? .bottom : .right)
         }
     }
     
