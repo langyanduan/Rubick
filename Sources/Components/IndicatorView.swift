@@ -108,10 +108,8 @@ public class IndicatorView: UIView {
         super.init(frame: frame)
         addSubview(contentView)
         activateLayoutConstraints(contentView, self) { (contentView, self) in [
-            contentView.centerX == self.centerX,
-            contentView.centerY == self.centerY,
-            contentView.width == 20,
-            contentView.height == 20,
+            contentView.center == self.center,
+            contentView.size == CGSize(width: 20, height: 20),
         ]}
     }
     deinit {
@@ -122,9 +120,11 @@ public class IndicatorView: UIView {
         return CGSize(width: 20, height: 20)
     }
     public func startAnimating() {
+        contentView.isHidden = false
         contentView.isAnimating = true
     }
     public func stopAnimating() {
+        contentView.isHidden = true
         contentView.isAnimating = false
     }
 }

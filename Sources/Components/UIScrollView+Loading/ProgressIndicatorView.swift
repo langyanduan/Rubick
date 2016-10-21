@@ -161,10 +161,8 @@ public class ProgressIndicatorView: UIView {
         super.init(frame: frame)
         addSubview(contentView)
         activateLayoutConstraints(contentView, self) { (contentView, self) in [
-            contentView.centerX == self.centerX,
-            contentView.centerY == self.centerY,
-            contentView.width == 30,
-            contentView.height == 30,
+            contentView.center == self.center,
+            contentView.size == CGSize(width: 30, height: 30),
         ]}
     }
     deinit {

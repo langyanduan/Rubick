@@ -118,10 +118,8 @@ private class FooterView: UIView, NextLoadable {
         addSubview(textLabel)
         
         activateLayoutConstraints(indicatorView, textLabel, self) { (indicatorView, textLabel, self) in [
-            indicatorView.centerX == self.centerX,
-            indicatorView.centerY == self.centerY,
-            textLabel.centerX == self.centerX,
-            textLabel.centerY == self.centerY
+            indicatorView.center == self.center,
+            textLabel.center == self.center,
         ]}
     }
     

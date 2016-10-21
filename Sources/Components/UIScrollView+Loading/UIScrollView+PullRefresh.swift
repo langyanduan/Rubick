@@ -96,8 +96,7 @@ private class HeaderView: UIView, Loadable {
         addSubview(progressView)
         
         activateLayoutConstraints(progressView, self) { (progressView, self) in [
-            progressView.centerX == self.centerX,
-            progressView.centerY == self.centerY,
+            progressView.center == self.center,
         ]}
     }
     

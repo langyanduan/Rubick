@@ -17,8 +17,7 @@ public class NavigationMenu: UIView {
     }
     let titleImage: UIView = UIView().then { (view) in
         activateLayoutConstraints(view) { (view) in [
-            view.width == 20,
-            view.height == 8
+            view.size == CGSize(width: 20, height: 8),
         ]}
         
         let path = CGMutablePath()
@@ -73,8 +72,7 @@ public class NavigationMenu: UIView {
             titleLabel, titleImage
         ])
         activateLayoutConstraints(view, self) { (view, self) in [
-            view.centerX == self.centerX,
-            view.centerY == self.centerY,
+            view.center == self.center,
         ]}
         
         titleLabel.text = items.first
