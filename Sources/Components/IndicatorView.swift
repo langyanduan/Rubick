@@ -114,6 +114,10 @@ public class IndicatorView: UIView {
             contentView.height == 20,
         ])
     }
+    deinit {
+        contentView.isAnimating = false
+    }
+    
     public override var intrinsicContentSize: CGSize {
         return CGSize(width: 20, height: 20)
     }

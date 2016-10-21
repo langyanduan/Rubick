@@ -167,6 +167,10 @@ public class ProgressIndicatorView: UIView {
             contentView.height == 30,
         ])
     }
+    deinit {
+        contentView.isAnimating = false
+    }
+    
     public override var intrinsicContentSize: CGSize {
         return CGSize(width: 30, height: 30)
     }

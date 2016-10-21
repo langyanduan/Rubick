@@ -363,8 +363,8 @@
 			isa = PBXGroup;
 			children = (
 				5093E5921DB70E1400784E92 /* ProgressIndicatorView.swift */,
-				5093E5931DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift */,
 				5093E5941DB70E1400784E92 /* UIScrollView+Loadable.swift */,
+				5093E5931DB70E1400784E92 /* UIScrollVIew+InfiniteScrolling.swift */,
 				5093E5951DB70E1400784E92 /* UIScrollView+PullRefresh.swift */,
 			);
 			path = "UIScrollView+Loading";
