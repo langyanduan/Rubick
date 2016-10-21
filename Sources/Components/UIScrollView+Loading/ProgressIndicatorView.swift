@@ -160,12 +160,12 @@ public class ProgressIndicatorView: UIView {
     public override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(contentView)
-        activateLayoutConstraints([
+        activateLayoutConstraints(contentView, self) { (contentView, self) in [
             contentView.centerX == self.centerX,
             contentView.centerY == self.centerY,
             contentView.width == 30,
             contentView.height == 30,
-        ])
+        ]}
     }
     deinit {
         contentView.isAnimating = false

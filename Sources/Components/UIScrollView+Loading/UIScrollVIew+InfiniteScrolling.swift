@@ -117,12 +117,12 @@ private class FooterView: UIView, NextLoadable {
         textLabel.isHidden = true
         addSubview(textLabel)
         
-        activateLayoutConstraints([
+        activateLayoutConstraints(indicatorView, textLabel, self) { (indicatorView, textLabel, self) in [
             indicatorView.centerX == self.centerX,
             indicatorView.centerY == self.centerY,
             textLabel.centerX == self.centerX,
             textLabel.centerY == self.centerY
-        ])
+        ]}
     }
     
     private override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {

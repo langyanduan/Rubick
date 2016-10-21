@@ -16,10 +16,10 @@ public class NavigationMenu: UIView {
         label.font = UIFont.systemFont(ofSize: 17)
     }
     let titleImage: UIView = UIView().then { (view) in
-        activateLayoutConstraints([
+        activateLayoutConstraints(view) { (view) in [
             view.width == 20,
             view.height == 8
-        ])
+        ]}
         
         let path = CGMutablePath()
         path.move(to: CGPoint(x: 6, y: 2))
@@ -72,10 +72,10 @@ public class NavigationMenu: UIView {
         activateHorizontalLayout(in: view, options: [.alignCenter(to: view), .heightLessThanOrEqual(to: view)], items: [
             titleLabel, titleImage
         ])
-        activateLayoutConstraints([
+        activateLayoutConstraints(view, self) { (view, self) in [
             view.centerX == self.centerX,
             view.centerY == self.centerY,
-        ])
+        ]}
         
         titleLabel.text = items.first
     }
@@ -108,13 +108,13 @@ public class NavigationMenu: UIView {
         view.backgroundColor = .white
         view.addSubview(self.segment)
         
-        activateLayoutConstraints([
-            self.segment.left >= view.left + 20,
-            self.segment.right <= view.right - 20,
-            self.segment.centerX == view.centerX,
-            self.segment.top == view.top + 10,
-            self.segment.bottom == view.bottom - 10,
-        ])
+        activateLayoutConstraints(self.segment, view) { (segment, view) in [
+            segment.left >= view.left + 20,
+            segment.right <= view.right - 20,
+            segment.centerX == view.centerX,
+            segment.top == view.top + 10,
+            segment.bottom == view.bottom - 10,
+        ]}
     }
     
     func show() {

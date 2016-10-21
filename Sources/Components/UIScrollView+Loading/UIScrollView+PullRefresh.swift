@@ -95,10 +95,10 @@ private class HeaderView: UIView, Loadable {
         progressView = ProgressIndicatorView()
         addSubview(progressView)
         
-        activateLayoutConstraints([
+        activateLayoutConstraints(progressView, self) { (progressView, self) in [
             progressView.centerX == self.centerX,
             progressView.centerY == self.centerY,
-        ])
+        ]}
     }
     
     @objc

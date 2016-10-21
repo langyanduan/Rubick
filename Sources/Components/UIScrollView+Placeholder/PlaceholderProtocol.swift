@@ -63,10 +63,10 @@ extension PlaceholderContainer where Self: UIView, Self: PlaceholderConfigurable
         contentView.addSubview(placeholderView)
         contentView.removeConstraints(contentView.constraints)
         
-        activateLayoutConstraints([
+        activateLayoutConstraints(placeholderView, contentView) { (placeholderView, contentView) in [
             placeholderView.centerX == contentView.centerX,
             placeholderView.centerY == contentView.centerY,
             placeholderView.width == contentView.width,
-        ])
+        ]}
     }
 }

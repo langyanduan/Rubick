@@ -149,8 +149,8 @@ public struct LayoutCenterItem {
 }
 public func ==(item: LayoutCenterItem, otherItem: LayoutCenterItem) -> LayoutConstraintDSLCollection {
     return LayoutConstraintDSLCollection(collection: [
-        item.view.centerX == otherItem.view.centerX,
-        item.view.centerY == otherItem.view.centerY,
+        item.view.dsl.centerX == otherItem.view.dsl.centerX,
+        item.view.dsl.centerY == otherItem.view.dsl.centerY,
     ])
 }
 public func ~(constraintDSLCollection: LayoutConstraintDSLCollection, priority: UILayoutPriority) -> LayoutConstraintDSLCollection {
@@ -159,6 +159,23 @@ public func ~(constraintDSLCollection: LayoutConstraintDSLCollection, priority: 
         constraintDSLCollection.collection[i].priority = priority
     }
     return constraintDSLCollection
+}
+
+public struct LayoutSizeItem {
+    let view: UIView
+}
+
+public func ==(item: LayoutSizeItem, otherItem: LayoutSizeItem) -> LayoutConstraintDSLCollection {
+    return LayoutConstraintDSLCollection(collection: [
+        item.view.dsl.width == otherItem.view.dsl.width,
+        item.view.dsl.height == otherItem.view.dsl.height,
+    ])
+}
+public func ==(item: LayoutSizeItem, size: CGSize) -> LayoutConstraintDSLCollection {
+    return LayoutConstraintDSLCollection(collection: [
+        item.view.dsl.width == size.width,
+        item.view.dsl.height == size.height,
+    ])
 }
 
 public struct LayoutEdgesItem {
@@ -172,19 +189,19 @@ public struct LayoutEdgesItem {
 }
 public func ==(item: LayoutEdgesItem, otherItem: LayoutEdgesItem) -> LayoutConstraintDSLCollection {
     return LayoutConstraintDSLCollection(collection: [
-        item.view.left == otherItem.view.left + otherItem.insets.left,
-        item.view.right == otherItem.view.right - otherItem.insets.right,
-        item.view.top == otherItem.view.top + otherItem.insets.top,
-        item.view.bottom == otherItem.view.bottom - otherItem.insets.bottom,
+        item.view.dsl.left == otherItem.view.dsl.left + otherItem.insets.left,
+        item.view.dsl.right == otherItem.view.dsl.right - otherItem.insets.right,
+        item.view.dsl.top == otherItem.view.dsl.top + otherItem.insets.top,
+        item.view.dsl.bottom == otherItem.view.dsl.bottom - otherItem.insets.bottom,
     ])
 }
 public func ==(item: LayoutEdgesItem, insets: UIEdgeInsets) -> LayoutConstraintDSLCollection {
     guard let superview = item.view.superview else { fatalError() }
     return LayoutConstraintDSLCollection(collection: [
-        item.view.left == superview.left + insets.left,
-        item.view.right == superview.right - insets.right,
-        item.view.top == superview.top + insets.top,
-        item.view.bottom == superview.bottom - insets.bottom,
+        item.view.dsl.left == superview.dsl.left + insets.left,
+        item.view.dsl.right == superview.dsl.right - insets.right,
+        item.view.dsl.top == superview.dsl.top + insets.top,
+        item.view.dsl.bottom == superview.dsl.bottom - insets.bottom,
     ])
 }
 
@@ -204,6 +221,7 @@ public struct ViewLayoutDSL {
     
     public var center: LayoutCenterItem { return LayoutCenterItem(view: base) }
     public var edges: LayoutEdgesItem { return LayoutEdgesItem(view: base) }
+    public var size: LayoutSizeItem { return LayoutSizeItem(view: base) }
     
     public func insets(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) -> LayoutEdgesItem {
         return LayoutEdgesItem(view: base, insets: UIEdgeInsets(top: top, left: left, bottom: bottom, right: right))
@@ -215,20 +233,6 @@ extension UIView {
         return ViewLayoutDSL(base: self)
     }
 }
-
-extension UIView {
-    public var left: LayoutItem { return dsl.left }
-    public var right: LayoutItem { return dsl.right }
-    public var top: LayoutItem { return dsl.top }
-    public var bottom: LayoutItem { return dsl.bottom }
-    public var width: LayoutItem { return dsl.width }
-    public var height: LayoutItem { return dsl.height }
-    public var centerX: LayoutItem { return dsl.centerX }
-    public var centerY: LayoutItem { return dsl.centerY }
-    public var lastBaseline: LayoutItem { return dsl.lastBaseline }
-    public var firstBaseline: LayoutItem { return dsl.firstBaseline }
-}
-
 
 public protocol NSLayoutConstraintConvertible { }
 

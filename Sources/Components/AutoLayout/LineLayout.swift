@@ -375,7 +375,9 @@ public func activateLineLayout(
     options: [LineLayoutOption] = [],
     items: [LineLayoutItemConvertible])
 {
-    NSLayoutConstraint.activate(buildLineLayoutConstraints(axis: axis, options: options, first: first, last: last, items: items))
+    NSLayoutConstraint.activate(
+        buildLineLayoutConstraints(axis: axis, options: options, first: first, last: last, items: items)
+    )
 }
 
 public func activateLineLayout(
@@ -386,9 +388,13 @@ public func activateLineLayout(
 {
     switch axis {
     case .horizontal:
-        NSLayoutConstraint.activate(buildLineLayoutConstraints(axis: axis, options: options, first: view.left, last: view.right, items: items))
+        NSLayoutConstraint.activate(
+            buildLineLayoutConstraints(axis: axis, options: options, first: view.dsl.left, last: view.dsl.right, items: items)
+        )
     case .vertical:
-        NSLayoutConstraint.activate(buildLineLayoutConstraints(axis: axis, options: options, first: view.top, last: view.bottom, items: items))
+        NSLayoutConstraint.activate(
+            buildLineLayoutConstraints(axis: axis, options: options, first: view.dsl.top, last: view.dsl.bottom, items: items)
+        )
     }
 }
 
