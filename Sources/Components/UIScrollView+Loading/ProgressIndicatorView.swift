@@ -8,6 +8,8 @@
 
 import Foundation
 
+private let animationKey = "contentRotation"
+
 public class ProgressIndicatorView: UIView {
     class ContentView: UIView {
         let color = UIColorFromRGB(0x3498db)
@@ -66,14 +68,7 @@ public class ProgressIndicatorView: UIView {
                     
                     displayLink = CADisplayLink(target: self, selector: #selector(update))
                     displayLink?.add(to: RunLoop.main, forMode: .commonModes)
-                    
-                    let animation = CABasicAnimation(keyPath: "transform.rotation")
-                    animation.fillMode = kCAFillModeBoth
-                    animation.fromValue = CGFloat(M_PI_2) * rotation
-                    animation.toValue = CGFloat(M_PI_2) * rotation + 2 * CGFloat(M_PI)
-                    animation.duration = 2
-                    animation.repeatCount = Float.infinity
-                    layer.add(animation, forKey: "rotation")
+                    layer.add(rotationAnimation(from: rotation), forKey: animationKey)
                 } else {
                     displayLink?.invalidate()
                     displayLink = nil
@@ -83,7 +78,8 @@ public class ProgressIndicatorView: UIView {
             }
         }
         
-        @objc func update() {
+        @objc
+        func update() {
             switch count {
             case 0..<26:
                 end += 0.03
@@ -100,7 +96,7 @@ public class ProgressIndicatorView: UIView {
             setNeedsDisplay()
         }
         
-        public override func draw(_ rect: CGRect) {
+        override func draw(_ rect: CGRect) {
             if isAnimating {
                 let context = UIGraphicsGetCurrentContext()!
                 context.setLineWidth(2)
@@ -137,14 +133,18 @@ public class ProgressIndicatorView: UIView {
         }
         
         override func willMove(toWindow newWindow: UIWindow?) {
-            if window == nil && newWindow != nil && isAnimating && layer.animation(forKey: "rotation") == nil {
-                let animation = CABasicAnimation(keyPath: "transform.rotation")
-                animation.fromValue = 0
-                animation.toValue = 2 * CGFloat(M_PI)
-                animation.duration = 2
-                animation.repeatCount = Float.infinity
-                layer.add(animation, forKey: "rotation")
+            if window == nil && newWindow != nil && isAnimating && layer.animation(forKey: animationKey) == nil {
+                layer.add(rotationAnimation(from: 0), forKey: animationKey)
             }
+        }
+        
+        func rotationAnimation(from rotation: CGFloat) -> CABasicAnimation {
+            let animation = CABasicAnimation(keyPath: "transform.rotation.z")
+            animation.fromValue = (CGFloat(M_PI_2) * rotation) as NSNumber
+            animation.toValue = (CGFloat(M_PI_2) * rotation + 2 * CGFloat(M_PI)) as NSNumber
+            animation.duration = 2
+            animation.repeatCount = Float.infinity
+            return animation
         }
     }
     

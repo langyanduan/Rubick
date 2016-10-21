@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+private let animationKey = "contentRotation"
 
 public class IndicatorView: UIView {
     public required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -42,34 +43,18 @@ public class IndicatorView: UIView {
                     
                     displayLink = CADisplayLink(target: self, selector: #selector(update))
                     displayLink?.add(to: RunLoop.main, forMode: .commonModes)
-                    
-                    let animation = CABasicAnimation(keyPath: "transform.rotation")
-                    animation.fromValue = 0
-                    animation.toValue = 2 * CGFloat(M_PI)
-                    animation.duration = 2
-                    animation.repeatCount = Float.infinity
-                    layer.add(animation, forKey: "rotation")
+                    layer.add(rotationAnimation(), forKey: animationKey)
                 } else {
                     displayLink?.invalidate()
                     displayLink = nil
-                    setNeedsLayout()
                     layer.removeAllAnimations()
                 }
+                setNeedsLayout()
             }
         }
         
-        override func willMove(toWindow newWindow: UIWindow?) {
-            if window == nil && newWindow != nil && isAnimating && layer.animation(forKey: "rotation") == nil {
-                let animation = CABasicAnimation(keyPath: "transform.rotation")
-                animation.fromValue = 0
-                animation.toValue = 2 * CGFloat(M_PI)
-                animation.duration = 2
-                animation.repeatCount = Float.infinity
-                layer.add(animation, forKey: "rotation")
-            }
-        }
-        
-        @objc func update() {
+        @objc
+        func update() {
             switch count {
             case 0..<26:
                 end += 0.03
@@ -96,6 +81,21 @@ public class IndicatorView: UIView {
             context.setLineCap(.butt)
             context.addArc(center: CGPoint(x: 10, y: 10), radius: 8, startAngle: start * CGFloat(M_PI) * 2, endAngle: end * CGFloat(M_PI) * 2, clockwise: false)
             context.strokePath()
+        }
+        
+        override func willMove(toWindow newWindow: UIWindow?) {
+            if window == nil && newWindow != nil && isAnimating && layer.animation(forKey: animationKey) == nil {
+                layer.add(rotationAnimation(), forKey: animationKey)
+            }
+        }
+        
+        func rotationAnimation() -> CABasicAnimation {
+            let animation = CABasicAnimation(keyPath: "transform.rotation")
+            animation.fromValue = 0 as NSNumber
+            animation.toValue = (2 * CGFloat(M_PI)) as NSNumber
+            animation.duration = 2
+            animation.repeatCount = Float.infinity
+            return animation
         }
     }
     
