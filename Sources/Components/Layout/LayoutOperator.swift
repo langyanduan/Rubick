@@ -51,10 +51,10 @@ public func <=(item: LayoutItem, convertible: ViewDSLConvertible) -> LayoutConst
 }
 
 // DSL priority
-public func ~(constraintDSL: LayoutConstraint, priority: UILayoutPriority) -> LayoutConstraint {
-    var constraintDSL = constraintDSL
-    constraintDSL.priority = priority
-    return constraintDSL
+public func ~(constraint: LayoutConstraint, priority: UILayoutPriority) -> LayoutConstraint {
+    var constraint = constraint
+    constraint.priority = priority
+    return constraint
 }
 
 

@@ -13,6 +13,7 @@
 		5041EA751D9506630001BA42 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA741D9506630001BA42 /* String+Extension.swift */; };
 		5041EA771D9515890001BA42 /* UIKit+ImageDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */; };
 		5041EA7A1D951C270001BA42 /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5041EA791D951C270001BA42 /* ImageProcessor.swift */; };
+		50447B0B1DBF508E004238CF /* DebugLayoutConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50447B0A1DBF508E004238CF /* DebugLayoutConstraint.swift */; };
 		505339561D964AEB004CFE87 /* DispatchQueue+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505339551D964AEB004CFE87 /* DispatchQueue+Extension.swift */; };
 		505339601D9691FA004CFE87 /* Rubick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50E92FE51D658690005A1048 /* Rubick.framework */; };
 		505339671D969590004CFE87 /* ImageDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 505339661D969590004CFE87 /* ImageDownloaderTests.swift */; };
@@ -154,6 +155,7 @@
 		5041EA741D9506630001BA42 /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		5041EA761D9515890001BA42 /* UIKit+ImageDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIKit+ImageDownload.swift"; sourceTree = "<group>"; };
 		5041EA791D951C270001BA42 /* ImageProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
+		50447B0A1DBF508E004238CF /* DebugLayoutConstraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DebugLayoutConstraint.swift; sourceTree = "<group>"; };
 		505339551D964AEB004CFE87 /* DispatchQueue+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extension.swift"; sourceTree = "<group>"; };
 		5053395B1D9691FA004CFE87 /* RubickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RubickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5053395F1D9691FA004CFE87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 		508CF8901DBF0057003C7FCB /* Layout */ = {
 			isa = PBXGroup;
 			children = (
+				50447B0A1DBF508E004238CF /* DebugLayoutConstraint.swift */,
 				508CF89A1DBF0058003C7FCB /* ViewDSL.swift */,
 				508CF8941DBF0058003C7FCB /* LayoutItem.swift */,
 				508CF8921DBF0058003C7FCB /* LayoutCondition.swift */,
@@ -830,6 +833,7 @@
 				5093E5A01DB70E1400784E92 /* PlaceholderConfiguration.swift in Sources */,
 				5082501F1D9A205A00656663 /* Information.swift in Sources */,
 				5093E5AA1DB8643C00784E92 /* HUD.swift in Sources */,
+				50447B0B1DBF508E004238CF /* DebugLayoutConstraint.swift in Sources */,
 				508CF8A21DBF0058003C7FCB /* LineLayoutOperator.swift in Sources */,
 				50DF423D1DAA32CF001A5B18 /* UIKit+Closure.swift in Sources */,
 				50FB008D1D98CC6D008EE165 /* LruCache.swift in Sources */,

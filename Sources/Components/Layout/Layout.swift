@@ -12,7 +12,7 @@ import UIKit
 // generate constraint
 extension LayoutConstraint {
     func asConstraint() -> NSLayoutConstraint {
-        let constraint = NSLayoutConstraint(
+        let constraint = DSLLayoutConstraint(
             item: firstItem,
             attribute: firstAttribute,
             relatedBy: relation,

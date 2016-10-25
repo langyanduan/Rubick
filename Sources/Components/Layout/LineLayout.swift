@@ -50,7 +50,7 @@ private func buildOptionConstraints(for view: UIView, axis: UILayoutConstraintAx
         case let .center(otherView, attribute),
              let .head(otherView, attribute),
              let .tail(otherView, attribute):
-            constraint = NSLayoutConstraint(
+            constraint = DSLLayoutConstraint(
                 item: view,
                 attribute: firstAttribute(with: axis, option: option),
                 relatedBy: .equal,
@@ -64,7 +64,7 @@ private func buildOptionConstraints(for view: UIView, axis: UILayoutConstraintAx
             let attribute = constantAttribute(with: option)
             switch constant.value {
             case let .value(value):
-                constraint = NSLayoutConstraint(
+                constraint = DSLLayoutConstraint(
                     item: view,
                     attribute: attribute,
                     relatedBy: constant.relation,
@@ -74,7 +74,7 @@ private func buildOptionConstraints(for view: UIView, axis: UILayoutConstraintAx
                     constant: value
                 )
             case let .view(otherView):
-                constraint = NSLayoutConstraint(
+                constraint = DSLLayoutConstraint(
                     item: view,
                     attribute: attribute,
                     relatedBy: constant.relation,
@@ -84,6 +84,8 @@ private func buildOptionConstraints(for view: UIView, axis: UILayoutConstraintAx
                     constant: 0
                 )
             }
+        case .equalWidth, .equalHeight:
+            continue
         }
         constraints.append(constraint)
     }
@@ -128,7 +130,7 @@ private func buildLineLayoutConstraints(
             constant = value.asCGFloat
             relation = .lessThanOrEqual
         case .view(let view):
-            constraints.append(NSLayoutConstraint(
+            constraints.append(DSLLayoutConstraint(
                 item: view,
                 attribute: axis == .vertical ? .top : .left,
                 relatedBy: relation,
@@ -144,7 +146,7 @@ private func buildLineLayoutConstraints(
             relation = .equal
             prevLayoutItem = LayoutItem(view: view, attribute: axis == .vertical ? .bottom : .right)
         case let .viewRelation(view, valueRelation):
-            constraints.append(NSLayoutConstraint(
+            constraints.append(DSLLayoutConstraint(
                 item: view,
                 attribute: axis == .vertical ? .top : .left,
                 relatedBy: relation,
@@ -157,7 +159,7 @@ private func buildLineLayoutConstraints(
             let attribute: NSLayoutAttribute = axis == .vertical ? .height : .width
             switch valueRelation.value {
             case .value(let value):
-                constraints.append(NSLayoutConstraint(
+                constraints.append(DSLLayoutConstraint(
                     item: view,
                     attribute: attribute,
                     relatedBy: valueRelation.relation,
@@ -167,7 +169,7 @@ private func buildLineLayoutConstraints(
                     constant: value)
                 )
             case .view(let otherView):
-                constraints.append(NSLayoutConstraint(
+                constraints.append(DSLLayoutConstraint(
                     item: view,
                     attribute: attribute,
                     relatedBy: valueRelation.relation,
@@ -187,7 +189,7 @@ private func buildLineLayoutConstraints(
         }
     }
     
-    constraints.append(NSLayoutConstraint(
+    constraints.append(DSLLayoutConstraint(
         item: last.view,
         attribute: last.attribute,
         relatedBy: relation,
@@ -196,6 +198,59 @@ private func buildLineLayoutConstraints(
         multiplier: 1,
         constant: constant ?? 0)
     )
+    
+    var equalWidth = false, equalHeight = false
+    options.forEach { (option) in
+        switch option {
+        case .equalHeight:
+            equalHeight = true
+        case .equalWidth:
+            equalWidth = true
+        default:
+            break
+        }
+    }
+    if equalWidth || equalHeight {
+        let views = items.flatMap { (convertible) -> UIView? in
+            switch convertible.asLineLayoutItem() {
+            case .view(let view), .viewRelation(let view, _):
+                return view
+            default:
+                return nil
+            }
+        }
+        
+        var lastView: UIView?
+        for view in views {
+            defer { lastView = view }
+            guard let lastView = lastView else {
+                continue
+            }
+            
+            if equalWidth {
+                constraints.append(DSLLayoutConstraint(
+                    item: view,
+                    attribute: .width,
+                    relatedBy: .equal,
+                    toItem: lastView,
+                    attribute: .width,
+                    multiplier: 1,
+                    constant: 0)
+                )
+            }
+            if equalHeight {
+                constraints.append(DSLLayoutConstraint(
+                    item: view,
+                    attribute: .height,
+                    relatedBy: .equal,
+                    toItem: lastView,
+                    attribute: .height,
+                    multiplier: 1,
+                    constant: 0)
+                )
+            }
+        }
+    }
     
     return constraints
 }

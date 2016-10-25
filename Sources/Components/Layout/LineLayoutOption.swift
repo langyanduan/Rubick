@@ -17,6 +17,9 @@ public enum LineLayoutOption {
     
     case width(LayoutValueRelation)
     case height(LayoutValueRelation)
+    
+    case equalWidth
+    case equalHeight
 }
 
 extension LineLayoutOption {
