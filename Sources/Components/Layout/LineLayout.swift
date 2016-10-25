@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // build constraints
-private func buildConstraints(for view: UIView, axis: UILayoutConstraintAxis, options: [LineLayoutOption]) -> [NSLayoutConstraint] {
+private func buildOptionConstraints(for view: UIView, axis: UILayoutConstraintAxis, options: [LineLayoutOption]) -> [NSLayoutConstraint] {
     func firstAttribute(with axis: UILayoutConstraintAxis, option: LineLayoutOption) -> NSLayoutAttribute {
         switch option {
         case .center:
@@ -98,32 +98,13 @@ private func buildLineLayoutConstraints(
     items: [LineLayoutItemConvertible])
     -> [NSLayoutConstraint]
 {
-    assert( { () -> Bool in
-        func isHorizontal(attribute: NSLayoutAttribute) -> Bool {
-            switch attribute {
-            case .left, .right, .centerX:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        func isVertical(attribute: NSLayoutAttribute) -> Bool {
-            switch attribute {
-            case .top, .bottom, .centerY:
-                return true
-            default:
-                return false
-            }
-        }
-        
-        switch axis {
-        case .horizontal:
-            return isHorizontal(attribute: first.attribute) && isHorizontal(attribute: last.attribute)
-        case .vertical:
-            return isVertical(attribute: first.attribute) && isVertical(attribute: last.attribute)
-        }
-    }())
+    assert(
+        (axis == .horizontal &&
+         Set<NSLayoutAttribute>(arrayLiteral: .left, .right, .centerX).isSuperset(of: Set(arrayLiteral: first.attribute, last.attribute)))
+            ||
+        (axis == .vertical &&
+         Set<NSLayoutAttribute>(arrayLiteral: .top, .bottom, .centerY).isSuperset(of: Set(arrayLiteral: first.attribute, last.attribute)))
+    )
     
     var constraints: [NSLayoutConstraint] = []
     var constant: CGFloat?
@@ -156,13 +137,13 @@ private func buildLineLayoutConstraints(
                 multiplier: 1,
                 constant: constant ?? 0)
             )
-            constraints += buildConstraints(for: view, axis: axis, options: options)
+            constraints += buildOptionConstraints(for: view, axis: axis, options: options)
             
             view.translatesAutoresizingMaskIntoConstraints = false
             constant = nil
             relation = .equal
             prevLayoutItem = LayoutItem(view: view, attribute: axis == .vertical ? .bottom : .right)
-        case let .viewRelation(view, layoutConstant):
+        case let .viewRelation(view, valueRelation):
             constraints.append(NSLayoutConstraint(
                 item: view,
                 attribute: axis == .vertical ? .top : .left,
@@ -174,12 +155,12 @@ private func buildLineLayoutConstraints(
             )
             
             let attribute: NSLayoutAttribute = axis == .vertical ? .height : .width
-            switch layoutConstant.value {
+            switch valueRelation.value {
             case .value(let value):
                 constraints.append(NSLayoutConstraint(
                     item: view,
                     attribute: attribute,
-                    relatedBy: layoutConstant.relation,
+                    relatedBy: valueRelation.relation,
                     toItem: nil,
                     attribute: .notAnAttribute,
                     multiplier: 1,
@@ -189,7 +170,7 @@ private func buildLineLayoutConstraints(
                 constraints.append(NSLayoutConstraint(
                     item: view,
                     attribute: attribute,
-                    relatedBy: layoutConstant.relation,
+                    relatedBy: valueRelation.relation,
                     toItem: otherView,
                     attribute: attribute,
                     multiplier: 1,
@@ -197,7 +178,7 @@ private func buildLineLayoutConstraints(
                 )
             }
             
-            constraints += buildConstraints(for: view, axis: axis, options: options)
+            constraints += buildOptionConstraints(for: view, axis: axis, options: options)
             
             view.translatesAutoresizingMaskIntoConstraints = false
             constant = nil
