@@ -9,7 +9,6 @@
 import Foundation
 
 private let loggerQueue = DispatchQueue(label: "com.rubick.logger", qos: DispatchQoS.default, attributes: DispatchQueue.Attributes.concurrent)
-private let colorful = true
 
 public enum LoggerLevel: Int {
     case verbose
@@ -123,6 +122,9 @@ public class ConsoleDestination: BaseDestination, DestinationProtocol {
     public var warningColorText: String = "fg211,119,34;"
     public var errorColorText: String = "fg204,0,0;"
     
+    public var colorful = true
+    public var useNSLog = false
+    
     public override init() {
        super.init()
     }
@@ -143,37 +145,38 @@ public class ConsoleDestination: BaseDestination, DestinationProtocol {
     }
     
     public func write(level: LoggerLevel, info: String, message: String) {
+        var processedMessage: String
         if colorful {
-            var colorfulMessage: String
             switch level {
             case .verbose:
-                colorfulMessage = verboseColorText
+                processedMessage = verboseColorText
             case .info:
-                colorfulMessage = infoColorText
+                processedMessage = infoColorText
             case .debug:
-                colorfulMessage = debugColorText
+                processedMessage = debugColorText
             case .warning:
-                colorfulMessage = warningColorText
+                processedMessage = warningColorText
             case .error:
-                colorfulMessage = errorColorText
+                processedMessage = errorColorText
             }
             
             if !info.isEmpty {
-                colorfulMessage = "\(escape)fg50,50,50;" + info + "\(escape);" + " 💊 " + "\(escape)" + colorfulMessage + message + "\(escape);"
+                processedMessage = "\(escape)fg50,50,50;" + info + "\(escape);" + " 💊 " + "\(escape)" + processedMessage + message + "\(escape);"
             } else {
-                colorfulMessage = "\(escape)" + colorfulMessage + message + "\(escape);"
+                processedMessage = "\(escape)" + processedMessage + message + "\(escape);"
             }
-            
-            print(colorfulMessage)
         } else {
-            let final: String
             if !info.isEmpty {
-                final = info + " 💊 " + message
+                processedMessage = info + " 💊 " + message
             } else {
-                final = message
+                processedMessage = message
             }
-            
-            print(final)
+        }
+        
+        if useNSLog {
+            NSLog(processedMessage)
+        } else {
+            print(processedMessage)
         }
     }
 }
