@@ -14,45 +14,25 @@ enum CryptoInput {
     case stream(InputStream)
 }
 
-
-struct BASE64 {
-    static func encoding(data: Data) -> String {
+public struct Base64Coder {
+    public static func encoding(data: Data) -> String {
         return ""
     }
-    static func decoding(text: String) -> Data? {
+    public static func decoding(text: String) -> Data? {
         return nil
     }
 }
 
-struct URLEncoder {
+public struct URLCoder {
     
 }
 
-
-
-func hexString(from data: Data) -> String {
-    return ""
-}
-
-extension Data {
-    init?(hex string: String) {
+public struct HexCoder {
+    public static func encoding(data: Data) -> String {
+        return data.reduce("") { $0 + String(format: "%02x", $1) }
+    }
+    
+    public static func decoding(text: String) -> Data? {
         return nil
     }
 }
-
-extension String {
-    init(hex data: Data) {
-        self = ""
-    }
-}
-
-
-
-
-//func base64Encoding(data: Data) -> String {
-//    return ""
-//}
-//
-//func base64
-
-
