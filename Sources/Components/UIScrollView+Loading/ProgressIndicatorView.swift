@@ -62,7 +62,7 @@ public class ProgressIndicatorView: UIView {
                 if isAnimating {
                     count = 26
                     start = 0
-                    end = 0.05 + 26 * 0.03
+                    end = CGFloat(0.05 + 26 * 0.03)
                     colorIndex = 0
                     animationColor = colors[0]
                     
