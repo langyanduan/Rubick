@@ -29,7 +29,13 @@ public struct URLCoder {
 
 public struct HexCoder {
     public static func encoding(data: Data) -> String {
-        return data.reduce("") { $0 + String(format: "%02x", $1) }
+        var text = ""
+        data.forEach { (value) in
+            autoreleasepool {
+                text += String(format: "%02x", value)
+            }
+        }
+        return text
     }
     
     public static func decoding(text: String) -> Data? {
