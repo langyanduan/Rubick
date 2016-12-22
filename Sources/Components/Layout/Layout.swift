@@ -54,32 +54,32 @@ public func activateLayoutConstraints(_ convertibles: [NSLayoutConstraintConvert
 }
 
 public func activateLayoutConstraints(_ view1: UIView, _ convertibles: (ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ convertibles: (ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ view5: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl, view5.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL, view5.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ view5: UIView, _ view6: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl, view5.dsl, view6.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL, view5.DSL, view6.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ view5: UIView, _ view6: UIView, _ view7: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl, view5.dsl, view6.dsl, view7.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL, view5.DSL, view6.DSL, view7.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ view5: UIView, _ view6: UIView, _ view7: UIView, _ view8: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl, view5.dsl, view6.dsl, view7.dsl, view8.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL, view5.DSL, view6.DSL, view7.DSL, view8.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ view5: UIView, _ view6: UIView, _ view7: UIView, _ view8: UIView, _ view9: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl, view5.dsl, view6.dsl, view7.dsl, view8.dsl, view9.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL, view5.DSL, view6.DSL, view7.DSL, view8.DSL, view9.DSL))
 }
 public func activateLayoutConstraints(_ view1: UIView, _ view2: UIView, _ view3: UIView, _ view4: UIView, _ view5: UIView, _ view6: UIView, _ view7: UIView, _ view8: UIView, _ view9: UIView, _ view10: UIView, _ convertibles: (ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL, ViewDSL) -> [NSLayoutConstraintConvertible]) {
-    activateLayoutConstraints(convertibles(view1.dsl, view2.dsl, view3.dsl, view4.dsl, view5.dsl, view6.dsl, view7.dsl, view8.dsl, view9.dsl, view10.dsl))
+    activateLayoutConstraints(convertibles(view1.DSL, view2.DSL, view3.DSL, view4.DSL, view5.DSL, view6.DSL, view7.DSL, view8.DSL, view9.DSL, view10.DSL))
 }

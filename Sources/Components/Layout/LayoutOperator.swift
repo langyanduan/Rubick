@@ -61,8 +61,8 @@ public func ~(constraint: LayoutConstraint, priority: UILayoutPriority) -> Layou
 // center
 public func ==(item: LayoutCenterItem, otherItem: LayoutCenterItem) -> LayoutConstraintGroup {
     return LayoutConstraintGroup(collection: [
-        item.view.dsl.centerX == otherItem.view.dsl.centerX,
-        item.view.dsl.centerY == otherItem.view.dsl.centerY,
+        item.view.DSL.centerX == otherItem.view.DSL.centerX,
+        item.view.DSL.centerY == otherItem.view.DSL.centerY,
     ])
 }
 public func ==(item: LayoutCenterItem, convertible: ViewDSLConvertible) -> LayoutConstraintGroup {
@@ -72,14 +72,14 @@ public func ==(item: LayoutCenterItem, convertible: ViewDSLConvertible) -> Layou
 // size
 public func ==(item: LayoutSizeItem, otherItem: LayoutSizeItem) -> LayoutConstraintGroup {
     return LayoutConstraintGroup(collection: [
-        item.view.dsl.width == otherItem.view.dsl.width,
-        item.view.dsl.height == otherItem.view.dsl.height,
+        item.view.DSL.width == otherItem.view.DSL.width,
+        item.view.DSL.height == otherItem.view.DSL.height,
     ])
 }
 public func ==(item: LayoutSizeItem, size: CGSize) -> LayoutConstraintGroup {
     return LayoutConstraintGroup(collection: [
-        item.view.dsl.width == size.width,
-        item.view.dsl.height == size.height,
+        item.view.DSL.width == size.width,
+        item.view.DSL.height == size.height,
     ])
 }
 public func ==(item: LayoutSizeItem, convertible: ViewDSLConvertible) -> LayoutConstraintGroup {
@@ -89,19 +89,19 @@ public func ==(item: LayoutSizeItem, convertible: ViewDSLConvertible) -> LayoutC
 // edges
 public func ==(item: LayoutEdgesItem, otherItem: LayoutEdgesItem) -> LayoutConstraintGroup {
     return LayoutConstraintGroup(collection: [
-        item.view.dsl.left == otherItem.view.dsl.left + otherItem.insets.left,
-        item.view.dsl.right == otherItem.view.dsl.right - otherItem.insets.right,
-        item.view.dsl.top == otherItem.view.dsl.top + otherItem.insets.top,
-        item.view.dsl.bottom == otherItem.view.dsl.bottom - otherItem.insets.bottom,
+        item.view.DSL.left == otherItem.view.DSL.left + otherItem.insets.left,
+        item.view.DSL.right == otherItem.view.DSL.right - otherItem.insets.right,
+        item.view.DSL.top == otherItem.view.DSL.top + otherItem.insets.top,
+        item.view.DSL.bottom == otherItem.view.DSL.bottom - otherItem.insets.bottom,
     ])
 }
 public func ==(item: LayoutEdgesItem, insets: UIEdgeInsets) -> LayoutConstraintGroup {
     guard let superview = item.view.superview else { fatalError() }
     return LayoutConstraintGroup(collection: [
-        item.view.dsl.left == superview.dsl.left + insets.left,
-        item.view.dsl.right == superview.dsl.right - insets.right,
-        item.view.dsl.top == superview.dsl.top + insets.top,
-        item.view.dsl.bottom == superview.dsl.bottom - insets.bottom,
+        item.view.DSL.left == superview.DSL.left + insets.left,
+        item.view.DSL.right == superview.DSL.right - insets.right,
+        item.view.DSL.top == superview.DSL.top + insets.top,
+        item.view.DSL.bottom == superview.DSL.bottom - insets.bottom,
     ])
 }
 public func ==(item: LayoutEdgesItem, convertible: ViewDSLConvertible) -> LayoutConstraintGroup {

@@ -277,11 +277,11 @@ public func activateLineLayout(
     switch axis {
     case .horizontal:
         NSLayoutConstraint.activate(
-            buildLineLayoutConstraints(axis: axis, options: options, first: view.dsl.left, last: view.dsl.right, items: items)
+            buildLineLayoutConstraints(axis: axis, options: options, first: view.DSL.left, last: view.DSL.right, items: items)
         )
     case .vertical:
         NSLayoutConstraint.activate(
-            buildLineLayoutConstraints(axis: axis, options: options, first: view.dsl.top, last: view.dsl.bottom, items: items)
+            buildLineLayoutConstraints(axis: axis, options: options, first: view.DSL.top, last: view.DSL.bottom, items: items)
         )
     }
 }

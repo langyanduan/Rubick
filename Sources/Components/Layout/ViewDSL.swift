@@ -33,7 +33,7 @@ public struct ViewDSL {
 }
 
 extension UIView {
-    public var dsl: ViewDSL {
+    public var DSL: ViewDSL {
         return ViewDSL(base: self)
     }
 }
@@ -44,7 +44,7 @@ public protocol ViewDSLConvertible {
 
 extension UIView: ViewDSLConvertible {
     public func asViewLayoutDSL() -> ViewDSL {
-        return self.dsl
+        return self.DSL
     }
 }
 
@@ -55,14 +55,14 @@ extension ViewDSL: ViewDSLConvertible {
 }
 
 extension UIView {
-    public var left: LayoutItem { return dsl.left }
-    public var right: LayoutItem { return dsl.right }
-    public var top: LayoutItem { return dsl.top }
-    public var bottom: LayoutItem { return dsl.bottom }
-    public var width: LayoutItem { return dsl.width }
-    public var height: LayoutItem { return dsl.height }
-    public var centerX: LayoutItem { return dsl.centerX }
-    public var centerY: LayoutItem { return dsl.centerY }
-    public var lastBaseline: LayoutItem { return dsl.lastBaseline }
-    public var firstBaseline: LayoutItem { return dsl.firstBaseline }
+    public var left: LayoutItem { return DSL.left }
+    public var right: LayoutItem { return DSL.right }
+    public var top: LayoutItem { return DSL.top }
+    public var bottom: LayoutItem { return DSL.bottom }
+    public var width: LayoutItem { return DSL.width }
+    public var height: LayoutItem { return DSL.height }
+    public var centerX: LayoutItem { return DSL.centerX }
+    public var centerY: LayoutItem { return DSL.centerY }
+    public var lastBaseline: LayoutItem { return DSL.lastBaseline }
+    public var firstBaseline: LayoutItem { return DSL.firstBaseline }
 }
