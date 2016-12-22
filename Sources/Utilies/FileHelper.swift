@@ -131,5 +131,10 @@ public class FileHelper {
         }
         return true
     }
+    
+    // Application Group
+    public func containerURL(forGroupIdentifier: String) -> URL? {
+        return fileManager.containerURL(forSecurityApplicationGroupIdentifier: "group.io.atoi.pangolin")
+    }
 }
 
