@@ -8,9 +8,8 @@
 
 import UIKit
 
-class DebugLayoutConstraint: NSLayoutConstraint { }
-
 #if DEBUG
+class DebugLayoutConstraint: NSLayoutConstraint { }
 typealias DSLLayoutConstraint = DebugLayoutConstraint
 #else
 typealias DSLLayoutConstraint = NSLayoutConstraint
