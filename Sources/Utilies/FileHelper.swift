@@ -13,43 +13,54 @@ import Foundation
 public class FileHelper {
     public static let shared = FileHelper()
     
-    private init() {}
+    private let homeDirectory: NSString
+    private let fileManager: FileManager
+    private init() {
+        homeDirectory = NSHomeDirectory() as NSString
+        fileManager = FileManager()
+        
+        appBundlePath = Bundle.main.bundlePath
+        documentsDirectory = homeDirectory.appendingPathComponent("Documents")
+        libraryDirectory = homeDirectory.appendingPathComponent("Library")
+        applicationSupportDirectory = homeDirectory.appendingPathComponent("Library/Application Support")
+        preferencesDirectory = homeDirectory.appendingPathComponent("Library/Preferences")
+        cachesDirectory = homeDirectory.appendingPathComponent("Library/Caches")
+        temporaryDirectory = homeDirectory.appendingPathComponent("Library/tmp")
+        
+        documentsURL = URL(fileURLWithPath: documentsDirectory)
+        libraryURL = URL(fileURLWithPath: libraryDirectory)
+        applicationSupportURL =  URL(fileURLWithPath: applicationSupportDirectory)
+        preferencesURL = URL(fileURLWithPath: preferencesDirectory)
+        cachesURL = URL(fileURLWithPath: cachesDirectory)
+        temporaryURL = URL(fileURLWithPath: temporaryDirectory)
+    }
     
-    private var homeDirectory = NSHomeDirectory() as NSString
-    
-    // lazy
-    public lazy var appBundlePath: String = Bundle.main.bundlePath
-    
+    // App Bundle
+    public let appBundlePath: String
     // Documents/
-    public lazy var documentsDirectory: String = self.homeDirectory.appendingPathComponent("Documents")
-    
+    public let documentsDirectory: String
     // Library/
-    public lazy var libraryDirectory: String = self.homeDirectory.appendingPathComponent("Library")
-    
+    public let libraryDirectory: String
     // Library/Application Support/
-    public lazy var applicationSupportDirectory: String = self.homeDirectory.appendingPathComponent("Library/Application Support")
-    
+    public let applicationSupportDirectory: String
     // Library/Preferences/
-    public lazy var preferencesDirectory: String = self.homeDirectory.appendingPathComponent("Library/Preferences")
-    
+    public let preferencesDirectory: String
     // Library/Caches/
-    public lazy var cachesDirectory: String = self.homeDirectory.appendingPathComponent("Library/Caches")
-    
+    public let cachesDirectory: String
     // tmp/
-    public lazy var temporaryDirectory: String = self.homeDirectory.appendingPathComponent("Library/tmp")
+    public let temporaryDirectory: String 
     
     // URL
-    public lazy var documentsURL: URL = URL(fileURLWithPath: self.documentsDirectory)
-    public lazy var libraryURL: URL = URL(fileURLWithPath: self.libraryDirectory)
-    public lazy var applicationSupportURL: URL =  URL(fileURLWithPath: self.applicationSupportDirectory)
-    public lazy var preferencesURL: URL = URL(fileURLWithPath: self.preferencesDirectory)
-    public lazy var cachesURL: URL = URL(fileURLWithPath: self.cachesDirectory)
-    public lazy var temporaryURL: URL = URL(fileURLWithPath: self.temporaryDirectory)
-    
+    public let documentsURL: URL
+    public let libraryURL: URL
+    public let applicationSupportURL: URL
+    public let preferencesURL: URL
+    public let cachesURL: URL
+    public let temporaryURL: URL
     
     public func fileExists(atPath path: String) -> Bool {
         var isDir: ObjCBool = false
-        if (FileManager.default.fileExists(atPath: path, isDirectory: &isDir)) {
+        if (fileManager.fileExists(atPath: path, isDirectory: &isDir)) {
             return !isDir.boolValue
         }
         return false
@@ -57,7 +68,7 @@ public class FileHelper {
     
     public func directoryExists(atPath path: String) -> Bool {
         var isDir: ObjCBool = false
-        if (FileManager.default.fileExists(atPath: path, isDirectory: &isDir)) {
+        if (fileManager.fileExists(atPath: path, isDirectory: &isDir)) {
             return isDir.boolValue
         }
         return false
@@ -65,7 +76,16 @@ public class FileHelper {
     
     @discardableResult
     public func createFile(atPath path: String) -> Bool {
-        return false
+        if fileExists(atPath: path) {
+            return true
+        }
+        do {
+            try fileManager.createFile(atPath: path, contents: nil, attributes: nil)
+        } catch {
+            LogE("FileHelper createFile error: \(error)")
+            return false
+        }
+        return true
     }
     
     @discardableResult
@@ -73,19 +93,43 @@ public class FileHelper {
         if directoryExists(atPath: path) {
             return true
         }
-        
-        return (try? FileManager.default.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)) != nil
+        do {
+            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+        } catch {
+            LogE("FileHelper createDirectory error: \(error)")
+            return false
+        }
+        return true
     }
     
     @discardableResult
     public func removeFile(atPath path: String) -> Bool {
-        return (try? FileManager.default.removeItem(atPath: path)) != nil
+        guard fileExists(atPath: path) else {
+            LogW("FileHelper removeFile: file not exist")
+            return true
+        }
+        do {
+            try fileManager.removeItem(atPath: path)
+        } catch  {
+            LogE("FileHelper removeFile error: \(error)")
+            return false
+        }
+        return true
     }
     
     @discardableResult
     public func removeDirectory(atPath path: String) -> Bool {
-//        FileManager.default.remove
-        return false
+        guard directoryExists(atPath: path) else {
+            LogW("FileHelper removeDirectory: directory not exist")
+            return true
+        }
+        do {
+            try fileManager.removeItem(atPath: path)
+        } catch  {
+            LogE("FileHelper removeDirectory error: \(error)")
+            return false
+        }
+        return true
     }
 }
 
