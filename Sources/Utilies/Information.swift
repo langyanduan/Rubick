@@ -30,6 +30,38 @@ extension Information {
         public static var updating: Bool {
             return false
         }
+        
+        // https://github.com/bitstadium/HockeySDK-iOS/blob/develop/Classes/BITHockeyHelper.m
+        public static var environment: Environment {
+            #if TARGET_OS_SIMULATOR
+            return .other
+            #else
+            func hasEmbeddedMobileProvision() -> Bool {
+                return Bundle.main.path(forResource: "embedded", ofType: "mobileprovision") != nil
+            }
+            func isAppStoreReceiptSandbox() -> Bool {
+                guard let appStoreReceiptURL = Bundle.main.appStoreReceiptURL else {
+                    return false
+                }
+                return appStoreReceiptURL.lastPathComponent == "sandboxReceipt";
+            }
+            if hasEmbeddedMobileProvision() {
+                return .other
+            }
+            if isAppStoreReceiptSandbox() {
+                return .testFlight
+            }
+            return .appStore
+            #endif
+        }
+    }
+}
+
+extension Information.Application {
+    enum Environment {
+        case appStore
+        case testFlight
+        case other      // SIMULATOR, Ad-Hoc or Enterprise
     }
 }
 
